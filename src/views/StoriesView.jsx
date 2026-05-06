@@ -3,9 +3,8 @@ import { BookOpen, Calendar, ArrowRight, ArrowLeft, Loader2, User, Heart, Chevro
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
 
-// Google Apps Script Web App URL
-// Note: Placeholder URL used. Replace with actual GAS URL when ready.
-const GAS_API_URL = "https://script.google.com/macros/s/AKfycbxA-XXXXX-XXXXX/exec"; 
+// Google Apps Script Web App URL - LIVE SOURCE
+const GAS_API_URL = "https://script.google.com/macros/s/AKfycbyHvJ97y6zbXYt-U651w9Uu5zAdIdzfjC1ZyrvVwtfLdWoSH8aPGk5epooawjDHLJcQEg/exec"; 
 
 const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
   const [stories, setStories] = useState([]);
@@ -22,23 +21,28 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
       })
       .then(data => {
         // Map Sheet columns to application state
-        const mappedData = data.map((item, index) => ({
-          id: item.id || index,
-          title: item.Title || item.title || '未命名故事',
-          content: item.Content || item.description || '',
-          type: item.Type || item.type || '故事',
-          category: item.Category || item.category || (item.URL?.includes('食農教育') ? 'food_education' : 'field_story'),
-          images: item.Images 
-            ? item.Images.split(',').map(img => img.trim()) 
-            : (item.images ? item.images : (item.image ? [item.image] : [])),
-          keyFigures: item.Key_Figures || item.key_figures || '阿古力小農'
-        }));
+        // Field Names from Sheet: Title, Images, Content, Key_Figures, URL
+        const mappedData = data.map((item, index) => {
+          const imageUrls = item.Images ? item.Images.split(',').map(img => img.trim()) : [];
+          return {
+            id: item.id || index,
+            title: item.Title || '未命名故事',
+            content: item.Content || '',
+            type: item.Type || '故事',
+            // Simple logic to categorize based on URL or Type
+            category: item.Category || (item.URL?.includes('食農教育') ? 'food_education' : 'field_story'),
+            images: imageUrls,
+            coverImage: imageUrls[0] || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600',
+            keyFigures: item.Key_Figures || '阿古力小農',
+            relatedProductId: item.Related_Product_ID || null,
+            externalUrl: item.URL || null
+          };
+        });
         setStories(mappedData);
         setLoading(false);
       })
       .catch(err => {
-        console.warn('Live API unavailable or CORS blocked. Falling back to local data.', err);
-        // Fallback to local JSON if API fails or is blocked by CORS
+        console.warn('Live API unavailable. Falling back to local data.', err);
         fetch('/data/stories.json')
           .then(res => res.json())
           .then(localData => {
@@ -49,38 +53,36 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
               type: s.type || '故事',
               category: s.category || 'field_story',
               images: s.images || (s.image ? [s.image] : []),
-              keyFigures: s.key_figures || '阿古力小農'
+              coverImage: s.image || (s.images?.[0]) || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600',
+              keyFigures: s.key_figures || '阿古力小農',
+              relatedProductId: s.related_product_id || null
             }));
             setStories(mappedLocal);
             setLoading(false);
           })
-          .catch(fallbackErr => {
-            console.error('Critical Error: Fallback also failed.', fallbackErr);
-            setLoading(false);
-          });
+          .catch(() => setLoading(false));
       });
   }, []);
 
   const filteredStories = stories.filter(s => s.category === activeTab);
 
-  // Helper to find related products by Key_Figures
-  const getRelatedProducts = (keyFigures) => {
-    if (!keyFigures || keyFigures === '阿古力小農') return [];
-    return PRODUCTS.filter(p => 
-      p.name.includes(keyFigures) || 
-      p.level2_details?.intro?.includes(keyFigures) ||
-      p.level2_details?.specs?.includes(keyFigures)
-    ).slice(0, 3);
+  // Helper to find related products
+  const getRelatedProduct = (story) => {
+    if (story.relatedProductId) {
+      return PRODUCTS.find(p => p.id === story.relatedProductId);
+    }
+    if (!story.keyFigures || story.keyFigures === '阿古力小農') return null;
+    return PRODUCTS.find(p => 
+      p.name.includes(story.keyFigures) || 
+      p.level2_details?.intro?.includes(story.keyFigures)
+    );
   };
 
   return (
     <div className="pb-24 animate-in fade-in duration-500 bg-stone-50 min-h-screen">
       <div className="bg-white pt-8 pb-4 px-6 shadow-sm border-b border-stone-100 sticky top-0 z-30">
         <div className="flex items-center justify-between mb-6">
-          <button 
-            onClick={onBack}
-            className="bg-gray-50 p-2 rounded-xl text-gray-500 hover:text-emerald-600 transition-colors"
-          >
+          <button onClick={onBack} className="bg-gray-50 p-2 rounded-xl text-gray-500 hover:text-emerald-600 transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
@@ -92,7 +94,6 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
           <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
         </h1>
 
-        {/* Tab Bar */}
         <div className="flex bg-gray-100 p-1 rounded-2xl">
           <button 
             onClick={() => { setActiveTab('field_story'); setExpandedStoryId(null); }}
@@ -111,30 +112,32 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
       
       <div className="px-5 space-y-8 mt-8">
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 opacity-30">
-            <Loader2 className="w-10 h-10 animate-spin mb-4 text-emerald-600" />
-            <p className="text-sm font-bold">同步雲端故事中...</p>
-          </div>
+          // Loading Skeleton
+          [1, 2].map(i => (
+            <div key={i} className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm animate-pulse">
+              <div className="h-64 bg-gray-200" />
+              <div className="p-7 space-y-4">
+                <div className="h-4 bg-gray-100 w-24 rounded-full" />
+                <div className="h-8 bg-gray-200 w-3/4 rounded-lg" />
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-100 w-full rounded" />
+                  <div className="h-4 bg-gray-100 w-full rounded" />
+                  <div className="h-4 bg-gray-100 w-2/3 rounded" />
+                </div>
+              </div>
+            </div>
+          ))
         ) : filteredStories.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-gray-400 font-bold">目前尚無相關內容</p>
-          </div>
+          <div className="text-center py-20"><p className="text-gray-400 font-bold">目前尚無相關內容</p></div>
         ) : (
           filteredStories.map(story => {
             const isExpanded = expandedStoryId === story.id;
-            const relatedProducts = getRelatedProducts(story.keyFigures);
-            const coverImage = (story.images && story.images.length > 0) 
-              ? story.images[0] 
-              : 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=400';
+            const relatedProduct = getRelatedProduct(story);
 
             return (
               <div key={story.id} className="bg-white rounded-[2.5rem] shadow-xl shadow-stone-200/50 border border-stone-100 overflow-hidden flex flex-col group animate-in slide-in-from-bottom-4 duration-500">
                 <div className="relative h-64 overflow-hidden">
-                  <ProductImage 
-                    src={coverImage} 
-                    alt={story.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
-                  />
+                  <ProductImage src={story.coverImage} alt={story.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
                   <div className="absolute top-4 left-4 flex gap-2">
                     <span className={`text-[10px] font-black px-4 py-1.5 rounded-full shadow-lg backdrop-blur-md border border-white/20 ${story.type === '活動' ? 'bg-amber-500/90 text-white' : 'bg-emerald-600/90 text-white'}`}>
                       {story.type}
@@ -155,54 +158,53 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                     {story.title}
                   </h3>
 
-                  {/* Expandable Detail Section */}
-                  <div className={`transition-all duration-500 overflow-hidden ${isExpanded ? 'max-h-[2000px] mb-6' : 'max-h-24 mb-4'}`}>
-                    <p className={`text-gray-500 leading-relaxed whitespace-pre-wrap ${isExpanded ? 'text-base text-gray-800 leading-[1.8]' : 'text-sm line-clamp-3'}`}>
+                  {/* Content Preview / Full View */}
+                  <div className={`transition-all duration-500 overflow-hidden ${isExpanded ? 'max-h-[3000px] mb-6' : 'max-h-24 mb-4'}`}>
+                    <p className={`text-gray-500 whitespace-pre-wrap ${isExpanded ? 'text-base text-gray-800 leading-[1.8]' : 'text-sm line-clamp-3'}`}>
                       {story.content}
                     </p>
                   </div>
 
-                  <button 
-                    onClick={() => setExpandedStoryId(isExpanded ? null : story.id)}
-                    className="flex items-center text-emerald-600 text-sm font-black mb-6 hover:translate-x-1 transition-transform"
-                  >
-                    {isExpanded ? (
-                      <span className="flex items-center gap-1.5 underline decoration-2 underline-offset-4"><ChevronUp className="w-4 h-4" /> 收合內容</span>
-                    ) : (
-                      <span className="flex items-center gap-1.5 underline decoration-2 underline-offset-4"><FileText className="w-4 h-4" /> 閱讀全文 <ArrowRight className="w-4 h-4" /></span>
+                  <div className="flex items-center gap-4 mb-6">
+                    <button 
+                      onClick={() => setExpandedStoryId(isExpanded ? null : story.id)}
+                      className="flex items-center text-emerald-600 text-sm font-black hover:translate-x-1 transition-transform"
+                    >
+                      {isExpanded ? (
+                        <span className="flex items-center gap-1.5 underline decoration-2 underline-offset-4"><ChevronUp className="w-4 h-4" /> 收合內容</span>
+                      ) : (
+                        <span className="flex items-center gap-1.5 underline decoration-2 underline-offset-4"><FileText className="w-4 h-4" /> 閱讀全文</span>
+                      )}
+                    </button>
+                    {story.externalUrl && !isExpanded && (
+                      <a href={story.externalUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-emerald-600 transition-colors">
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
                     )}
-                  </button>
+                  </div>
 
-                  {/* Related Products Section: Support this Farmer */}
-                  {isExpanded && relatedProducts.length > 0 && (
-                    <div className="mt-8 pt-8 border-t border-stone-100 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                      <div className="flex items-center gap-2 mb-6">
-                        <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-                        <h4 className="text-sm font-black text-gray-900">支持這位小農：{story.keyFigures}</h4>
-                      </div>
-                      <div className="grid grid-cols-1 gap-3">
-                        {relatedProducts.map(product => (
-                          <div 
-                            key={product.id} 
-                            onClick={() => setSelectedProduct(product)}
-                            className="bg-emerald-50/50 rounded-2xl p-3 flex items-center gap-4 border border-emerald-100 hover:border-emerald-300 transition-all cursor-pointer group/item"
-                          >
-                            <ProductImage src={product.images?.[0] || product.image} alt={product.name} className="w-14 h-14 object-cover rounded-xl shadow-sm group-hover/item:scale-105 transition-transform" />
-                            <div className="flex-1">
-                              <p className="text-[10px] text-emerald-600 font-black uppercase tracking-wider">小農產物</p>
-                              <p className="text-xs font-black text-gray-800 line-clamp-1">{product.name}</p>
-                            </div>
-                            <button 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                addToCart(product);
-                              }}
-                              className="bg-white text-emerald-600 border border-emerald-200 p-2.5 rounded-xl shadow-sm hover:bg-emerald-600 hover:text-white transition-colors flex items-center justify-center"
-                            >
-                              <ShoppingCart className="w-4 h-4" />
-                            </button>
-                          </div>
-                        ))}
+                  {/* Related Product: Support this Farmer */}
+                  {relatedProduct && (
+                    <div className="mb-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                      <div 
+                        onClick={() => setSelectedProduct(relatedProduct)}
+                        className="bg-emerald-50/80 rounded-3xl p-4 flex items-center gap-4 border border-emerald-100 hover:border-emerald-300 transition-all cursor-pointer group/item relative overflow-hidden"
+                      >
+                        <div className="absolute top-0 right-0 p-1 opacity-10">
+                          <Heart className="w-12 h-12 text-emerald-600 fill-emerald-600" />
+                        </div>
+                        <ProductImage src={relatedProduct.images?.[0] || relatedProduct.image} alt={relatedProduct.name} className="w-16 h-16 object-cover rounded-2xl shadow-sm group-hover/item:scale-105 transition-transform" />
+                        <div className="flex-1 z-10">
+                          <p className="text-[10px] text-emerald-600 font-black uppercase tracking-wider mb-0.5">支持小農產物</p>
+                          <p className="text-xs font-black text-gray-800 line-clamp-1 mb-1">{relatedProduct.name}</p>
+                          <p className="text-xs font-black text-amber-600">NT${relatedProduct.price}</p>
+                        </div>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); addToCart(relatedProduct); }}
+                          className="bg-white text-emerald-600 p-3 rounded-2xl shadow-sm hover:bg-emerald-600 hover:text-white transition-colors flex items-center justify-center z-10"
+                        >
+                          <ShoppingCart className="w-5 h-5" />
+                        </button>
                       </div>
                     </div>
                   )}
@@ -212,7 +214,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                       <User className="w-3.5 h-3.5 mr-1.5 text-stone-300" />
                       人物：{story.keyFigures}
                     </span>
-                    {!isExpanded && story.images && story.images.length > 1 && (
+                    {!isExpanded && story.images.length > 1 && (
                        <div className="flex -space-x-2">
                         {story.images.slice(1, 4).map((img, i) => (
                           <div key={i} className="w-6 h-6 rounded-full border-2 border-white overflow-hidden shadow-sm bg-stone-100">
