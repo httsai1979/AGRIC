@@ -1,10 +1,16 @@
 import React from 'react';
-import { BookOpen, Calendar, ArrowRight } from 'lucide-react';
+import { BookOpen, Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
 import { STORIES, PRODUCTS } from '../data/mockData';
 
-const StoriesView = ({ addToCart, setSelectedProduct }) => (
+const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => (
   <div className="pb-24 animate-in fade-in duration-500 bg-stone-50 min-h-screen">
-    <div className="bg-white pt-8 pb-6 px-6 shadow-sm mb-6 border-b border-stone-100">
+    <div className="bg-white pt-8 pb-6 px-6 shadow-sm mb-6 border-b border-stone-100 relative">
+      <button 
+        onClick={onBack}
+        className="mb-4 bg-gray-50 p-2 rounded-xl text-gray-500 hover:text-emerald-600 transition-colors"
+      >
+        <ArrowLeft className="w-5 h-5" />
+      </button>
       <h1 className="text-3xl font-black text-emerald-800 flex items-center">
         <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
       </h1>

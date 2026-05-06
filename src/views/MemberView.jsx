@@ -1,11 +1,17 @@
 import React from 'react';
-import { User, Package, MessageSquare, HelpCircle, ShieldCheck, CreditCard, ChevronRight, LogOut, PhoneCall, Sprout } from 'lucide-react';
+import { User, Package, MessageSquare, HelpCircle, ShieldCheck, CreditCard, ChevronRight, LogOut, PhoneCall, Sprout, ArrowLeft } from 'lucide-react';
 import { SUPPORT_INFO } from '../data/mockData';
 
-const MemberView = ({ navigateTo }) => (
+const MemberView = ({ navigateTo, onBack }) => (
   <div className="pb-24 animate-in fade-in duration-500 bg-gray-50 min-h-screen">
     {/* Profile Header */}
-    <div className="bg-white p-8 rounded-b-[3rem] shadow-sm mb-6 flex flex-col items-center">
+    <div className="bg-white p-8 rounded-b-[3rem] shadow-sm mb-6 flex flex-col items-center relative">
+      <button 
+        onClick={onBack}
+        className="absolute top-6 left-6 p-2 bg-gray-50 rounded-xl text-gray-400 hover:text-emerald-600 transition-colors"
+      >
+        <ArrowLeft className="w-5 h-5" />
+      </button>
       <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mb-4 border-4 border-emerald-50 shadow-inner">
         <User className="w-12 h-12 text-emerald-600" />
       </div>

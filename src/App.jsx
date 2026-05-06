@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, ShoppingBag, BookOpen, Building2, ShoppingCart, Sprout, User } from 'lucide-react';
+import { Home, ShoppingBag, Compass, ShoppingCart, Sprout, User } from 'lucide-react';
 import HomeView from './views/HomeView';
 import ShopView from './views/ShopView';
 import StoriesView from './views/StoriesView';
@@ -7,6 +7,7 @@ import EsgView from './views/EsgView';
 import CartView from './views/CartView';
 import MemberView from './views/MemberView';
 import SupportView from './views/SupportView';
+import DiscoverView from './views/DiscoverView';
 import ProductDetailView from './views/ProductDetailView';
 import { PRODUCTS } from './data/mockData';
 
@@ -15,7 +16,18 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
 
-  const activeTab = viewState.currentView === 'detail' ? 'shop' : viewState.currentView;
+  const activeTabMap = {
+    'home': 'home',
+    'shop': 'shop',
+    'detail': 'shop',
+    'cart': 'cart',
+    'discover': 'discover',
+    'stories': 'discover',
+    'esg': 'discover',
+    'support': 'discover',
+    'member': 'discover'
+  };
+  const activeTab = activeTabMap[viewState.currentView] || 'home';
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -75,16 +87,23 @@ export default function App() {
             addToCart={addToCart}
           />
         )}
-        {viewState.currentView === 'stories' && <StoriesView addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
-        {viewState.currentView === 'esg' && <EsgView />}
+        {viewState.currentView === 'stories' && (
+          <StoriesView 
+            onBack={() => navigateTo('discover')} 
+            addToCart={addToCart} 
+            setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} 
+          />
+        )}
+        {viewState.currentView === 'esg' && <EsgView onBack={() => navigateTo('discover')} />}
+        {viewState.currentView === 'discover' && <DiscoverView navigateTo={navigateTo} />}
         {viewState.currentView === 'cart' && <CartView 
           cart={cart} 
           updateCartQty={updateCartQty} 
           removeFromCart={removeFromCart} 
           setActiveTab={(tab) => navigateTo(tab)} 
         />}
-        {viewState.currentView === 'member' && <MemberView navigateTo={navigateTo} />}
-        {viewState.currentView === 'support' && <SupportView onBack={() => navigateTo('member')} />}
+        {viewState.currentView === 'member' && <MemberView navigateTo={navigateTo} onBack={() => navigateTo('discover')} />}
+        {viewState.currentView === 'support' && <SupportView onBack={() => navigateTo('discover')} />}
       </div>
 
       {/* 底部導覽列 */}
@@ -92,10 +111,8 @@ export default function App() {
         {[
           { id: 'home', icon: Home, label: '首頁' },
           { id: 'shop', icon: ShoppingBag, label: '市集' },
-          { id: 'stories', icon: BookOpen, label: '農人誌' },
-          { id: 'esg', icon: Building2, label: 'ESG' },
           { id: 'cart', icon: ShoppingCart, label: '購物車', badge: totalItems },
-          { id: 'member', icon: User, label: '我的' },
+          { id: 'discover', icon: Compass, label: '探索阿古力' },
         ].map(tab => (
           <button
             key={tab.id}
