@@ -66,11 +66,34 @@ const MemberView = ({ navigateTo }) => (
               <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
                 <PhoneCall className="w-4 h-4 text-emerald-600" />
               </div>
-              <span className="text-sm font-bold text-gray-700">聯絡我們 / 客服</span>
+              <span className="text-sm font-bold text-gray-700">幫助中心 / FAQ</span>
             </div>
             <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-emerald-600" />
           </button>
         </div>
+      </div>
+
+      {/* Direct Contact Buttons */}
+      <div className="px-1 flex gap-3">
+        <a 
+          href="tel:056337510" 
+          className="flex-1 bg-white border border-gray-100 p-5 rounded-[2rem] shadow-sm flex flex-col items-center gap-2 active:scale-95 transition-all"
+        >
+          <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center">
+            <PhoneCall className="w-5 h-5 text-emerald-600" />
+          </div>
+          <span className="text-[11px] font-black text-gray-700">聯絡客服專線</span>
+        </a>
+        <a 
+          href="#" 
+          onClick={(e) => { e.preventDefault(); alert('正在開啟 LINE 客服...'); }}
+          className="flex-1 bg-white border border-gray-100 p-5 rounded-[2rem] shadow-sm flex flex-col items-center gap-2 active:scale-95 transition-all"
+        >
+          <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center">
+            <MessageSquare className="w-5 h-5 text-emerald-600" />
+          </div>
+          <span className="text-[11px] font-black text-gray-700">LINE 線上客服</span>
+        </a>
       </div>
 
       {/* About Section */}
