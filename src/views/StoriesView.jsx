@@ -35,9 +35,9 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
         return res.json();
       })
       .then(data => {
-        if (!Array.isArray(data)) {
-          console.error('API response is not an array:', data);
-          throw new Error('Invalid data format');
+        if (!Array.isArray(data) || data.length === 0) {
+          console.warn('API response is empty or invalid:', data);
+          throw new Error('Empty or invalid data format');
         }
         
         const mappedData = data.map((item, index) => {
@@ -111,7 +111,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
     if (!story.keyFigures || story.keyFigures === '阿古力小農') return null;
     return PRODUCTS.find(p => 
       p.name.includes(story.keyFigures) || 
-      p.level2_details?.intro?.includes(story.keyFigures)
+      (p.level2_details?.intro && p.level2_details.intro.includes(story.keyFigures))
     );
   };
 
@@ -224,7 +224,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                   </h3>
 
                   <div className={`transition-all duration-500 overflow-hidden ${isExpanded ? 'max-h-[3000px] mb-6' : 'max-h-24 mb-4'}`}>
-                    <p className={`text-gray-500 whitespace-pre-wrap ${isExpanded ? 'text-base text-gray-800 leading-[1.8]' : 'text-sm line-clamp-3'}`}>
+                    <p className={`whitespace-pre-wrap ${isExpanded ? 'text-base text-gray-800 leading-[1.8]' : 'text-sm text-gray-500 line-clamp-3'}`}>
                       {story.content}
                     </p>
                   </div>
