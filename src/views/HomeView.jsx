@@ -23,29 +23,54 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
   }, []);
 
   return (
-    <div className="pb-24 animate-in fade-in duration-300">
-      {/* 品牌標頭 (Branding Hero) */}
-      <div className="relative h-72 bg-emerald-800 flex flex-col items-center justify-center overflow-hidden">
-        <img 
-          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1200" 
-          alt="Farm Landscape" 
-          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" 
-        />
-        <div className="relative z-10 text-center flex flex-col items-center px-6">
-          <AgricLogo className="w-16 h-16 mb-4" />
-          <h1 className="text-4xl font-black text-white tracking-[0.2em] mb-3 drop-shadow-lg">AGRIC 阿古力</h1>
-          <p className="text-[13px] font-bold text-white bg-emerald-900/60 backdrop-blur-md px-5 py-2 rounded-full border border-white/20 shadow-xl">
-            連結田間故事與永續契作的食農藍圖
-          </p>
+    <div className="pb-24 animate-in fade-in duration-500">
+      {/* 感性 Hero 區段 (Sensory Hero Section) */}
+      <div className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
+        {/* Full-screen background image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000" 
+            alt="Taiwan Farmland" 
+            className="w-full h-full object-cover scale-105" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[var(--agric-cream)]"></div>
+          <div className="absolute inset-0 bg-[#14532d]/20 mix-blend-multiply"></div>
+        </div>
+
+        <div className="relative z-10 text-center flex flex-col items-center px-8 mt-12">
+          <div className="mb-8 animate-in zoom-in duration-1000">
+            <AgricLogo className="w-24 h-24" />
+          </div>
+          
+          <div className="space-y-6 max-w-lg">
+            <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight drop-shadow-2xl">
+              從泥土到餐桌，<br/>
+              <span className="text-emerald-400">守護台灣最純淨的滋味</span>
+            </h1>
+            
+            <div className="bg-white/10 backdrop-blur-md p-6 rounded-[2rem] border border-white/20 shadow-2xl transform hover:scale-[1.02] transition-transform">
+              <p className="text-white text-sm sm:text-base leading-relaxed font-medium">
+                阿古力社會企業，誕生於對這片土地的深厚情感。我們堅持契作友善耕作，讓每一口滋味都承載著農人的汗水與大地的祝福。從種植到加工，我們嚴格把關，只為將最純淨、最真實的台灣風味送上您的餐桌。
+              </p>
+            </div>
+
+            <button 
+              onClick={() => navigateTo('shop')}
+              className="mt-8 bg-[#14532d] text-white px-10 py-4 rounded-full font-black shadow-2xl shadow-emerald-900/40 hover:bg-emerald-800 transition-all flex items-center gap-3 group active:scale-95"
+            >
+              開啟契作之旅
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* 快捷功能 */}
       <div className="flex justify-around bg-white py-6 px-2 shadow-xl shadow-gray-200/50 rounded-[2.5rem] relative -mt-8 z-20 mx-4 border border-white/50">
         {[
-          { icon: Leaf, label: '小農契作', color: 'text-emerald-600', bg: 'bg-emerald-50', view: 'shop', params: { initialCategory: '耘鄉好米' } },
-          { icon: Gift, label: '六級加工', color: 'text-amber-500', bg: 'bg-amber-50', view: 'shop', params: { initialCategory: '小農特產' } },
-          { icon: Building2, label: '探索阿古力', color: 'text-teal-600', bg: 'bg-teal-50', view: 'discover', params: null },
+          { icon: Leaf, label: '小農契作', color: 'text-[#14532d]', bg: 'bg-emerald-50', view: 'shop', params: { initialCategory: '耘鄉好米' } },
+          { icon: Gift, label: '六級加工', color: 'text-[#78350f]', bg: 'bg-amber-50', view: 'shop', params: { initialCategory: '小農特產' } },
+          { icon: Building2, label: '探索阿古力', color: 'text-teal-700', bg: 'bg-teal-50', view: 'discover', params: null },
         ].map((item, idx) => (
           <div key={idx} className="flex flex-col items-center cursor-pointer active:scale-95 transition-all duration-300 px-2" onClick={() => navigateTo(item.view, item.params)}>
             <div className={`p-5 rounded-[2rem] ${item.bg} mb-3 shadow-inner group-hover:shadow-md transition-shadow`}>
@@ -59,8 +84,8 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
       {/* 熱銷商品 */}
       <div className="mt-8 px-4">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-black text-gray-800 border-l-4 border-emerald-600 pl-2">熱銷小農特產</h2>
-          <span className="text-sm text-emerald-600 font-bold flex items-center cursor-pointer" onClick={() => navigateTo('shop')}>逛全部 <ChevronRight className="w-4 h-4" /></span>
+          <h2 className="text-lg font-black text-gray-800 border-l-4 border-[#14532d] pl-2">熱銷小農特產</h2>
+          <span className="text-sm text-[#14532d] font-bold flex items-center cursor-pointer" onClick={() => navigateTo('shop')}>逛全部 <ChevronRight className="w-4 h-4" /></span>
         </div>
         <div className="flex overflow-x-auto gap-3 pb-4 snap-x hide-scrollbar">
           {PRODUCTS.filter(p => p.category === '熱銷商品').slice(0, 8).map(product => (
@@ -98,8 +123,8 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
       {/* 精選農人誌 */}
       <div className="mt-8 px-4">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-black text-gray-800 border-l-4 border-emerald-600 pl-2">精選農人誌</h2>
-          <span className="text-sm text-emerald-600 font-bold flex items-center cursor-pointer" onClick={() => navigateTo('stories')}>更多故事 <ChevronRight className="w-4 h-4" /></span>
+          <h2 className="text-lg font-black text-gray-800 border-l-4 border-[#14532d] pl-2">精選農人誌</h2>
+          <span className="text-sm text-[#14532d] font-bold flex items-center cursor-pointer" onClick={() => navigateTo('stories')}>更多故事 <ChevronRight className="w-4 h-4" /></span>
         </div>
         <div className="space-y-4">
           {loadingStories ? (
