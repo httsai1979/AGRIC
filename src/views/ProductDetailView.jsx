@@ -215,7 +215,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
       {/* Content Container */}
       <div className="px-6 -mt-12 relative z-10">
-        <div className="bg-white rounded-[3.5rem] p-8 shadow-2xl shadow-emerald-900/5 border border-emerald-50">
+        <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-emerald-50">
           {/* Tags & Title */}
           <div className="flex flex-wrap gap-2 mb-4">
             <span className="bg-emerald-50 text-emerald-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-emerald-100 uppercase tracking-widest flex items-center gap-1.5">
@@ -298,7 +298,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
           {/* 檢驗報告直擊 (Phase 3) */}
           <div className="mt-10 pt-8 border-t border-gray-100">
-            <div className="bg-emerald-900 rounded-[2.5rem] p-6 shadow-2xl relative overflow-hidden group cursor-pointer" onClick={() => setShowInspectionModal(true)}>
+            <div className="bg-emerald-900 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer active:scale-95 transition-all" onClick={() => setShowInspectionModal(true)}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
               <div className="relative z-10 flex items-center gap-4">
                 <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
@@ -351,7 +351,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
       )}
 
       {/* Fixed Bottom Purchase Bar */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/80 backdrop-blur-xl border-t border-gray-100 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[3rem]">
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/80 backdrop-blur-lg border-t border-white/20 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[2rem]">
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0">
             <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1 flex items-center gap-1">

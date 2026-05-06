@@ -89,7 +89,7 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
         </div>
         <div className="flex overflow-x-auto gap-3 pb-4 snap-x hide-scrollbar">
           {PRODUCTS.filter(p => p.category === '熱銷商品').slice(0, 8).map(product => (
-            <div key={product.id} className="min-w-[160px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden snap-start flex flex-col cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedProduct(product)}>
+            <div key={product.id} className="min-w-[160px] bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden snap-start flex flex-col cursor-pointer hover:shadow-md transition-all active:scale-95" onClick={() => setSelectedProduct(product)}>
               <div className="relative aspect-square">
                 <ProductImage src={product.images?.[0] || product.image} alt={product.name} className="w-full h-full object-cover" />
                 {product.level2_details?.certification?.includes('有機') && (
@@ -133,8 +133,8 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
             </div>
           ) : (
             featuredStories.map(story => (
-              <div key={story.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex gap-3 p-3">
-                <ProductImage src={story.image} alt={story.title} className="w-24 h-24 object-cover rounded-xl shrink-0" />
+              <div key={story.id} className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden flex gap-3 p-3 cursor-pointer hover:shadow-md transition-all active:scale-95">
+                <ProductImage src={story.image} alt={story.title} className="w-24 h-24 object-cover rounded-[1.2rem] shrink-0" />
                 <div className="flex flex-col justify-center">
                   <span className={`text-[10px] font-black px-2 py-0.5 rounded-md w-fit mb-1 ${story.type === '活動' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'}`}>
                     {story.type}

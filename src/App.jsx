@@ -65,8 +65,8 @@ export default function App() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-stone-100 md:flex md:items-center md:justify-center p-0 md:p-4">
-      <div className="w-full max-w-md h-screen md:h-[850px] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] relative flex flex-col overflow-hidden md:rounded-[3.5rem] border border-stone-100">
+    <div className="w-full h-[100dvh] bg-stone-100 md:flex md:items-center md:justify-center p-0 md:p-4">
+      <div className="w-full max-w-md h-[100dvh] md:h-[850px] bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] relative flex flex-col overflow-hidden md:rounded-[2rem] border border-stone-100">
         
         {/* Toast Notification (iOS Style) */}
         {toastMessage && (
@@ -157,7 +157,7 @@ export default function App() {
         </div>
 
         {/* Tab Navigation (iOS Frosted Glass Style) */}
-        <div className="bg-white/95 backdrop-blur-2xl border-t border-gray-100/50 flex justify-around items-center h-[85px] pb-safe shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.04)] z-[70] px-2 relative">
+        <div className="bg-white/80 backdrop-blur-lg border-t border-white/20 flex justify-around items-center h-[85px] pb-safe shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.04)] z-[70] px-2 relative">
           {[
             { id: 'home', Icon: Home, label: '首頁' },
             { id: 'shop', Icon: ShoppingBag, label: '市集' },

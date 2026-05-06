@@ -38,7 +38,7 @@ const ShopView = ({ addToCart, setSelectedProduct, initialCategory }) => {
 
       <div className="p-4 grid grid-cols-2 gap-4 bg-gray-50">
         {filteredProducts.map(product => (
-          <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow group cursor-pointer" onClick={() => setSelectedProduct(product)}>
+          <div key={product.id} className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-all active:scale-95 group cursor-pointer" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square overflow-hidden">
               <ProductImage 
                 src={product.images?.[0] || product.image} 

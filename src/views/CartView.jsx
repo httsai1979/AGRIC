@@ -33,7 +33,7 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
         ) : (
           <div className="space-y-4 mt-6">
             {cart.map(item => (
-              <div key={item.id} className="bg-white p-4 rounded-[2.5rem] shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-shadow">
+              <div key={item.id} className="bg-white p-4 rounded-[2rem] shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-all active:scale-95">
                 <div className="relative w-24 h-24 shrink-0 overflow-hidden">
                   <ProductImage src={item.images?.[0] || item.image} alt={item.name} className="w-full h-full object-cover rounded-[1.5rem] shadow-sm" />
                 </div>
@@ -55,7 +55,7 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
             ))}
 
             {/* Checkout Summary Block */}
-            <div className="mt-8 bg-white p-8 rounded-[3rem] shadow-xl shadow-gray-200/40 border border-emerald-50 relative overflow-hidden">
+            <div className="mt-8 bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-emerald-50 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16"></div>
               
               <div className="flex justify-between text-sm text-gray-500 font-bold mb-4">
@@ -86,7 +86,7 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
 
       {/* Persistent Checkout Footer */}
       {cart.length > 0 && (
-        <div className="sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl p-8 shadow-[0_-15px_40px_rgba(0,0,0,0.06)] border-t border-gray-100 z-40 rounded-t-[3rem] shrink-0 mt-auto">
+        <div className="sticky bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg p-6 shadow-[0_-15px_40px_rgba(0,0,0,0.08)] border-t border-white/20 z-40 rounded-t-[2rem] shrink-0 mt-auto">
           <div className="flex justify-between items-center mb-2 px-2">
             <div className="flex flex-col">
               <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1">Total Amount</span>
