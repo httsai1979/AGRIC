@@ -53,7 +53,9 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
             <div className="p-3 flex flex-col flex-grow">
               <h3 className="text-sm text-gray-800 font-bold line-clamp-2 h-10 leading-snug">{product.name}</h3>
               <div className="mt-auto pt-2 flex items-center justify-between">
-                <span className="text-amber-600 font-black">NT${product.price}</span>
+                <span className="text-amber-600 font-black">
+                  {product.price === null ? '請電洽' : `NT$${product.price}`}
+                </span>
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();

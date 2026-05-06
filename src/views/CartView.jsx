@@ -42,8 +42,8 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
                   </span>
                   <h3 className="text-sm font-black text-gray-800 truncate mb-2">{item.name}</h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-amber-600 font-black text-lg">
-                      <span className="text-xs mr-0.5">NT$</span>{item.price}
+                    <span className="text-amber-600 font-black">
+                      {item.price === null ? '請電洽' : <><span className="text-xs mr-0.5">NT$</span>{item.price}</>}
                     </span>
                     <div className="flex items-center bg-gray-50 rounded-xl p-1 border border-gray-200">
                       <button 

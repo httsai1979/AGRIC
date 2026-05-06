@@ -468,7 +468,7 @@ export const PRODUCTS = [
     id: "PROD32",
     category: "小農特產｜自然好食",
     name: "梅子燒酌酒［訂購請電洽］",
-    price: 680,
+    price: null,
     image: "https://images.unsplash.com/photo-1474979266404-7eaacbacf845?auto=format&fit=crop&q=80&w=800",
     level2_details: {
       description: "結合小農特產之風味梅子燒酌",
@@ -483,7 +483,7 @@ export const PRODUCTS = [
     id: "PROD33",
     category: "小農特產｜自然好食",
     name: "白葡萄燒酌酒［訂購請電洽］",
-    price: 750,
+    price: null,
     image: "https://images.unsplash.com/photo-1474979266404-7eaacbacf845?auto=format&fit=crop&q=80&w=800",
     level2_details: {
       description: "結合小農特產之風味白葡萄燒酌",
@@ -528,7 +528,7 @@ export const PRODUCTS = [
     id: "PROD36",
     category: "在地好物｜",
     name: "耘露燒酒組｜［訂購請來電］",
-    price: 1280,
+    price: null,
     image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=800",
     level2_details: {
       description: "精選在地農產釀造之燒酒組合",
@@ -783,7 +783,7 @@ export const PRODUCTS = [
     id: "PROD53",
     category: "禮盒專區",
     name: "客製訂單",
-    price: 1000,
+    price: null,
     image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=800",
     level2_details: {
       description: "專為企業ESG綠色採購、福委會與高階商務提供之客製化禮贈",

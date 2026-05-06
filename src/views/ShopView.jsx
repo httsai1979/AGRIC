@@ -8,7 +8,9 @@ const ShopView = ({ addToCart, setSelectedProduct }) => {
   
   const filteredProducts = activeCategory === '全部商品' 
     ? PRODUCTS 
-    : PRODUCTS.filter(p => p.category === activeCategory);
+    : PRODUCTS.filter(p => p.category.includes(activeCategory));
+
+  const formatPrice = (price) => price === null ? '請電洽' : `NT$${price}`;
 
   return (
     <div className="pb-24 animate-in fade-in duration-500">
@@ -54,7 +56,7 @@ const ShopView = ({ addToCart, setSelectedProduct }) => {
               <div className="mt-auto flex items-center justify-between">
                 <div className="flex flex-col">
                   <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{product.specs}</span>
-                  <span className="text-amber-600 font-black text-lg"><span className="text-xs">NT$</span>{product.price}</span>
+                  <span className="text-amber-600 font-black">{formatPrice(product.price)}</span>
                 </div>
                 <button 
                   onClick={(e) => {

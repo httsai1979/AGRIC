@@ -47,7 +47,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
             <div>
               <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Pricing</p>
               <p className="text-3xl font-black text-amber-600">
-                <span className="text-lg mr-1">NT$</span>{product.price || '電洽'}
+                {product.price === null ? '請電洽' : <><span className="text-lg mr-1">NT$</span>{product.price}</>}
               </p>
             </div>
             <div className="flex items-center bg-gray-50 rounded-2xl p-1 border border-gray-200">
