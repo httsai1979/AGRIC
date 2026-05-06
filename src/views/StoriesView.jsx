@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Calendar, ArrowRight, ArrowLeft, Loader2, User, Heart, ChevronDown, ChevronUp, Plus, FileText, ShoppingCart, Sprout, Leaf } from 'lucide-react';
+import { 
+  BookOpen, 
+  Calendar, 
+  ArrowRight, 
+  ArrowLeft, 
+  Loader2, 
+  User, 
+  Heart, 
+  ChevronDown, 
+  ChevronUp, 
+  Plus, 
+  FileText, 
+  ShoppingCart, 
+  Sprout, 
+  Leaf 
+} from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
 
@@ -20,8 +35,11 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
         return res.json();
       })
       .then(data => {
-        // Map Sheet columns to application state
-        // Field Names from Sheet: Title, Images, Content, Key_Figures, URL
+        if (!Array.isArray(data)) {
+          console.error('API response is not an array:', data);
+          throw new Error('Invalid data format');
+        }
+        
         const mappedData = data.map((item, index) => {
           const imageUrls = item.Images ? item.Images.split(',').map(img => img.trim()) : [];
           return {
@@ -29,7 +47,6 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
             title: item.Title || '未命名故事',
             content: item.Content || '',
             type: item.Type || '故事',
-            // Simple logic to categorize based on URL or Type
             category: item.Category || (item.URL?.includes('食農教育') ? 'food_education' : 'field_story'),
             images: imageUrls,
             coverImage: imageUrls[0] || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600',
@@ -44,8 +61,16 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
       .catch(err => {
         console.warn('Live API unavailable. Falling back to local data.', err);
         fetch('/data/stories.json')
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error('Fallback fetch failed');
+            return res.json();
+          })
           .then(localData => {
+            if (!Array.isArray(localData)) {
+              console.error('Local data is not an array:', localData);
+              setLoading(false);
+              return;
+            }
             const mappedLocal = localData.map((s, idx) => ({
               id: s.id || idx,
               title: s.title,
@@ -60,16 +85,18 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
             setStories(mappedLocal);
             setLoading(false);
           })
-          .catch(() => setLoading(false));
+          .catch(fallbackErr => {
+            console.error('Critical Error: Fallback also failed.', fallbackErr);
+            setLoading(false);
+          });
       });
   }, []);
 
   const filteredStories = stories.filter(s => s.category === activeTab);
 
-  // Helper to find related products
   const getRelatedProduct = (story) => {
     if (story.relatedProductId) {
-      return PRODUCTS.find(p => p.id === story.relatedProductId);
+      return PRODUCTS.find(p => String(p.id) === String(story.relatedProductId));
     }
     if (!story.keyFigures || story.keyFigures === '阿古力小農') return null;
     return PRODUCTS.find(p => 
@@ -112,7 +139,6 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
       
       <div className="px-5 space-y-8 mt-8">
         {loading ? (
-          // Loading Skeleton
           [1, 2].map(i => (
             <div key={i} className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm animate-pulse">
               <div className="h-64 bg-gray-200" />
@@ -158,7 +184,6 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                     {story.title}
                   </h3>
 
-                  {/* Content Preview / Full View */}
                   <div className={`transition-all duration-500 overflow-hidden ${isExpanded ? 'max-h-[3000px] mb-6' : 'max-h-24 mb-4'}`}>
                     <p className={`text-gray-500 whitespace-pre-wrap ${isExpanded ? 'text-base text-gray-800 leading-[1.8]' : 'text-sm line-clamp-3'}`}>
                       {story.content}
@@ -183,7 +208,6 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                     )}
                   </div>
 
-                  {/* Related Product: Support this Farmer */}
                   {relatedProduct && (
                     <div className="mb-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
                       <div 
@@ -214,7 +238,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                       <User className="w-3.5 h-3.5 mr-1.5 text-stone-300" />
                       人物：{story.keyFigures}
                     </span>
-                    {!isExpanded && story.images.length > 1 && (
+                    {!isExpanded && story.images && story.images.length > 1 && (
                        <div className="flex -space-x-2">
                         {story.images.slice(1, 4).map((img, i) => (
                           <div key={i} className="w-6 h-6 rounded-full border-2 border-white overflow-hidden shadow-sm bg-stone-100">
@@ -231,7 +255,6 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
         )}
       </div>
       
-      {/* Footer Section */}
       <div className="mt-12 mb-8 px-6 text-center">
         <div className="bg-emerald-800 rounded-3xl p-8 shadow-2xl shadow-emerald-900/20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
