@@ -82,14 +82,14 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
             </div>
             
             <div className="flex justify-between items-center mb-6 pb-6 border-b border-dashed border-gray-100">
-              <span className="text-sm text-gray-500 font-bold">阿古力契作運費</span>
-              <div className="flex flex-col items-end">
-                <span className="text-emerald-600 font-black text-xs bg-emerald-50 px-2 py-1 rounded-md">滿額免運</span>
-                <span className="text-[10px] text-gray-300 mt-1 line-through">NT$ 150</span>
+              <span className="text-sm text-gray-500 font-bold">阿古力物流專車</span>
+              <div className="flex flex-col items-end text-right">
+                <span className="text-emerald-600 font-black text-xs bg-emerald-50 px-2 py-1 rounded-md">已達 $1500 免運門檻</span>
+                <span className="text-[10px] text-gray-300 mt-1">常溫/冷藏合併計算</span>
               </div>
             </div>
 
-            <div className="flex justify-between items-end">
+            <div className="flex justify-between items-end mb-8">
               <div className="flex flex-col">
                 <span className="text-gray-900 font-black text-lg">訂單總計</span>
                 <span className="text-[10px] text-emerald-600 font-bold">已套用小農友善折扣</span>
@@ -98,15 +98,22 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
                 <span className="text-sm mr-1 font-bold">NT$</span>{cartTotal}
               </span>
             </div>
+
+            <div className="bg-gray-50 rounded-2xl p-4 flex items-start gap-3 border border-gray-100">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+              <p className="text-[10px] text-gray-400 font-medium leading-relaxed">
+                本平台支持「三章一Q」溯源認證，農產品受天候影響，出貨時間約為 3-5 個工作天。若有運送損毀，請於 24 小時內聯繫客服。
+              </p>
+            </div>
           </div>
         </div>
       )}
 
       {cart.length > 0 && (
-        <div className="fixed bottom-[65px] left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg p-5 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] border-t border-gray-100 z-40 rounded-t-[2.5rem]">
+        <div className="fixed bottom-[75px] left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg p-5 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] border-t border-gray-100 z-40 rounded-t-[2.5rem]">
           <button className="w-full bg-emerald-600 text-white font-black py-4 rounded-2xl shadow-xl shadow-emerald-600/30 hover:bg-emerald-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
             前往結帳流程
-            <Plus className="w-4 h-4 rotate-45" />
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       )}

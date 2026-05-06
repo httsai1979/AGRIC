@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { Home, ShoppingBag, BookOpen, Building2, ShoppingCart, Sprout } from 'lucide-react';
+import { Home, ShoppingBag, BookOpen, Building2, ShoppingCart, Sprout, User } from 'lucide-react';
 import HomeView from './views/HomeView';
 import ShopView from './views/ShopView';
 import StoriesView from './views/StoriesView';
 import EsgView from './views/EsgView';
 import CartView from './views/CartView';
+import MemberView from './views/MemberView';
+import ProductDetailModal from './components/ProductDetailModal';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [cart, setCart] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -54,11 +57,19 @@ export default function App() {
         </div>
       )}
 
+      {/* 商品詳情 Modal */}
+      <ProductDetailModal 
+        product={selectedProduct} 
+        isOpen={!!selectedProduct} 
+        onClose={() => setSelectedProduct(null)} 
+        addToCart={addToCart}
+      />
+
       {/* 內容區塊 */}
       <div className="flex-1 overflow-y-auto hide-scrollbar">
         {activeTab === 'home' && <HomeView setActiveTab={setActiveTab} addToCart={addToCart} />}
-        {activeTab === 'shop' && <ShopView addToCart={addToCart} />}
-        {activeTab === 'stories' && <StoriesView />}
+        {activeTab === 'shop' && <ShopView addToCart={addToCart} setSelectedProduct={setSelectedProduct} />}
+        {activeTab === 'stories' && <StoriesView addToCart={addToCart} setSelectedProduct={setSelectedProduct} />}
         {activeTab === 'esg' && <EsgView />}
         {activeTab === 'cart' && <CartView 
           cart={cart} 
@@ -66,16 +77,18 @@ export default function App() {
           removeFromCart={removeFromCart} 
           setActiveTab={setActiveTab} 
         />}
+        {activeTab === 'member' && <MemberView />}
       </div>
 
       {/* 底部導覽列 */}
-      <div className="bg-white border-t border-gray-100 flex justify-around items-center h-[65px] pb-safe shrink-0 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] z-50 rounded-t-3xl">
+      <div className="bg-white border-t border-gray-100 flex justify-around items-center h-[75px] pb-safe shrink-0 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] z-50 rounded-t-3xl px-2">
         {[
           { id: 'home', icon: Home, label: '首頁' },
-          { id: 'shop', icon: ShoppingBag, label: '逛市集' },
+          { id: 'shop', icon: ShoppingBag, label: '市集' },
           { id: 'stories', icon: BookOpen, label: '農人誌' },
           { id: 'esg', icon: Building2, label: 'ESG' },
           { id: 'cart', icon: ShoppingCart, label: '購物車', badge: totalItems },
+          { id: 'member', icon: User, label: '我的' },
         ].map(tab => (
           <button
             key={tab.id}
@@ -83,14 +96,14 @@ export default function App() {
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-colors ${activeTab === tab.id ? 'text-emerald-600' : 'text-gray-400 hover:text-emerald-500'}`}
           >
             <div className="relative mt-1">
-              <tab.icon className={`w-[22px] h-[22px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110 stroke-[2.5px]' : 'stroke-2'}`} />
+              <tab.icon className={`w-[20px] h-[20px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110 stroke-[2.5px]' : 'stroke-2'}`} />
               {tab.badge > 0 && (
-                <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center border-2 border-white shadow-sm">
+                <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[8px] font-black px-1 py-0.5 rounded-full min-w-[15px] text-center border border-white shadow-sm">
                   {tab.badge}
                 </span>
               )}
             </div>
-            <span className={`text-[10px] ${activeTab === tab.id ? 'font-black' : 'font-bold'}`}>{tab.label}</span>
+            <span className={`text-[9px] ${activeTab === tab.id ? 'font-black' : 'font-bold'}`}>{tab.label}</span>
           </button>
         ))}
       </div>

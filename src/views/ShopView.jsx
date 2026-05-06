@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ShoppingBag, Plus } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 
-const ShopView = ({ addToCart }) => {
+const ShopView = ({ addToCart, setSelectedProduct }) => {
   const [activeCategory, setActiveCategory] = useState('全部商品');
   const categories = ['全部商品', '熱銷商品', '耘鄉好米', '小農特產', '在地好物', '禮盒專區'];
   
@@ -31,26 +31,36 @@ const ShopView = ({ addToCart }) => {
 
       <div className="p-4 grid grid-cols-2 gap-4 bg-gray-50">
         {filteredProducts.map(product => (
-          <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow group">
+          <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow group cursor-pointer" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square overflow-hidden">
               <img 
                 src={product.image} 
                 alt={product.name} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
               />
-              <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-emerald-700 text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm">
-                {product.category}
+              <div className="absolute top-2 left-2 flex flex-col gap-1">
+                <div className="bg-white/90 backdrop-blur-sm text-emerald-700 text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm">
+                  {product.category}
+                </div>
+                {product.certifications?.includes("有機認證") && (
+                  <div className="bg-emerald-600 text-white text-[8px] font-black px-2 py-0.5 rounded-md shadow-sm border border-white/20 uppercase">
+                    Organic
+                  </div>
+                )}
               </div>
             </div>
             <div className="p-4 flex flex-col flex-grow">
               <h3 className="text-sm text-gray-800 font-bold line-clamp-2 h-10 leading-snug mb-3">{product.name}</h3>
               <div className="mt-auto flex items-center justify-between">
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Price</span>
+                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{product.specs}</span>
                   <span className="text-amber-600 font-black text-lg"><span className="text-xs">NT$</span>{product.price}</span>
                 </div>
                 <button 
-                  onClick={() => addToCart(product)} 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToCart(product);
+                  }} 
                   className="bg-emerald-600 text-white p-2.5 rounded-2xl shadow-md hover:bg-emerald-700 active:scale-90 transition-all"
                 >
                   <Plus className="w-5 h-5" />
