@@ -956,8 +956,8 @@ export const PRODUCTS = [
 export const BRAND_CONTACT = {
   facebook: "https://www.facebook.com/agric.tw",
   instagram: "https://www.instagram.com/agric.tw/",
-  line: "https://line.me/R/ti/p/@agric",
-  line_id: "@agric"
+  line: "https://line.me/R/ti/p/%40bej6255a",
+  line_id: "@bej6255a"
 };
 
 export const GLOBAL_LINKS = {

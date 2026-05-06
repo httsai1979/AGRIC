@@ -1,5 +1,5 @@
-import React from 'react';
-import { Compass, BookOpen, Building2, HelpCircle, User, ChevronRight, ArrowRight, Leaf, ShieldCheck } from 'lucide-react';
+import { Compass, BookOpen, Building2, HelpCircle, User, ChevronRight, ArrowRight, Leaf, ShieldCheck, Facebook, Instagram, MessageCircle } from 'lucide-react';
+import { BRAND_CONTACT, GLOBAL_LINKS } from '../data/mockData';
 
 const DiscoveryCard = ({ title, subtitle, icon: Icon, onClick, color, bgColor }) => (
   <button 
@@ -84,8 +84,29 @@ const DiscoverView = ({ navigateTo }) => {
         ))}
       </div>
 
+      {/* 檢驗報告專區 */}
+      <div className="mt-8 px-6">
+        <a 
+          href={GLOBAL_LINKS.inspection_reports}
+          target="_blank"
+          rel="noreferrer"
+          className="w-full bg-emerald-600 rounded-[2.5rem] p-8 shadow-xl shadow-emerald-900/20 flex items-center gap-6 group hover:bg-emerald-700 transition-all active:scale-[0.98]"
+        >
+          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center shrink-0 border border-white/30 group-hover:scale-110 transition-transform">
+            <ShieldCheck className="w-8 h-8 text-white" />
+          </div>
+          <div className="flex-1 text-left">
+            <h3 className="text-xl font-black text-white mb-1">安心檢驗報告</h3>
+            <p className="text-emerald-50/70 text-xs font-bold leading-relaxed">透明公開的食安紀錄，為您嚴格把關</p>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
+            <ArrowRight className="w-5 h-5" />
+          </div>
+        </a>
+      </div>
+
       {/* Featured Insight / Info Box */}
-      <div className="mt-12 px-6">
+      <div className="mt-8 px-6">
         <button 
           onClick={() => navigateTo('esg')}
           className="w-full bg-white rounded-[3rem] p-8 border border-gray-100 shadow-sm relative overflow-hidden group text-left active:scale-[0.98] transition-all"
@@ -103,6 +124,42 @@ const DiscoverView = ({ navigateTo }) => {
             了解更多關於我們的故事 <ArrowRight className="w-4 h-4" />
           </div>
         </button>
+      </div>
+
+      {/* 關注我們 Social Matrix */}
+      <div className="mt-12 px-6">
+        <div className="bg-stone-100/50 rounded-[3rem] p-10 border border-stone-200/50 flex flex-col items-center text-center">
+          <h3 className="text-lg font-black text-gray-900 mb-2">關注我們</h3>
+          <p className="text-[10px] text-gray-400 font-bold mb-8 tracking-widest uppercase">Stay connected with our mission</p>
+          
+          <div className="flex gap-6">
+            <a 
+              href={BRAND_CONTACT.facebook} 
+              target="_blank" 
+              rel="noreferrer"
+              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-blue-600 hover:scale-110 transition-all active:scale-95"
+            >
+              <Facebook className="w-6 h-6" />
+            </a>
+            <a 
+              href={BRAND_CONTACT.instagram} 
+              target="_blank" 
+              rel="noreferrer"
+              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-pink-600 hover:scale-110 transition-all active:scale-95"
+            >
+              <Instagram className="w-6 h-6" />
+            </a>
+            <a 
+              href={BRAND_CONTACT.line} 
+              target="_blank" 
+              rel="noreferrer"
+              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-emerald-500 hover:scale-110 transition-all active:scale-95"
+            >
+              <MessageCircle className="w-6 h-6" />
+            </a>
+          </div>
+          <p className="mt-6 text-[10px] text-emerald-600/50 font-black">Line ID: {BRAND_CONTACT.line_id}</p>
+        </div>
       </div>
 
       {/* Trust Badges */}

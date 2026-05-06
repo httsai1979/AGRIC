@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { HelpCircle, ChevronDown, ChevronUp, Phone, Mail, Info, ShieldCheck, Building, User, ArrowLeft } from 'lucide-react';
-import { FAQ_DATA, SUPPORT_INFO } from '../data/mockData';
+import { HelpCircle, ChevronDown, ChevronUp, Phone, Mail, Info, ShieldCheck, Building, User, ArrowLeft, Facebook, Instagram, MessageCircle } from 'lucide-react';
+import { FAQ_DATA, SUPPORT_INFO, BRAND_CONTACT } from '../data/mockData';
 
 const AccordionItem = ({ question, answer, isOpen, onClick }) => (
   <div className="border-b border-gray-100 last:border-0 overflow-hidden">
@@ -151,6 +150,40 @@ const SupportView = ({ onBack }) => {
             </a>
           </div>
           <p className="mt-6 text-[10px] text-gray-400 font-bold">服務時間：週一至週五 09:00 - 17:00</p>
+        </div>
+
+        {/* 關注我們 Social Matrix */}
+        <div className="bg-stone-50 rounded-[3rem] p-10 border border-stone-100 flex flex-col items-center text-center">
+          <h3 className="text-lg font-black text-gray-900 mb-2">關注我們</h3>
+          <p className="text-[10px] text-gray-400 font-bold mb-8 tracking-widest uppercase">Stay connected with our mission</p>
+          
+          <div className="flex gap-6">
+            <a 
+              href={BRAND_CONTACT.facebook} 
+              target="_blank" 
+              rel="noreferrer"
+              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-blue-600 hover:scale-110 transition-all active:scale-95"
+            >
+              <Facebook className="w-6 h-6" />
+            </a>
+            <a 
+              href={BRAND_CONTACT.instagram} 
+              target="_blank" 
+              rel="noreferrer"
+              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-pink-600 hover:scale-110 transition-all active:scale-95"
+            >
+              <Instagram className="w-6 h-6" />
+            </a>
+            <a 
+              href={BRAND_CONTACT.line} 
+              target="_blank" 
+              rel="noreferrer"
+              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-emerald-500 hover:scale-110 transition-all active:scale-95"
+            >
+              <MessageCircle className="w-6 h-6" />
+            </a>
+          </div>
+          <p className="mt-6 text-[10px] text-emerald-600/50 font-black">Line ID: {BRAND_CONTACT.line_id}</p>
         </div>
       </div>
     </div>
