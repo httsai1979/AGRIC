@@ -1,5 +1,6 @@
-import { Compass, BookOpen, Building2, HelpCircle, User, ChevronRight, ArrowRight, Leaf, ShieldCheck, Facebook, Instagram, MessageCircle } from 'lucide-react';
+import { Compass, BookOpen, Building2, HelpCircle, User, ChevronRight, ArrowRight, Leaf, ShieldCheck } from 'lucide-react';
 import { BRAND_CONTACT, GLOBAL_LINKS } from '../data/mockData';
+import SocialMatrix from '../components/SocialMatrix';
 
 const DiscoveryCard = ({ title, subtitle, icon: Icon, onClick, color, bgColor }) => (
   <button 
@@ -128,38 +129,7 @@ const DiscoverView = ({ navigateTo }) => {
 
       {/* 關注我們 Social Matrix */}
       <div className="mt-12 px-6">
-        <div className="bg-stone-100/50 rounded-[3rem] p-10 border border-stone-200/50 flex flex-col items-center text-center">
-          <h3 className="text-lg font-black text-gray-900 mb-2">關注我們</h3>
-          <p className="text-[10px] text-gray-400 font-bold mb-8 tracking-widest uppercase">Stay connected with our mission</p>
-          
-          <div className="flex gap-6">
-            <a 
-              href={BRAND_CONTACT.facebook} 
-              target="_blank" 
-              rel="noreferrer"
-              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-blue-600 hover:scale-110 transition-all active:scale-95"
-            >
-              <Facebook className="w-6 h-6" />
-            </a>
-            <a 
-              href={BRAND_CONTACT.instagram} 
-              target="_blank" 
-              rel="noreferrer"
-              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-pink-600 hover:scale-110 transition-all active:scale-95"
-            >
-              <Instagram className="w-6 h-6" />
-            </a>
-            <a 
-              href={BRAND_CONTACT.line} 
-              target="_blank" 
-              rel="noreferrer"
-              className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-gray-200/50 text-gray-400 hover:text-emerald-500 hover:scale-110 transition-all active:scale-95"
-            >
-              <MessageCircle className="w-6 h-6" />
-            </a>
-          </div>
-          <p className="mt-6 text-[10px] text-emerald-600/50 font-black">Line ID: {BRAND_CONTACT.line_id}</p>
-        </div>
+        <SocialMatrix />
       </div>
 
       {/* Trust Badges */}

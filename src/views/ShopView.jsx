@@ -45,15 +45,21 @@ const ShopView = ({ addToCart, setSelectedProduct, initialCategory }) => {
                 alt={product.name} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
               />
-              <div className="absolute top-2 left-2 flex flex-col gap-1">
-                <div className="bg-white/90 backdrop-blur-sm text-emerald-700 text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm flex items-center gap-1">
+              <div className="absolute top-2 left-2 flex flex-col gap-1.5 z-10">
+                <div className="bg-white/90 backdrop-blur-sm text-emerald-800 text-[9px] font-black px-2.5 py-1 rounded-lg shadow-sm flex items-center gap-1.5 border border-emerald-100">
                   {product.category === '耘鄉好米' ? <Leaf className="w-3 h-3 text-emerald-500" /> : <Package className="w-3 h-3 text-amber-500" />}
                   {product.category}
                 </div>
+                {product.hasReport && (
+                  <div className="bg-emerald-600 text-white text-[8px] font-black px-2.5 py-1 rounded-md shadow-md flex items-center gap-1.5 uppercase tracking-tighter">
+                    <ShieldCheck className="w-2.5 h-2.5" />
+                    檢驗合格
+                  </div>
+                )}
                 {product.level2_details?.certification?.includes("有機") && (
-                  <div className="bg-emerald-500 text-white text-[8px] font-black px-2 py-1 rounded-md shadow-sm border border-white/20 uppercase tracking-tighter flex items-center gap-1">
-                    <Leaf className="w-2.5 h-2.5" fill="currentColor" />
-                    Organic
+                  <div className="bg-amber-500 text-white text-[8px] font-black px-2.5 py-1 rounded-md shadow-md flex items-center gap-1.5 uppercase tracking-tighter">
+                    <Leaf className="w-2.5 h-2.5" />
+                    有機認證
                   </div>
                 )}
               </div>
