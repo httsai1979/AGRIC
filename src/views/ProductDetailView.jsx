@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer, X } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer, X, Building2 } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
@@ -67,16 +67,16 @@ const NutritionTable = ({ text }) => {
           </button>
         </div>
 
-        {/* List View */}
-        <div className="divide-y divide-gray-100 px-1">
+        {/* Card View */}
+        <div className="grid grid-cols-2 gap-2 mt-4">
           {processedRows.map((row, idx) => {
             const isHighlight = row.item.includes('熱量');
             return (
-              <div key={idx} className="flex justify-between items-center py-4">
-                <span className={`text-[13px] ${isHighlight ? 'text-gray-900 font-black' : 'text-gray-500 font-bold'}`}>
+              <div key={idx} className={`flex flex-col p-3 rounded-xl border ${isHighlight ? 'bg-amber-50/50 border-amber-100' : 'bg-white border-gray-100 shadow-sm'}`}>
+                <span className={`text-[10px] uppercase tracking-wider mb-1 ${isHighlight ? 'text-amber-600 font-black' : 'text-gray-400 font-bold'}`}>
                   {row.item}
                 </span>
-                <span className={`text-sm ${isHighlight ? 'text-amber-600 font-black text-lg' : 'text-gray-800 font-black'}`}>
+                <span className={`font-black ${isHighlight ? 'text-amber-600 text-base' : 'text-gray-800 text-xs'}`}>
                   {viewMode === 'perServing' ? row.perServing : row.per100g}
                 </span>
               </div>
@@ -114,10 +114,32 @@ const AccordionItem = ({ title, icon: Icon, isOpen, onClick, children, bg = "bg-
   </div>
 );
 
+const processSpecs = (text) => {
+  if (!text) return { specs: '暫無規格說明', vendorInfo: null };
+  
+  const lines = text.split('\n');
+  const specLines = [];
+  const vendorLines = [];
+  const vendorKeywords = ['負責公司', '地址', '電話', '糧商執照', '服務專線', '以消費者收受日'];
+  
+  lines.forEach(line => {
+    if (vendorKeywords.some(keyword => line.includes(keyword))) {
+      vendorLines.push(line);
+    } else {
+      specLines.push(line);
+    }
+  });
+  
+  return {
+    specs: specLines.join('\n').trim(),
+    vendorInfo: vendorLines.length > 0 ? vendorLines.join('\n').trim() : null
+  };
+};
+
 const ProductDetailView = ({ product, onBack, addToCart }) => {
   const [qty, setQty] = useState(1);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
-  const [openSections, setOpenSections] = useState({ intro: true, specs: false, nutrition: false });
+  const [openSections, setOpenSections] = useState({ intro: true, specs: false, nutrition: false, vendor: false });
   const [isIntroExpanded, setIsIntroExpanded] = useState(false);
   const [showInspectionModal, setShowInspectionModal] = useState(false);
   const scrollRef = useRef(null);
@@ -126,6 +148,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
   const details = product.level2_details || {};
   const images = product.images || [product.image];
+  const { specs: cleanSpecs, vendorInfo } = processSpecs(details.specs);
 
   const handleScroll = (e) => {
     if (!scrollRef.current) return;
@@ -281,8 +304,20 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
               onClick={() => toggleSection('specs')}
               bg="bg-stone-50/50"
             >
-              {details.specs || '暫無規格說明'}
+              {cleanSpecs}
             </AccordionItem>
+
+            {vendorInfo && (
+              <AccordionItem 
+                title="廠商資訊" 
+                icon={Building2}
+                isOpen={openSections.vendor} 
+                onClick={() => toggleSection('vendor')}
+                bg="bg-stone-50/50"
+              >
+                {vendorInfo}
+              </AccordionItem>
+            )}
 
             <AccordionItem 
               title="營養標示" 
