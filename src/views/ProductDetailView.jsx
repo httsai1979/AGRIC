@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer, X, Building2 } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer, X, Building2, CheckCircle2 } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
@@ -167,7 +167,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
   const handleShare = async () => {
     const shareData = {
       title: product.name,
-      text: product.level2_details?.intro?.substring(0, 80) + '...',
+      text: '我在阿古力發現了這個守護土地的好物...',
       url: window.location.href,
     };
     try {
@@ -246,9 +246,16 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
               {product.category}
             </span>
             {details.certification && (
-              <span className="bg-amber-50 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-amber-100 flex items-center gap-1.5">
-                <ShieldCheck className="w-3 h-3" /> {details.certification}
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="bg-amber-50 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-amber-100 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3 h-3" /> {details.certification}
+                </span>
+                {details.certification.includes('有機') && (
+                  <a href="https://www.agric.tw/blogs/檢驗報告" target="_blank" rel="noreferrer" className="bg-blue-50 text-blue-600 text-[10px] font-black px-2 py-1.5 rounded-full border border-blue-100 flex items-center gap-1 hover:bg-blue-100 transition-colors">
+                    <CheckCircle2 className="w-3 h-3" /> Verify
+                  </a>
+                )}
+              </div>
             )}
           </div>
 
@@ -257,16 +264,19 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
           {/* Icon-based Specs */}
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <MapPin className="w-5 h-5 text-emerald-600 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.origin || '台灣'}</span>
+              <ShieldCheck className="w-6 h-6 text-amber-500 mb-2" />
+              <span className="text-xs text-gray-900 font-black">{details.weight || '依包裝標示'}</span>
+              <span className="text-[10px] text-gray-500 font-bold mt-1">規格/重量</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <ShieldCheck className="w-5 h-5 text-amber-500 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.certification || '友善耕作'}</span>
+              <MapPin className="w-6 h-6 text-emerald-600 mb-2" />
+              <span className="text-xs text-gray-900 font-black">{details.origin || '台灣'}</span>
+              <span className="text-[10px] text-gray-500 font-bold mt-1">產地</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <Thermometer className="w-5 h-5 text-teal-600 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.storage || '常溫保存'}</span>
+              <Thermometer className="w-6 h-6 text-teal-600 mb-2" />
+              <span className="text-xs text-gray-900 font-black">{details.storage || '常溫保存'}</span>
+              <span className="text-[10px] text-gray-500 font-bold mt-1">保存方式</span>
             </div>
           </div>
 
@@ -309,7 +319,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
             {vendorInfo && (
               <AccordionItem 
-                title="廠商資訊" 
+                title="法規與廠商資訊 (Legal Info)" 
                 icon={Building2}
                 isOpen={openSections.vendor} 
                 onClick={() => toggleSection('vendor')}
