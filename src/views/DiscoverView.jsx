@@ -106,6 +106,25 @@ const DiscoverView = ({ navigateTo }) => {
         </a>
       </div>
 
+      {/* ESG 資源下載專區 */}
+      <div className="mt-8 px-6">
+        <button 
+          onClick={() => navigateTo('esg')}
+          className="w-full bg-teal-600 rounded-[2.5rem] p-8 shadow-xl shadow-teal-900/20 flex items-center gap-6 group hover:bg-teal-700 transition-all active:scale-[0.98] text-left"
+        >
+          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center shrink-0 border border-white/30 group-hover:scale-110 transition-transform">
+            <Building2 className="w-8 h-8 text-white" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-xl font-black text-white mb-1">ESG 資源下載</h3>
+            <p className="text-teal-50/70 text-xs font-bold leading-relaxed">企業永續提案與綠色採購文件</p>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
+            <ArrowRight className="w-5 h-5" />
+          </div>
+        </button>
+      </div>
+
       {/* Featured Insight / Info Box */}
       <div className="mt-8 px-6">
         <button 

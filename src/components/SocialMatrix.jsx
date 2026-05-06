@@ -69,6 +69,10 @@ const SocialMatrix = ({ className = "" }) => {
             href={BRAND_CONTACT.line} 
             target="_blank" 
             rel="noreferrer"
+            onClick={() => {
+              navigator.clipboard.writeText(BRAND_CONTACT.line_id);
+              alert('已複製 ID，即將跳轉 LINE');
+            }}
             className="flex items-center gap-5 group transition-all"
           >
             <div className="w-14 h-14 bg-[#06C755] rounded-full flex items-center justify-center text-white shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">

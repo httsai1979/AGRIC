@@ -333,7 +333,12 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
           {/* 檢驗報告直擊 (Phase 3) */}
           <div className="mt-10 pt-8 border-t border-gray-100">
-            <div className="bg-emerald-900 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer active:scale-95 transition-all" onClick={() => setShowInspectionModal(true)}>
+            <a 
+              href="https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A" 
+              target="_blank" 
+              rel="noreferrer"
+              className="block bg-emerald-900 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer active:scale-95 transition-all"
+            >
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
               <div className="relative z-10 flex items-center gap-4">
                 <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
@@ -347,43 +352,13 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
                   <ChevronDown className="w-5 h-5 -rotate-90" />
                 </div>
               </div>
-            </div>
+            </a>
             <p className="mt-4 text-[11px] text-gray-400 font-medium leading-relaxed px-4 text-center">
               阿古力堅持每一批產品皆通過第三方公正檢驗，確保無農藥殘留，讓您與家人吃得安心。
             </p>
           </div>
         </div>
       </div>
-
-      {/* Inspection Modal (Phase 3) */}
-      {showInspectionModal && (
-        <div className="fixed inset-0 z-[200] bg-black flex flex-col animate-in fade-in duration-300">
-          <div className="p-6 flex justify-between items-center text-white">
-            <div>
-              <h3 className="font-black text-lg">檢驗報告預覽</h3>
-              <p className="text-[10px] opacity-60 uppercase tracking-widest">Inspection Report</p>
-            </div>
-            <button onClick={() => setShowInspectionModal(false)} className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-          <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
-            <img 
-              src={product.reportImage || "https://cdn1.cybassets.com/s/files/14475/ckeditor/pictures/content_c2e30777-1772-430c-805b-80a82747183e.jpg"} 
-              alt="Inspection Report" 
-              className="max-w-full h-auto rounded-xl shadow-2xl"
-            />
-          </div>
-          <div className="p-8 text-center">
-            <button 
-              onClick={() => setShowInspectionModal(false)}
-              className="bg-white text-black font-black px-12 py-4 rounded-full shadow-2xl"
-            >
-              返回詳情
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Fixed Bottom Purchase Bar */}
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/80 backdrop-blur-lg border-t border-white/20 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[2rem]">

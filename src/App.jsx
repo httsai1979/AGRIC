@@ -83,9 +83,13 @@ export default function App() {
           {supportOpen && (
             <div className="flex flex-col items-end gap-3 animate-in slide-in-from-bottom-4 duration-500">
               <a 
-                href="https://line.me/R/ti/p/@agric" 
+                href="https://line.me/R/ti/p/@bej6255a" 
                 target="_blank" 
                 rel="noopener noreferrer"
+                onClick={() => {
+                  navigator.clipboard.writeText('@bej6255a');
+                  showToast('已複製 ID，即將跳轉 LINE');
+                }}
                 className="flex items-center gap-3 bg-[#06C755] text-white pr-6 pl-4 py-3 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all border-2 border-white/20"
               >
                 <MessageCircle className="w-5 h-5" />
