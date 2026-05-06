@@ -19,15 +19,15 @@ const ShopView = ({ addToCart, setSelectedProduct, initialCategory }) => {
         <h1 className="text-2xl font-black text-emerald-800 mb-4 flex items-center">
           <ShoppingBag className="w-7 h-7 mr-3 text-emerald-600" /> 線上逛市集
         </h1>
-        <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar snap-x snap-mandatory scroll-smooth">
+        <div className="flex gap-3 overflow-x-auto pb-3 px-1 hide-scrollbar snap-x snap-mandatory scroll-smooth">
           {categories.map((cat, i) => (
             <button 
               key={i} 
               onClick={() => setActiveCategory(cat)} 
-              className={`whitespace-nowrap px-7 py-3 rounded-full text-[11px] transition-all duration-300 active:scale-95 snap-start shadow-sm border ${
+              className={`whitespace-nowrap px-6 py-2.5 rounded-full text-xs transition-all duration-300 active:scale-95 snap-start shadow-sm border ${
                 activeCategory === cat 
                   ? 'bg-emerald-600 text-white border-emerald-600 shadow-emerald-600/30 font-black scale-105' 
-                  : 'bg-white text-gray-400 border-gray-100 hover:border-emerald-200 font-bold'
+                  : 'bg-white text-gray-500 border-gray-100 hover:border-emerald-200 font-bold'
               }`}
             >
               {cat}
