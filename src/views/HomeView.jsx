@@ -5,7 +5,7 @@ import AgricLogo from '../components/AgricLogo';
 import ProductImage from '../components/ProductImage';
 
 
-const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => {
+const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
   const [featuredStories, setFeaturedStories] = useState([]);
   const [loadingStories, setLoadingStories] = useState(true);
 
@@ -43,11 +43,11 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => {
       {/* 快捷功能 */}
       <div className="flex justify-around bg-white py-6 px-2 shadow-xl shadow-gray-200/50 rounded-[2.5rem] relative -mt-8 z-20 mx-4 border border-white/50">
         {[
-          { icon: Leaf, label: '小農契作', color: 'text-emerald-600', bg: 'bg-emerald-50', tab: 'shop' },
-          { icon: Gift, label: '六級加工', color: 'text-amber-500', bg: 'bg-amber-50', tab: 'shop' },
-          { icon: Building2, label: '探索阿古力', color: 'text-teal-600', bg: 'bg-teal-50', tab: 'discover' },
+          { icon: Leaf, label: '小農契作', color: 'text-emerald-600', bg: 'bg-emerald-50', view: 'shop', params: { initialCategory: '耘鄉好米' } },
+          { icon: Gift, label: '六級加工', color: 'text-amber-500', bg: 'bg-amber-50', view: 'shop', params: { initialCategory: '小農特產' } },
+          { icon: Building2, label: '探索阿古力', color: 'text-teal-600', bg: 'bg-teal-50', view: 'discover', params: null },
         ].map((item, idx) => (
-          <div key={idx} className="flex flex-col items-center cursor-pointer active:scale-95 transition-all duration-300 px-2" onClick={() => setActiveTab(item.tab)}>
+          <div key={idx} className="flex flex-col items-center cursor-pointer active:scale-95 transition-all duration-300 px-2" onClick={() => navigateTo(item.view, item.params)}>
             <div className={`p-5 rounded-[2rem] ${item.bg} mb-3 shadow-inner group-hover:shadow-md transition-shadow`}>
               <item.icon className={`w-6 h-6 ${item.color}`} />
             </div>
@@ -60,7 +60,7 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => {
       <div className="mt-8 px-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-black text-gray-800 border-l-4 border-emerald-600 pl-2">熱銷小農特產</h2>
-          <span className="text-sm text-emerald-600 font-bold flex items-center cursor-pointer" onClick={() => setActiveTab('shop')}>逛全部 <ChevronRight className="w-4 h-4" /></span>
+          <span className="text-sm text-emerald-600 font-bold flex items-center cursor-pointer" onClick={() => navigateTo('shop')}>逛全部 <ChevronRight className="w-4 h-4" /></span>
         </div>
         <div className="flex overflow-x-auto gap-3 pb-4 snap-x hide-scrollbar">
           {PRODUCTS.filter(p => p.category === '熱銷商品').slice(0, 8).map(product => (
@@ -99,7 +99,7 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => {
       <div className="mt-8 px-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-black text-gray-800 border-l-4 border-emerald-600 pl-2">精選農人誌</h2>
-          <span className="text-sm text-emerald-600 font-bold flex items-center cursor-pointer" onClick={() => setActiveTab('stories')}>更多故事 <ChevronRight className="w-4 h-4" /></span>
+          <span className="text-sm text-emerald-600 font-bold flex items-center cursor-pointer" onClick={() => navigateTo('stories')}>更多故事 <ChevronRight className="w-4 h-4" /></span>
         </div>
         <div className="space-y-4">
           {loadingStories ? (
@@ -131,7 +131,7 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => {
       </div>
 
       {/* ESG 企業採購 Banner (UX 提醒實作) */}
-      <div className="mx-4 mt-6 bg-emerald-900 rounded-[2rem] p-6 shadow-xl relative overflow-hidden group cursor-pointer" onClick={() => setActiveTab('esg')}>
+      <div className="mx-4 mt-6 bg-emerald-900 rounded-[2rem] p-6 shadow-xl relative overflow-hidden group cursor-pointer" onClick={() => navigateTo('esg')}>
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
         <div className="relative z-10">
           <div className="flex items-center gap-2 mb-3">

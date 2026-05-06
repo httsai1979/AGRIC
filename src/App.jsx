@@ -91,8 +91,8 @@ export default function App() {
 
       {/* 內容區塊 */}
       <div className="flex-1 overflow-y-auto hide-scrollbar">
-        {viewState.currentView === 'home' && <HomeView setActiveTab={(tab) => navigateTo(tab)} addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
-        {viewState.currentView === 'shop' && <ShopView addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
+        {viewState.currentView === 'home' && <HomeView navigateTo={navigateTo} addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
+        {viewState.currentView === 'shop' && <ShopView initialCategory={viewState.params?.initialCategory} addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
         {viewState.currentView === 'detail' && (
           <ProductDetailView 
             product={PRODUCTS.find(p => p.id === viewState.params.productId)} 

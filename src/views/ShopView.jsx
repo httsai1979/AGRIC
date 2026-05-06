@@ -3,8 +3,8 @@ import { ShoppingBag, Plus } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
 
-const ShopView = ({ addToCart, setSelectedProduct }) => {
-  const [activeCategory, setActiveCategory] = useState('全部商品');
+const ShopView = ({ addToCart, setSelectedProduct, initialCategory }) => {
+  const [activeCategory, setActiveCategory] = useState(initialCategory || '全部商品');
   const categories = ['全部商品', '熱銷商品', '耘鄉好米', '小農特產', '在地好物', '禮盒專區'];
   
   const filteredProducts = activeCategory === '全部商品' 
