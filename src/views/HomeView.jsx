@@ -163,7 +163,13 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
             <Building2 className="w-4 h-4 text-emerald-400" />
             <span className="text-[10px] text-emerald-400 font-black uppercase tracking-[0.2em]">B2B & ESG Solutions</span>
           </div>
-          <h3 className="text-lg font-black text-white mb-2 leading-tight">量身打造企�        <div className="flex gap-6 mb-8">
+          <h3 className="text-lg font-black text-white mb-2 leading-tight">量身打造企業專屬方案</h3>
+        </div>
+      </div>
+
+      {/* Social Links */}
+      <div className="mt-12 flex flex-col items-center pb-8 px-4 text-center">
+        <div className="flex gap-6 mb-8">
           <a href={BRAND_CONTACT.facebook} target="_blank" rel="noreferrer" className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm active:scale-90 transition-all">
             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </a>
@@ -186,15 +192,6 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
           >
             立即加入 LINE 好友
           </a>
-        </div>       <h4 className="text-gray-900 font-black mb-2 flex items-center justify-center gap-2">
-            關注阿古力 <Leaf className="w-5 h-5 text-emerald-600" />
-          </h4>
-          <p className="text-[11px] text-gray-500 font-medium leading-relaxed mb-4">
-            加入阿古力 LINE 官方帳號，獲取第一手有機農產優惠與田間生活驚喜！
-          </p>
-          <button className="bg-[#06C755] text-white font-black px-8 py-3 rounded-2xl text-[13px] shadow-xl shadow-green-600/20 active:scale-95 transition-all">
-            立即加入 LINE 好友
-          </button>
         </div>
         <p className="mt-12 text-[10px] text-gray-300 font-bold tracking-widest uppercase">
           Agric Social Enterprise © 2026
