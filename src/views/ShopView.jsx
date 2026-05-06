@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Plus, Leaf, Package, ShoppingCart } from 'lucide-react';
+import { ShoppingBag, Plus, Leaf, Package, ShoppingCart, ShieldCheck } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
 
