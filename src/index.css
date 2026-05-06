@@ -143,8 +143,8 @@ button, a {
 
 /* Unified Brand Iconography */
 svg.lucide {
-  color: var(--agric-green);
-  stroke-width: 2.5;
+  stroke: currentColor;
+  stroke-width: 2.2;
 }
 
 /* Override for dark backgrounds */

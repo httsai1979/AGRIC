@@ -132,7 +132,9 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
     const scrollLeft = e.target.scrollLeft;
     const width = e.target.clientWidth;
     const index = Math.round(scrollLeft / width);
-    setCurrentImgIndex(index);
+    if (index !== currentImgIndex) {
+      setCurrentImgIndex(index);
+    }
   };
 
   const toggleSection = (section) => {
@@ -176,11 +178,11 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
       </div>
 
       {/* Image Carousel */}
-      <div className="relative h-[480px] w-full bg-gray-50">
+      <div className="relative h-[500px] w-full bg-stone-50">
         <div 
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar h-full"
+          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar h-full w-full"
         >
           {images.map((img, idx) => (
             <div key={idx} className="flex-shrink-0 w-full h-full snap-center">
@@ -189,9 +191,21 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
           ))}
         </div>
         
-        {/* Page Indicator */}
+        {/* Carousel Dots (UI/UX Optimization) */}
         {images.length > 1 && (
-          <div className="absolute bottom-16 right-6 bg-black/40 backdrop-blur-md text-white text-[10px] font-black px-3 py-1.5 rounded-full tracking-widest z-20">
+          <div className="absolute bottom-16 left-0 right-0 flex justify-center gap-2 z-20">
+            {images.map((_, idx) => (
+              <div 
+                key={idx} 
+                className={`h-1.5 rounded-full transition-all duration-300 ${currentImgIndex === idx ? 'w-6 bg-emerald-600' : 'w-1.5 bg-emerald-600/30'}`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Counter Badge */}
+        {images.length > 1 && (
+          <div className="absolute top-8 right-6 bg-black/30 backdrop-blur-md text-white text-[10px] font-black px-3 py-1.5 rounded-full tracking-widest z-20">
             {currentImgIndex + 1} / {images.length}
           </div>
         )}
@@ -337,7 +351,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
       )}
 
       {/* Fixed Bottom Purchase Bar */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white border-t border-gray-100 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[3rem]">
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/80 backdrop-blur-xl border-t border-gray-100 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[3rem]">
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0">
             <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1 flex items-center gap-1">
