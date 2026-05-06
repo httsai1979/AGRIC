@@ -4,6 +4,7 @@ import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
 
 // Google Apps Script Web App URL
+// Note: Placeholder URL used. Replace with actual GAS URL when ready.
 const GAS_API_URL = "https://script.google.com/macros/s/AKfycbxA-XXXXX-XXXXX/exec"; 
 
 const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
@@ -15,32 +16,48 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
   useEffect(() => {
     // Fetching from Live Google Sheet API (GAS)
     fetch(GAS_API_URL)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
       .then(data => {
         // Map Sheet columns to application state
-        // Expected Sheet Headers: Title, Images, Content, Type, Key_Figures, Category
         const mappedData = data.map((item, index) => ({
-          id: index,
-          title: item.Title || '未命名故事',
-          content: item.Content || '',
-          type: item.Type || '故事',
-          category: item.Category || (item.URL?.includes('食農教育') ? 'food_education' : 'field_story'),
-          images: item.Images ? item.Images.split(',').map(img => img.trim()) : [],
-          keyFigures: item.Key_Figures || '阿古力小農'
+          id: item.id || index,
+          title: item.Title || item.title || '未命名故事',
+          content: item.Content || item.description || '',
+          type: item.Type || item.type || '故事',
+          category: item.Category || item.category || (item.URL?.includes('食農教育') ? 'food_education' : 'field_story'),
+          images: item.Images 
+            ? item.Images.split(',').map(img => img.trim()) 
+            : (item.images ? item.images : (item.image ? [item.image] : [])),
+          keyFigures: item.Key_Figures || item.key_figures || '阿古力小農'
         }));
         setStories(mappedData);
         setLoading(false);
       })
       .catch(err => {
-        console.error('Error fetching stories from GAS:', err);
-        // Fallback to local JSON if API fails during development
+        console.warn('Live API unavailable or CORS blocked. Falling back to local data.', err);
+        // Fallback to local JSON if API fails or is blocked by CORS
         fetch('/data/stories.json')
           .then(res => res.json())
           .then(localData => {
-            setStories(localData.map(s => ({ ...s, keyFigures: s.key_figures, content: s.description })));
+            const mappedLocal = localData.map((s, idx) => ({
+              id: s.id || idx,
+              title: s.title,
+              content: s.description,
+              type: s.type || '故事',
+              category: s.category || 'field_story',
+              images: s.images || (s.image ? [s.image] : []),
+              keyFigures: s.key_figures || '阿古力小農'
+            }));
+            setStories(mappedLocal);
             setLoading(false);
           })
-          .catch(() => setLoading(false));
+          .catch(fallbackErr => {
+            console.error('Critical Error: Fallback also failed.', fallbackErr);
+            setLoading(false);
+          });
       });
   }, []);
 
@@ -72,7 +89,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
         </div>
 
         <h1 className="text-3xl font-black text-emerald-800 flex items-center mb-6">
-          <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
+          < BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
         </h1>
 
         {/* Tab Bar */}
@@ -106,7 +123,9 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
           filteredStories.map(story => {
             const isExpanded = expandedStoryId === story.id;
             const relatedProducts = getRelatedProducts(story.keyFigures);
-            const coverImage = story.images[0] || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=400';
+            const coverImage = (story.images && story.images.length > 0) 
+              ? story.images[0] 
+              : 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=400';
 
             return (
               <div key={story.id} className="bg-white rounded-[2.5rem] shadow-xl shadow-stone-200/50 border border-stone-100 overflow-hidden flex flex-col group animate-in slide-in-from-bottom-4 duration-500">
@@ -190,7 +209,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                       <User className="w-3.5 h-3.5 mr-1.5 text-stone-300" />
                       人物：{story.keyFigures}
                     </span>
-                    {!isExpanded && (
+                    {!isExpanded && story.images && story.images.length > 1 && (
                        <div className="flex -space-x-2">
                         {story.images.slice(1, 4).map((img, i) => (
                           <div key={i} className="w-6 h-6 rounded-full border-2 border-white overflow-hidden shadow-sm bg-stone-100">
