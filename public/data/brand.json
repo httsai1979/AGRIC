@@ -1,0 +1,38 @@
+{
+  "foundation": {
+    "title": "財團法人豐泰文教基金會",
+    "heritage": "由財團法人豐泰文教基金會於2016年獨資成立，以推廣永續農業、促進食品安全、提升有機農業產值為目標，整合在地有機、友善農友，協助小農生產與銷售，喜愛自然、重視健康。",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1600"
+  },
+  "theProblem": {
+    "title": "土壤酸化與生態危機",
+    "description": "長期的慣行農法與農藥過度使用，導致土壤嚴重酸化，生態多樣性快速消失。如果我們不採取行動，下一代將失去健康的土地與安全的食物來源。"
+  },
+  "theSolution": {
+    "title": "有機農業的修復力量",
+    "description": "阿古力透過保價收購與技術輔導，陪伴農友走過艱辛的有機轉型期。有機農法不只是不使用農藥，更是對土地與生態系統的深層修復。"
+  },
+  "impactLoop": {
+    "title": "善的循環 (Cycle of Good)",
+    "steps": [
+      { "id": 1, "title": "您的支持", "description": "每一次的購買，都是對土地的真實投票" },
+      { "id": 2, "title": "穩定契作", "description": "保證收購，讓小農無後顧之憂投入有機轉型" },
+      { "id": 3, "title": "土地修復", "description": "無毒農法恢復土壤生命力，重現生態多樣性" },
+      { "id": 4, "title": "健康餐桌", "description": "產地直送的純淨食材，為您與家人守護健康" }
+    ]
+  },
+  "farmerVoices": [
+    {
+      "name": "涂先生",
+      "role": "土豆鳥永續米農友",
+      "quote": "看著土豆鳥回到田裡築巢，我知道這條路走對了。",
+      "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "name": "素貞",
+      "role": "百香果農友",
+      "quote": "我們種的不只是水果，是下一代的希望。",
+      "image": "https://images.unsplash.com/photo-1498837167922-41c46b66c07a?auto=format&fit=crop&q=80&w=800"
+    }
+  ]
+}

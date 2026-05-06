@@ -128,20 +128,27 @@ const DiscoverView = ({ navigateTo }) => {
       {/* Featured Insight / Info Box */}
       <div className="mt-8 px-6">
         <button 
-          onClick={() => navigateTo('esg')}
-          className="w-full bg-white rounded-[3rem] p-8 border border-gray-100 shadow-sm relative overflow-hidden group text-left active:scale-[0.98] transition-all"
+          onClick={() => navigateTo('about')}
+          className="w-full bg-stone-900 rounded-[3rem] p-8 shadow-2xl relative overflow-hidden group text-left active:scale-[0.98] transition-all"
         >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-          <div className="flex items-center gap-3 mb-4">
-            <Leaf className="w-5 h-5 text-emerald-600" />
-            <span className="text-[10px] text-emerald-600 font-black uppercase tracking-widest">Brand Mission</span>
-          </div>
-          <h4 className="text-xl font-black text-gray-900 mb-4">由豐泰文教基金會<br/>獨資成立的社會企業</h4>
-          <p className="text-sm text-gray-500 leading-relaxed font-medium mb-6">
-            自 2016 年以來，我們始終堅持與小農建立長期穩定的契作關係，為您把關每一份安心食材。
-          </p>
-          <div className="flex items-center gap-2 text-emerald-600 text-xs font-black">
-            了解更多關於我們的故事 <ArrowRight className="w-4 h-4" />
+          <div 
+            className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-1000"
+            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800)' }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/80 to-transparent"></div>
+          
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-6">
+              <Leaf className="w-5 h-5 text-emerald-400" />
+              <span className="text-[10px] text-emerald-400 font-black uppercase tracking-widest">Brand Legacy</span>
+            </div>
+            <h4 className="text-2xl font-black text-white mb-3 leading-tight">關於阿古力<br/>與豐泰文教基金會</h4>
+            <p className="text-xs text-stone-300 leading-relaxed font-bold mb-6 max-w-[200px]">
+              源於一份守護土地的承諾，看見真實的有機修復力量。
+            </p>
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-white text-xs font-black group-hover:bg-emerald-500 transition-colors border border-white/10">
+              探索品牌靈魂 <ArrowRight className="w-4 h-4" />
+            </div>
           </div>
         </button>
       </div>

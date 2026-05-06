@@ -9,6 +9,7 @@ import MemberView from './views/MemberView';
 import SupportView from './views/SupportView';
 import DiscoverView from './views/DiscoverView';
 import ProductDetailView from './views/ProductDetailView';
+import AboutUsView from './views/AboutUsView';
 import { PRODUCTS } from './data/mockData';
 
 export default function App() {
@@ -26,7 +27,8 @@ export default function App() {
     'stories': 'discover',
     'esg': 'discover',
     'support': 'discover',
-    'member': 'discover'
+    'member': 'discover',
+    'about': 'discover'
   };
   const activeTab = activeTabMap[viewState.currentView] || 'home';
 
@@ -158,6 +160,7 @@ export default function App() {
           />}
           {viewState.currentView === 'member' && <MemberView navigateTo={navigateTo} onBack={() => navigateTo('discover')} />}
           {viewState.currentView === 'support' && <SupportView onBack={() => navigateTo('discover')} />}
+          {viewState.currentView === 'about' && <AboutUsView onBack={() => navigateTo('discover')} navigateTo={navigateTo} />}
         </div>
 
         {/* Tab Navigation (iOS Frosted Glass Style) */}
