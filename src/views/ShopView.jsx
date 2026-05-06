@@ -24,10 +24,10 @@ const ShopView = ({ addToCart, setSelectedProduct, initialCategory }) => {
             <button 
               key={i} 
               onClick={() => setActiveCategory(cat)} 
-              className={`whitespace-nowrap px-5 py-2.5 rounded-2xl text-[11px] transition-all duration-300 active:scale-95 snap-start ${
+              className={`whitespace-nowrap px-7 py-3 rounded-full text-[11px] transition-all duration-300 active:scale-95 snap-start shadow-sm border ${
                 activeCategory === cat 
-                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 font-black' 
-                  : 'bg-gray-100 text-gray-400 hover:bg-gray-200 border border-transparent font-bold'
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-emerald-600/30 font-black scale-105' 
+                  : 'bg-white text-gray-400 border-gray-100 hover:border-emerald-200 font-bold'
               }`}
             >
               {cat}

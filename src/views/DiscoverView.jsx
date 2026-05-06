@@ -87,7 +87,7 @@ const DiscoverView = ({ navigateTo }) => {
       {/* Featured Insight / Info Box */}
       <div className="mt-12 px-6">
         <button 
-          onClick={() => navigateTo('stories')}
+          onClick={() => navigateTo('esg')}
           className="w-full bg-white rounded-[3rem] p-8 border border-gray-100 shadow-sm relative overflow-hidden group text-left active:scale-[0.98] transition-all"
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>

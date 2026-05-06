@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2 } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
@@ -223,12 +223,12 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
               <span className="text-[11px] text-gray-900 font-black">{details.origin || '台灣'}</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <Flame className="w-5 h-5 text-amber-500 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.roast_level || '中烘焙'}</span>
+              <ShieldCheck className="w-5 h-5 text-amber-500 mb-2" />
+              <span className="text-[11px] text-gray-900 font-black">{details.certification || '友善耕作'}</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <Activity className="w-5 h-5 text-teal-600 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.processing || '水洗'}</span>
+              <Thermometer className="w-5 h-5 text-teal-600 mb-2" />
+              <span className="text-[11px] text-gray-900 font-black">{details.storage || '常溫保存'}</span>
             </div>
           </div>
 
