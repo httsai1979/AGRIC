@@ -36,7 +36,7 @@ const ShopView = ({ addToCart, setSelectedProduct }) => {
           <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow group cursor-pointer" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square overflow-hidden">
               <img 
-                src={product.image} 
+                src={product.images?.[0] || product.image} 
                 alt={product.name} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
               />

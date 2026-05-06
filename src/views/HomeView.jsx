@@ -48,7 +48,7 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
         {PRODUCTS.filter(p => p.category === '熱銷商品').slice(0, 8).map(product => (
           <div key={product.id} className="min-w-[160px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden snap-start flex flex-col cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square">
-              <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+              <img src={product.images?.[0] || product.image} alt={product.name} className="w-full h-full object-cover" />
               {product.level2_details?.certification?.includes('有機') && (
                 <div className="absolute top-2 left-2 bg-emerald-500 text-white text-[8px] font-black px-2 py-0.5 rounded-md shadow-sm border border-white/20">
                   ORGANIC

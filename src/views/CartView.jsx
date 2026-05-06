@@ -38,7 +38,7 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
             {cart.map(item => (
               <div key={item.id} className="bg-white p-4 rounded-[2rem] shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-shadow">
                 <div className="relative w-24 h-24 shrink-0">
-                  <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-2xl shadow-sm" />
+                  <img src={item.images?.[0] || item.image} alt={item.name} className="w-full h-full object-cover rounded-2xl shadow-sm" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <span className="text-[10px] text-emerald-700 font-black bg-emerald-50 px-2.5 py-1 rounded-lg mb-2 inline-block border border-emerald-100">
