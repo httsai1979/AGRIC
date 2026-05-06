@@ -4,7 +4,7 @@ import { PRODUCTS, STORIES, RESTAURANTS } from '../data/mockData';
 import AgricLogo from '../components/AgricLogo';
 
 
-const HomeView = ({ setActiveTab, addToCart }) => (
+const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
   <div className="pb-24 animate-in fade-in duration-300">
     {/* 品牌標頭 (Branding Hero) */}
     <div className="relative h-72 bg-emerald-800 flex flex-col items-center justify-center overflow-hidden">
@@ -45,8 +45,8 @@ const HomeView = ({ setActiveTab, addToCart }) => (
         <span className="text-sm text-emerald-600 font-bold flex items-center cursor-pointer" onClick={() => setActiveTab('shop')}>逛全部 <ChevronRight className="w-4 h-4" /></span>
       </div>
       <div className="flex overflow-x-auto gap-3 pb-4 snap-x hide-scrollbar">
-        {PRODUCTS.filter(p => p.category === '熱銷商品').slice(0, 4).map(product => (
-          <div key={product.id} className="min-w-[160px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden snap-start flex flex-col">
+        {PRODUCTS.filter(p => p.category === '熱銷商品').slice(0, 8).map(product => (
+          <div key={product.id} className="min-w-[160px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden snap-start flex flex-col cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square">
               <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
             </div>
@@ -54,7 +54,13 @@ const HomeView = ({ setActiveTab, addToCart }) => (
               <h3 className="text-sm text-gray-800 font-bold line-clamp-2 h-10 leading-snug">{product.name}</h3>
               <div className="mt-auto pt-2 flex items-center justify-between">
                 <span className="text-amber-600 font-black">NT${product.price}</span>
-                <button onClick={() => addToCart(product)} className="bg-emerald-600 text-white p-1.5 rounded-lg hover:bg-emerald-700 active:scale-90 transition">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToCart(product);
+                  }} 
+                  className="bg-emerald-600 text-white p-1.5 rounded-lg hover:bg-emerald-700 active:scale-90 transition"
+                >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>

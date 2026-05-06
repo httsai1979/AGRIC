@@ -1,8 +1,8 @@
 import React from 'react';
-import { User, Package, MessageSquare, HelpCircle, ShieldCheck, CreditCard, ChevronRight, LogOut, PhoneCall } from 'lucide-react';
+import { User, Package, MessageSquare, HelpCircle, ShieldCheck, CreditCard, ChevronRight, LogOut, PhoneCall, Sprout } from 'lucide-react';
 import { SUPPORT_INFO } from '../data/mockData';
 
-const MemberView = () => (
+const MemberView = ({ navigateTo }) => (
   <div className="pb-24 animate-in fade-in duration-500 bg-gray-50 min-h-screen">
     {/* Profile Header */}
     <div className="bg-white p-8 rounded-b-[3rem] shadow-sm mb-6 flex flex-col items-center">
@@ -39,48 +39,52 @@ const MemberView = () => (
         </div>
       </div>
 
-      {/* Trust & Support (FAQ) */}
+      {/* Support Center Link */}
       <div className="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100">
         <h3 className="font-black text-gray-800 flex items-center mb-4">
-          <HelpCircle className="w-5 h-5 mr-2 text-amber-500" /> 常見問題與規範
+          <HelpCircle className="w-5 h-5 mr-2 text-amber-500" /> 幫助與支援
         </h3>
-        <div className="space-y-4">
-          {SUPPORT_INFO.faq.map((item, idx) => (
-            <div key={idx} className="group cursor-pointer">
-              <p className="text-sm font-black text-gray-700 mb-1 group-hover:text-emerald-600 transition-colors">Q: {item.q}</p>
-              <p className="text-xs text-gray-400 leading-relaxed">{item.a}</p>
+        <div className="space-y-3">
+          <button 
+            onClick={() => navigateTo('support')}
+            className="w-full flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-emerald-50 transition-colors group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                <MessageSquare className="w-4 h-4 text-emerald-600" />
+              </div>
+              <span className="text-sm font-bold text-gray-700">常見問題 FAQ</span>
             </div>
-          ))}
-        </div>
-        <div className="mt-6 pt-6 border-t border-gray-50">
-          <h4 className="text-[10px] text-gray-400 font-black uppercase mb-3 tracking-widest">退換貨須知</h4>
-          <p className="text-xs text-gray-500 leading-relaxed bg-amber-50 p-4 rounded-2xl border border-amber-100">
-            {SUPPORT_INFO.return_policy}
-          </p>
+            <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-emerald-600" />
+          </button>
+          
+          <button 
+            onClick={() => navigateTo('support')}
+            className="w-full flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-emerald-50 transition-colors group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                <PhoneCall className="w-4 h-4 text-emerald-600" />
+              </div>
+              <span className="text-sm font-bold text-gray-700">聯絡我們 / 客服</span>
+            </div>
+            <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-emerald-600" />
+          </button>
         </div>
       </div>
 
-      {/* Customer Service */}
-      <div className="bg-emerald-900 rounded-[2rem] p-6 shadow-xl text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-        <h3 className="font-black text-lg mb-2 flex items-center relative z-10">
-          <MessageSquare className="w-5 h-5 mr-2 text-emerald-400" /> 需要協助？
+      {/* About Section */}
+      <div className="bg-stone-100/50 rounded-[2rem] p-6 border border-stone-200/50">
+        <h3 className="font-black text-stone-800 flex items-center mb-3 text-sm">
+          <Sprout className="w-4 h-4 mr-2 text-emerald-600" /> 關於阿古力
         </h3>
-        <p className="text-emerald-100/70 text-xs mb-6 leading-relaxed relative z-10">
-          我們的客服專員將於週一至週五 09:00 - 18:00 為您服務。
+        <p className="text-[11px] text-stone-500 leading-relaxed font-medium">
+          豐泰文教基金會 2016 年獨資成立。推廣永續農業與友善食農，守護土地，穩定小農銷路。
         </p>
-        <div className="flex gap-3 relative z-10">
-          <button className="flex-1 bg-white text-emerald-900 font-black py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
-            <PhoneCall className="w-4 h-4" /> 撥打客服
-          </button>
-          <button className="flex-1 bg-emerald-500 text-white font-black py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
-            LINE 客服
-          </button>
-        </div>
       </div>
 
-      {/* Logout / Other */}
-      <button className="w-full flex items-center justify-center gap-2 text-gray-400 font-black py-8 text-sm hover:text-red-500 transition-colors">
+      {/* Logout */}
+      <button className="w-full flex items-center justify-center gap-2 text-gray-400 font-black py-4 text-sm hover:text-red-500 transition-colors">
         <LogOut className="w-4 h-4" /> 登出帳號
       </button>
     </div>

@@ -6,13 +6,16 @@ import StoriesView from './views/StoriesView';
 import EsgView from './views/EsgView';
 import CartView from './views/CartView';
 import MemberView from './views/MemberView';
+import SupportView from './views/SupportView';
+import ProductDetailView from './views/ProductDetailView';
 import ProductDetailModal from './components/ProductDetailModal';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [viewState, setViewState] = useState({ currentView: 'home', params: null });
   const [cart, setCart] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const activeTab = viewState.currentView === 'detail' ? 'shop' : viewState.currentView;
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -44,6 +47,10 @@ export default function App() {
 
   const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
 
+  const navigateTo = (view, params = null) => {
+    setViewState({ currentView: view, params });
+  };
+
   return (
     <div className="w-full max-w-md mx-auto h-screen bg-gray-50 flex flex-col relative overflow-hidden font-sans selection:bg-emerald-200 text-gray-800 shadow-2xl">
       
@@ -57,27 +64,27 @@ export default function App() {
         </div>
       )}
 
-      {/* 商品詳情 Modal */}
-      <ProductDetailModal 
-        product={selectedProduct} 
-        isOpen={!!selectedProduct} 
-        onClose={() => setSelectedProduct(null)} 
-        addToCart={addToCart}
-      />
-
       {/* 內容區塊 */}
       <div className="flex-1 overflow-y-auto hide-scrollbar">
-        {activeTab === 'home' && <HomeView setActiveTab={setActiveTab} addToCart={addToCart} />}
-        {activeTab === 'shop' && <ShopView addToCart={addToCart} setSelectedProduct={setSelectedProduct} />}
-        {activeTab === 'stories' && <StoriesView addToCart={addToCart} setSelectedProduct={setSelectedProduct} />}
-        {activeTab === 'esg' && <EsgView />}
-        {activeTab === 'cart' && <CartView 
+        {viewState.currentView === 'home' && <HomeView setActiveTab={(tab) => navigateTo(tab)} addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
+        {viewState.currentView === 'shop' && <ShopView addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
+        {viewState.currentView === 'detail' && (
+          <ProductDetailView 
+            product={PRODUCTS.find(p => p.id === viewState.params.productId)} 
+            onBack={() => navigateTo('shop')}
+            addToCart={addToCart}
+          />
+        )}
+        {viewState.currentView === 'stories' && <StoriesView addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
+        {viewState.currentView === 'esg' && <EsgView />}
+        {viewState.currentView === 'cart' && <CartView 
           cart={cart} 
           updateCartQty={updateCartQty} 
           removeFromCart={removeFromCart} 
-          setActiveTab={setActiveTab} 
+          setActiveTab={(tab) => navigateTo(tab)} 
         />}
-        {activeTab === 'member' && <MemberView />}
+        {viewState.currentView === 'member' && <MemberView navigateTo={navigateTo} />}
+        {viewState.currentView === 'support' && <SupportView onBack={() => navigateTo('member')} />}
       </div>
 
       {/* 底部導覽列 */}
@@ -92,7 +99,7 @@ export default function App() {
         ].map(tab => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => navigateTo(tab.id)}
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-colors ${activeTab === tab.id ? 'text-emerald-600' : 'text-gray-400 hover:text-emerald-500'}`}
           >
             <div className="relative mt-1">
