@@ -120,7 +120,7 @@ export default function App() {
       </div>
 
       {/* 底部導覽列 */}
-      <div className="bg-white/80 backdrop-blur-xl border-t border-gray-100/50 flex justify-around items-center h-[65px] pb-safe shrink-0 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] z-50 rounded-t-[2.5rem] px-2">
+      <div className="bg-white/80 backdrop-blur-xl border-t border-gray-100/50 flex justify-around items-center h-[65px] pb-safe shrink-0 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] z-[70] rounded-t-[2.5rem] px-2">
         {[
           { id: 'home', icon: Home, label: '首頁' },
           { id: 'shop', icon: ShoppingBag, label: '市集' },
@@ -130,17 +130,18 @@ export default function App() {
           <button
             key={tab.id}
             onClick={() => navigateTo(tab.id)}
-            className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-colors ${activeTab === tab.id ? 'text-emerald-600' : 'text-gray-400 hover:text-emerald-500'}`}
+            className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-all duration-300 ${activeTab === tab.id ? 'text-emerald-600 scale-105' : 'text-gray-400 hover:text-emerald-500'}`}
           >
             <div className="relative mt-1">
               <tab.icon className={`w-[20px] h-[20px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110 stroke-[2.5px]' : 'stroke-2'}`} />
               {tab.badge > 0 && (
-                <span className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[8px] font-black px-1 py-0.5 rounded-full min-w-[15px] text-center border border-white shadow-sm">
+                <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full min-w-[15px] text-center border-2 border-white shadow-sm">
                   {tab.badge}
                 </span>
               )}
             </div>
             <span className={`text-[9px] ${activeTab === tab.id ? 'font-black' : 'font-bold'}`}>{tab.label}</span>
+            {activeTab === tab.id && <div className="absolute -bottom-1 w-1 h-1 bg-emerald-500 rounded-full"></div>}
           </button>
         ))}
       </div>

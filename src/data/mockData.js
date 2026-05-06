@@ -888,6 +888,15 @@ export const PRODUCTS = [
 
 export const STORIES = [
   { 
+    id: 5, 
+    type: "故事", 
+    title: "腳踏實地的「在地農夫」", 
+    key_figures: "張芷宜", 
+    related_product_id: "P001", 
+    description: "擁有30年務農資歷的張芷宜，從慣行農法轉向有機耕作，在雲林建立「在地農夫」品牌。她發現有機耕作讓田間生態變好，蟲鳴鳥叫重現。", 
+    image: "https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80&w=400" 
+  },
+  { 
     id: 1, 
     type: "故事", 
     title: "一日花：村姑素貞與不願放棄的百香果", 

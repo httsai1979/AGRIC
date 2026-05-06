@@ -86,7 +86,10 @@ const DiscoverView = ({ navigateTo }) => {
 
       {/* Featured Insight / Info Box */}
       <div className="mt-12 px-6">
-        <div className="bg-white rounded-[3rem] p-8 border border-gray-100 shadow-sm relative overflow-hidden group">
+        <button 
+          onClick={() => navigateTo('stories')}
+          className="w-full bg-white rounded-[3rem] p-8 border border-gray-100 shadow-sm relative overflow-hidden group text-left active:scale-[0.98] transition-all"
+        >
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
           <div className="flex items-center gap-3 mb-4">
             <Sprout className="w-5 h-5 text-emerald-600" />
@@ -99,7 +102,7 @@ const DiscoverView = ({ navigateTo }) => {
           <div className="flex items-center gap-2 text-emerald-600 text-xs font-black">
             了解更多關於我們的故事 <ArrowRight className="w-4 h-4" />
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Trust Badges */}

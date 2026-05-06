@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ShoppingBag, Plus } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
+import ProductImage from '../components/ProductImage';
 
 const ShopView = ({ addToCart, setSelectedProduct }) => {
   const [activeCategory, setActiveCategory] = useState('全部商品');
@@ -35,7 +36,7 @@ const ShopView = ({ addToCart, setSelectedProduct }) => {
         {filteredProducts.map(product => (
           <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow group cursor-pointer" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square overflow-hidden">
-              <img 
+              <ProductImage 
                 src={product.images?.[0] || product.image} 
                 alt={product.name} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 

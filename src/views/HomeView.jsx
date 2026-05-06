@@ -2,6 +2,7 @@ import React from 'react';
 import { Leaf, Gift, Building2, ChevronRight, Plus, Sprout, Heart } from 'lucide-react';
 import { PRODUCTS, STORIES, RESTAURANTS } from '../data/mockData';
 import AgricLogo from '../components/AgricLogo';
+import ProductImage from '../components/ProductImage';
 
 
 const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
@@ -48,7 +49,7 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
         {PRODUCTS.filter(p => p.category === '熱銷商品').slice(0, 8).map(product => (
           <div key={product.id} className="min-w-[160px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden snap-start flex flex-col cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square">
-              <img src={product.images?.[0] || product.image} alt={product.name} className="w-full h-full object-cover" />
+              <ProductImage src={product.images?.[0] || product.image} alt={product.name} className="w-full h-full object-cover" />
               {product.level2_details?.certification?.includes('有機') && (
                 <div className="absolute top-2 left-2 bg-emerald-500 text-white text-[8px] font-black px-2 py-0.5 rounded-md shadow-sm border border-white/20">
                   ORGANIC
@@ -86,7 +87,7 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
       <div className="space-y-4">
         {STORIES.slice(0, 2).map(story => (
           <div key={story.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex gap-3 p-3">
-            <img src={story.image} alt={story.title} className="w-24 h-24 object-cover rounded-xl shrink-0" />
+            <ProductImage src={story.image} alt={story.title} className="w-24 h-24 object-cover rounded-xl shrink-0" />
             <div className="flex flex-col justify-center">
               <span className={`text-[10px] font-black px-2 py-0.5 rounded-md w-fit mb-1 ${story.type === '活動' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'}`}>
                 {story.type}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BookOpen, Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
 import { STORIES, PRODUCTS } from '../data/mockData';
+import ProductImage from '../components/ProductImage';
 
 const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => (
   <div className="pb-24 animate-in fade-in duration-500 bg-stone-50 min-h-screen">
@@ -26,7 +27,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => (
         return (
           <div key={story.id} className="bg-white rounded-[2.5rem] shadow-xl shadow-stone-200/50 border border-stone-100 overflow-hidden flex flex-col group">
             <div className="relative h-64 overflow-hidden">
-              <img 
+              <ProductImage 
                 src={story.image} 
                 alt={story.title} 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
@@ -57,7 +58,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => (
               {/* Content-Commerce Bridge */}
               {relatedProduct && (
                 <div className="bg-emerald-50 rounded-2xl p-4 mb-6 flex items-center gap-4 border border-emerald-100 hover:border-emerald-300 transition-colors cursor-pointer" onClick={() => setSelectedProduct(relatedProduct)}>
-                  <img src={relatedProduct.image} alt={relatedProduct.name} className="w-12 h-12 object-cover rounded-xl shadow-sm" />
+                  <ProductImage src={relatedProduct.images?.[0] || relatedProduct.image} alt={relatedProduct.name} className="w-12 h-12 object-cover rounded-xl shadow-sm" />
                   <div className="flex-1">
                     <p className="text-[10px] text-emerald-600 font-black uppercase">支持小農產物</p>
                     <p className="text-xs font-black text-gray-800 truncate">{relatedProduct.name}</p>

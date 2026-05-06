@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen } from 'lucide-react';
+import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
   const [viewMode, setViewMode] = useState('perServing'); // 'perServing' or 'per100g'
@@ -112,6 +113,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
   const [qty, setQty] = useState(1);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [openSections, setOpenSections] = useState({ intro: true, specs: false, nutrition: false });
+  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
   const scrollRef = useRef(null);
 
   if (!product) return null;
@@ -152,7 +154,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
         >
           {images.map((img, idx) => (
             <div key={idx} className="flex-shrink-0 w-full h-full snap-center">
-              <img src={img} alt={`${product.name}-${idx}`} className="w-full h-full object-cover" />
+              <ProductImage src={img} alt={`${product.name}-${idx}`} className="w-full h-full object-cover" />
             </div>
           ))}
         </div>
@@ -182,9 +184,28 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
             )}
           </div>
 
-          <h1 className="text-3xl font-black text-gray-900 leading-tight mb-8">{product.name}</h1>
+          <h1 className="text-3xl font-black text-gray-900 leading-tight mb-6">{product.name}</h1>
           
-          <div className="h-px bg-gray-50 w-full mb-2"></div>
+          {/* Icon-based Specs */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
+              <MapPin className="w-5 h-5 text-emerald-600 mb-2" />
+              <span className="text-[10px] text-gray-400 font-bold uppercase mb-1">Origin</span>
+              <span className="text-[11px] text-gray-900 font-black">{details.origin || '台灣'}</span>
+            </div>
+            <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
+              <Flame className="w-5 h-5 text-amber-500 mb-2" />
+              <span className="text-[10px] text-gray-400 font-bold uppercase mb-1">Roast</span>
+              <span className="text-[11px] text-gray-900 font-black">{details.roast_level || '中烘焙'}</span>
+            </div>
+            <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
+              <Activity className="w-5 h-5 text-teal-600 mb-2" />
+              <span className="text-[10px] text-gray-400 font-bold uppercase mb-1">Process</span>
+              <span className="text-[11px] text-gray-900 font-black">{details.processing || '水洗'}</span>
+            </div>
+          </div>
+
+          <div className="h-px bg-gray-100 w-full mb-2"></div>
 
           {/* Accordion Sections */}
           <div className="space-y-1">
@@ -193,7 +214,21 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
               isOpen={openSections.intro} 
               onClick={() => toggleSection('intro')}
             >
-              {details.intro || '暫無介紹內容'}
+              <div className="relative">
+                <div className={`transition-all duration-500 overflow-hidden ${isIntroExpanded ? 'max-h-[5000px]' : 'max-h-32 opacity-80'}`}>
+                  {details.intro || '暫無介紹內容'}
+                </div>
+                {!isIntroExpanded && details.intro?.length > 100 && (
+                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent flex items-end justify-center">
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); setIsIntroExpanded(true); }}
+                      className="text-emerald-600 text-xs font-black pb-2 flex items-center gap-1 hover:underline"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" /> 閱讀全文
+                    </button>
+                  </div>
+                )}
+              </div>
             </AccordionItem>
 
             <AccordionItem 

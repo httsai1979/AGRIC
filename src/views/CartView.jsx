@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShoppingCart, Plus, Minus, Trash2, ShieldCheck, ArrowRight, Sprout } from 'lucide-react';
+import ProductImage from '../components/ProductImage';
 
 const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -37,8 +38,8 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
           <div className="space-y-4 mt-2">
             {cart.map(item => (
               <div key={item.id} className="bg-white p-4 rounded-[2rem] shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-shadow">
-                <div className="relative w-24 h-24 shrink-0">
-                  <img src={item.images?.[0] || item.image} alt={item.name} className="w-full h-full object-cover rounded-2xl shadow-sm" />
+                <div className="relative w-24 h-24 shrink-0 overflow-hidden">
+                  <ProductImage src={item.images?.[0] || item.image} alt={item.name} className="w-full h-full object-cover rounded-2xl shadow-sm" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <span className="text-[10px] text-emerald-700 font-black bg-emerald-50 px-2.5 py-1 rounded-lg mb-2 inline-block border border-emerald-100">
@@ -114,10 +115,10 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
       )}
 
       {cart.length > 0 && (
-        <div className="fixed bottom-[75px] left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg p-5 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] border-t border-gray-100 z-40 rounded-t-[2.5rem]">
-          <button className="w-full bg-emerald-600 text-white font-black py-4 rounded-2xl shadow-xl shadow-emerald-600/30 hover:bg-emerald-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+        <div className="fixed bottom-[75px] left-0 right-0 max-w-md mx-auto bg-white/90 backdrop-blur-xl p-5 shadow-[0_-20px_40px_rgba(0,0,0,0.08)] border-t border-gray-100 z-[60] rounded-t-[2.5rem] animate-in slide-in-from-bottom duration-500">
+          <button className="w-full bg-emerald-600 text-white font-black py-4.5 rounded-2xl shadow-2xl shadow-emerald-600/40 hover:bg-emerald-700 active:scale-[0.98] transition-all flex items-center justify-center gap-3 text-base">
             前往結帳流程
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       )}
