@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, BookOpen, Building2, HelpCircle, User, ChevronRight, ArrowRight, Sprout, ShieldCheck } from 'lucide-react';
+import { Compass, BookOpen, Building2, HelpCircle, User, ChevronRight, ArrowRight, Leaf, ShieldCheck } from 'lucide-react';
 
 const DiscoveryCard = ({ title, subtitle, icon: Icon, onClick, color, bgColor }) => (
   <button 
@@ -92,7 +92,7 @@ const DiscoverView = ({ navigateTo }) => {
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
           <div className="flex items-center gap-3 mb-4">
-            <Sprout className="w-5 h-5 text-emerald-600" />
+            <Leaf className="w-5 h-5 text-emerald-600" />
             <span className="text-[10px] text-emerald-600 font-black uppercase tracking-widest">Brand Mission</span>
           </div>
           <h4 className="text-xl font-black text-gray-900 mb-4">由豐泰文教基金會<br/>獨資成立的社會企業</h4>
@@ -112,7 +112,7 @@ const DiscoverView = ({ navigateTo }) => {
           <span className="text-[8px] font-black uppercase text-gray-400">100% Traceable</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <Sprout className="w-5 h-5 text-gray-400" />
+          <Leaf className="w-5 h-5 text-gray-400" />
           <span className="text-[8px] font-black uppercase text-gray-400">Eco Friendly</span>
         </div>
         <div className="flex flex-col items-center gap-1">

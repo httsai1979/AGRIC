@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, ShoppingBag, Compass, ShoppingCart, Sprout, User } from 'lucide-react';
+import { Home, ShoppingBag, Compass, ShoppingCart, Leaf, User } from 'lucide-react';
 import HomeView from './views/HomeView';
 import ShopView from './views/ShopView';
 import StoriesView from './views/StoriesView';
@@ -70,7 +70,7 @@ export default function App() {
       {toastMessage && (
         <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] bg-gray-900/90 backdrop-blur-md text-white text-xs font-black px-6 py-4 rounded-[1.5rem] shadow-2xl whitespace-nowrap animate-slide-in-top flex items-center border border-white/10">
           <div className="bg-emerald-500 p-1 rounded-full mr-3">
-            <Sprout className="w-3.5 h-3.5 text-white" />
+            <Leaf className="w-3.5 h-3.5 text-white" />
           </div>
           {toastMessage}
         </div>

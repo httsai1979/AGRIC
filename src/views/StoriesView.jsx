@@ -12,7 +12,6 @@ import {
   Plus, 
   FileText, 
   ShoppingCart, 
-  Sprout, 
   Leaf 
 } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
@@ -132,7 +131,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
             onClick={() => { setActiveTab('food_education'); setExpandedStoryId(null); }}
             className={`flex-1 py-3 rounded-xl text-[13px] font-black transition-all duration-300 flex items-center justify-center gap-2 ${activeTab === 'food_education' ? 'bg-white text-emerald-700 shadow-sm' : 'text-gray-400'}`}
           >
-            <Sprout className="w-4 h-4" /> 食農教育
+            <Leaf className="w-4 h-4" /> 食農教育
           </button>
         </div>
       </div>
@@ -174,7 +173,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                 <div className="p-7">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-[11px] text-emerald-600 font-black uppercase tracking-widest flex items-center gap-1.5">
-                      {activeTab === 'field_story' ? <Leaf className="w-3 h-3" /> : <Sprout className="w-3 h-3" />}
+                      {activeTab === 'field_story' ? <Leaf className="w-3 h-3" /> : <Leaf className="w-3 h-3" />}
                       {activeTab === 'field_story' ? 'Farmer Spirit' : 'Educational'}
                     </span>
                     <div className="h-px bg-emerald-100 flex-1"></div>
@@ -263,7 +262,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
           <div className="flex gap-2 relative z-10">
             <input type="email" placeholder="您的電子郵件" className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
             <button className="bg-emerald-500 text-white font-black px-6 py-2.5 rounded-xl text-sm shadow-lg active:scale-95 transition-all flex items-center gap-2 mx-auto">
-              <Sprout className="w-4 h-4" /> 訂閱
+              <Leaf className="w-4 h-4" /> 訂閱
             </button>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, Leaf, Sprout, Users, CheckCircle2, TrendingUp, Mail, ArrowLeft, Download } from 'lucide-react';
+import { Building2, Leaf, Users, CheckCircle2, TrendingUp, Mail, ArrowLeft, Download } from 'lucide-react';
 import { ESG_DATA } from '../data/mockData';
 
 const EsgView = ({ onBack }) => (
@@ -34,7 +34,7 @@ const EsgView = ({ onBack }) => (
       <div className="bg-white rounded-[2.5rem] p-7 shadow-xl shadow-gray-200/50 border border-gray-100">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-black text-gray-900 flex items-center">
-            <Sprout className="w-6 h-6 mr-2 text-emerald-600" /> 六大永續解決方案
+            <Leaf className="w-6 h-6 mr-2 text-emerald-600" /> 六大永續解決方案
           </h2>
           <CheckCircle2 className="w-5 h-5 text-emerald-500" />
         </div>

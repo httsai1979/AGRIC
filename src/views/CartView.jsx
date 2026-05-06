@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingCart, Plus, Minus, Trash2, ShieldCheck, ArrowRight, Sprout } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Trash2, ShieldCheck, ArrowRight, Leaf } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
@@ -19,7 +19,7 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
             <div className="absolute inset-0 bg-emerald-100/50 rounded-full animate-ping [animation-duration:3000ms]"></div>
             <ShoppingCart className="w-20 h-20 text-emerald-600 relative z-10" />
             <div className="absolute -bottom-2 -right-2 bg-white p-3 rounded-2xl shadow-lg border border-emerald-50">
-              <Sprout className="w-6 h-6 text-emerald-500" />
+              <Leaf className="w-6 h-6 text-emerald-500" />
             </div>
           </div>
           <h2 className="text-2xl font-black text-gray-900 mb-3">您的購物車還空著</h2>

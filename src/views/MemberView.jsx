@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Package, MessageSquare, HelpCircle, ShieldCheck, CreditCard, ChevronRight, LogOut, PhoneCall, Sprout, ArrowLeft } from 'lucide-react';
+import { User, Package, MessageSquare, HelpCircle, ShieldCheck, CreditCard, ChevronRight, LogOut, PhoneCall, Leaf, ArrowLeft } from 'lucide-react';
 import { SUPPORT_INFO } from '../data/mockData';
 
 const MemberView = ({ navigateTo, onBack }) => (
@@ -105,7 +105,7 @@ const MemberView = ({ navigateTo, onBack }) => (
       {/* About Section */}
       <div className="bg-stone-100/50 rounded-[2rem] p-6 border border-stone-200/50">
         <h3 className="font-black text-stone-800 flex items-center mb-3 text-sm">
-          <Sprout className="w-4 h-4 mr-2 text-emerald-600" /> 關於阿古力
+          <Leaf className="w-4 h-4 mr-2 text-emerald-600" /> 關於阿古力
         </h3>
         <p className="text-[11px] text-stone-500 leading-relaxed font-medium">
           豐泰文教基金會 2016 年獨資成立。推廣永續農業與友善食農，守護土地，穩定小農銷路。

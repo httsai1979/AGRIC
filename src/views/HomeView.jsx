@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Leaf, Gift, Building2, ChevronRight, Plus, Sprout, Heart, Loader2 } from 'lucide-react';
+import { Leaf, Gift, Building2, ChevronRight, Plus, Heart, Loader2 } from 'lucide-react';
 import { PRODUCTS, RESTAURANTS } from '../data/mockData';
 import AgricLogo from '../components/AgricLogo';
 import ProductImage from '../components/ProductImage';
@@ -126,7 +126,7 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
       {/* 合作綠色餐廳橫幅 */}
       <div className="mx-4 mt-8 bg-amber-50 rounded-[2rem] p-6 flex flex-col justify-center shadow-sm relative overflow-hidden group">
         <Heart className="absolute -right-4 -bottom-4 w-24 h-24 text-amber-500/10 group-hover:scale-110 transition-transform duration-700" />
-        <h3 className="font-black text-amber-800 text-sm mb-2 flex items-center"><Sprout className="w-4 h-4 mr-1" /> 有機之心・美食餐廳</h3>
+        <h3 className="font-black text-amber-800 text-sm mb-2 flex items-center"><Leaf className="w-4 h-4 mr-1" /> 有機之心・美食餐廳</h3>
         <p className="text-xs text-amber-700/80 mb-3 leading-relaxed font-medium">我們與 {RESTAURANTS.slice(0,3).join('、')} 等在地餐廳合作，將有機食材搬上餐桌！</p>
       </div>
 
@@ -158,7 +158,7 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
         </div>
         <div className="max-w-[280px]">
           <h4 className="text-gray-900 font-black mb-2 flex items-center justify-center gap-2">
-            關注阿古力 <Sprout className="w-5 h-5 text-emerald-600" />
+            關注阿古力 <Leaf className="w-5 h-5 text-emerald-600" />
           </h4>
           <p className="text-[11px] text-gray-500 font-medium leading-relaxed mb-4">
             加入阿古力 LINE 官方帳號，獲取第一手有機農產優惠與田間生活驚喜！
