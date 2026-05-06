@@ -12,7 +12,8 @@ import {
   Plus, 
   FileText, 
   ShoppingCart, 
-  Leaf 
+  Leaf,
+  Share2
 } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
@@ -94,14 +95,42 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
   const filteredStories = stories.filter(s => s.category === activeTab);
 
   const getRelatedProduct = (story) => {
+    // 1. Manual Rule: Suzhen's story -> '小農百香果凍' (P009)
+    if (story.title.includes('秀真') || story.keyFigures.includes('秀真')) {
+      return PRODUCTS.find(p => p.id === 'P009');
+    }
+    // 2. Manual Rule: Tu's story -> '土豆鳥永續米' (P006)
+    if (story.title.includes('涂') || story.keyFigures.includes('涂') || story.title.includes('小辮鴴')) {
+      return PRODUCTS.find(p => p.id === 'P006');
+    }
+    // 3. API provided ID
     if (story.relatedProductId) {
       return PRODUCTS.find(p => String(p.id) === String(story.relatedProductId));
     }
+    // 4. Fuzzy Match by Key_Figures
     if (!story.keyFigures || story.keyFigures === '阿古力小農') return null;
     return PRODUCTS.find(p => 
       p.name.includes(story.keyFigures) || 
       p.level2_details?.intro?.includes(story.keyFigures)
     );
+  };
+
+  const handleShare = async (story) => {
+    const shareData = {
+      title: story?.title || '阿古力農人誌',
+      text: story?.content?.substring(0, 80) + '...',
+      url: window.location.href,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('已複製連結');
+      }
+    } catch (err) {
+      console.log('Share failed:', err);
+    }
   };
 
   return (
@@ -111,8 +140,13 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
           <button onClick={onBack} className="bg-gray-50 p-2 rounded-xl text-gray-500 hover:text-emerald-600 transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <div className="bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
-            <span className="text-[10px] text-emerald-700 font-black tracking-widest uppercase">Live Content Hub</span>
+          <div className="flex gap-2">
+            <button onClick={() => handleShare()} className="bg-gray-50 p-2 rounded-xl text-gray-500 hover:text-emerald-600 transition-colors">
+              <Share2 className="w-5 h-5" />
+            </button>
+            <div className="bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100 flex items-center">
+              <span className="text-[10px] text-emerald-700 font-black tracking-widest uppercase">Live Hub</span>
+            </div>
           </div>
         </div>
 
@@ -168,12 +202,18 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                       {story.type}
                     </span>
                   </div>
+                  <button 
+                    onClick={() => handleShare(story)}
+                    className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white/40 transition-colors"
+                  >
+                    <Share2 className="w-4 h-4" />
+                  </button>
                 </div>
 
                 <div className="p-7">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-[11px] text-emerald-600 font-black uppercase tracking-widest flex items-center gap-1.5">
-                      {activeTab === 'field_story' ? <Leaf className="w-3 h-3" /> : <Leaf className="w-3 h-3" />}
+                      <Leaf className="w-3 h-3" />
                       {activeTab === 'field_story' ? 'Farmer Spirit' : 'Educational'}
                     </span>
                     <div className="h-px bg-emerald-100 flex-1"></div>
@@ -254,6 +294,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
         )}
       </div>
       
+      {/* Footer Section */}
       <div className="mt-12 mb-8 px-6 text-center">
         <div className="bg-emerald-800 rounded-3xl p-8 shadow-2xl shadow-emerald-900/20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>

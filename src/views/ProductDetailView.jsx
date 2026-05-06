@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2 } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
@@ -138,6 +138,24 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: product.name,
+      text: product.level2_details?.intro?.substring(0, 80) + '...',
+      url: window.location.href,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('已複製連結');
+      }
+    } catch (err) {
+      console.log('Share failed:', err);
+    }
+  };
+
   return (
     <div className="pb-44 animate-in fade-in slide-in-from-right-4 duration-500 bg-white min-h-screen">
       {/* Top Header */}
@@ -147,6 +165,12 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
           className="bg-white/90 backdrop-blur-md text-emerald-800 p-2.5 rounded-2xl shadow-xl border border-white/50 active:scale-90 transition-all pointer-events-auto"
         >
           <ArrowLeft className="w-6 h-6" />
+        </button>
+        <button 
+          onClick={handleShare}
+          className="bg-white/90 backdrop-blur-md text-emerald-800 p-2.5 rounded-2xl shadow-xl border border-white/50 active:scale-90 transition-all pointer-events-auto"
+        >
+          <Share2 className="w-6 h-6" />
         </button>
       </div>
 
