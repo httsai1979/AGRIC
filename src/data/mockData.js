@@ -1,6 +1,7 @@
 export const PRODUCTS = [
 {
     id: "P001",
+    hasReport: true,
     category: "熱銷商品",
     name: "脆爆BON米香-莓果BeLieve",
     price: 160,
@@ -16,6 +17,7 @@ export const PRODUCTS = [
   },
 {
     id: "P002",
+    hasReport: true,
     category: "熱銷商品",
     name: "米樂拾穗方塊酥",
     price: 350,
@@ -31,6 +33,7 @@ export const PRODUCTS = [
   },
 {
     id: "P003",
+    hasReport: true,
     category: "熱銷商品",
     name: "米樂拾穗方塊酥-麥纖包",
     price: 150,
@@ -46,6 +49,7 @@ export const PRODUCTS = [
   },
 {
     id: "P004",
+    hasReport: true,
     category: "熱銷商品",
     name: "海苔黑米燒脆片100g",
     price: 180,
@@ -61,6 +65,7 @@ export const PRODUCTS = [
   },
 {
     id: "P005",
+    hasReport: true,
     category: "熱銷商品",
     name: "耘鄉糙米餅-雙色地瓜70g",
     price: 150,
@@ -76,6 +81,8 @@ export const PRODUCTS = [
   },
 {
     id: "P006",
+    hasReport: true,
+    reportImage: "https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A",
     category: "熱銷商品",
     name: "土豆鳥永續米(白米)",
     price: 120,
@@ -91,6 +98,7 @@ export const PRODUCTS = [
   },
 {
     id: "P007",
+    hasReport: true,
     category: "熱銷商品",
     name: "糙吉萊斯禮盒",
     price: 480,
@@ -106,6 +114,7 @@ export const PRODUCTS = [
   },
 {
     id: "P008",
+    hasReport: true,
     category: "熱銷商品",
     name: "耘鄉糙米餅-蝦子口味",
     price: 120,
@@ -121,6 +130,7 @@ export const PRODUCTS = [
   },
 {
     id: "P009",
+    hasReport: true,
     category: "熱銷商品",
     name: "小農百香果凍-400g-輕巧裝",
     price: 100,
@@ -136,6 +146,7 @@ export const PRODUCTS = [
   },
 {
     id: "P010",
+    hasReport: true,
     category: "熱銷商品",
     name: "純粹台灣咖啡",
     price: 400,
@@ -151,6 +162,7 @@ export const PRODUCTS = [
   },
 {
     id: "P011",
+    hasReport: true,
     category: "熱銷商品",
     name: "粒美麥(養生黑糖)",
     price: 100,
@@ -166,6 +178,7 @@ export const PRODUCTS = [
   },
 {
     id: "P012",
+    hasReport: true,
     category: "熱銷商品",
     name: "粒美麥(香醇可可)",
     price: 100,
@@ -181,6 +194,7 @@ export const PRODUCTS = [
   },
 {
     id: "P013",
+    hasReport: true,
     category: "熱銷商品",
     name: "青梅精養生軟糖",
     price: 100,
@@ -196,6 +210,7 @@ export const PRODUCTS = [
   },
 {
     id: "P014",
+    hasReport: true,
     category: "熱銷商品",
     name: "耘鄉糙米餅-雙色地瓜30g",
     price: 70,
@@ -211,6 +226,7 @@ export const PRODUCTS = [
   },
 {
     id: "P015",
+    hasReport: true,
     category: "熱銷商品",
     name: "海苔黑米燒脆片30g",
     price: 60,
@@ -226,6 +242,7 @@ export const PRODUCTS = [
   },
 {
     id: "P016",
+    hasReport: true,
     category: "熱銷商品",
     name: "小農百香果凍 1.5kg",
     price: 300,
@@ -236,11 +253,14 @@ export const PRODUCTS = [
       certification: "有機友善契作",
       spec: "1.5kg",
       storage: "常溫保存",
-      linked_story_id: "素貞"
+      linked_story_id: "素貞",
+    hasReport: true
     }
   },
 {
     id: "P017",
+    hasReport: true,
+    reportImage: "https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A",
     category: "熱銷商品",
     name: "耘鄉有機白米 2Kg (台南11號)",
     price: 320,
@@ -256,6 +276,8 @@ export const PRODUCTS = [
   },
 {
     id: "P018",
+    hasReport: true,
+    reportImage: "https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A",
     category: "耘鄉好米｜友善契作",
     name: "耘鄉有機白米 1Kg (台南11號)",
     price: 180,
@@ -271,6 +293,7 @@ export const PRODUCTS = [
   },
 {
     id: "P019",
+    hasReport: true,
     category: "耘鄉好米｜友善契作",
     name: "耘鄉黑米 1Kg (黑糙米)",
     price: 220,
@@ -286,6 +309,7 @@ export const PRODUCTS = [
   },
 {
     id: "P020",
+    hasReport: true,
     category: "耘鄉好米｜友善契作",
     name: "耘鄉糙米 1Kg (台南11號)",
     price: 160,
@@ -301,6 +325,7 @@ export const PRODUCTS = [
   },
 {
     id: "P021",
+    hasReport: true,
     category: "耘鄉好米｜友善契作",
     name: "土豆鳥永續米(黑米)",
     price: 150,
@@ -316,6 +341,7 @@ export const PRODUCTS = [
   },
 {
     id: "P022",
+    hasReport: true,
     category: "耘鄉好米｜友善契作",
     name: "土豆鳥米醬組",
     price: 550,
@@ -331,6 +357,7 @@ export const PRODUCTS = [
   },
 {
     id: "P023",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "小農花生醬",
     price: 250,
@@ -346,6 +373,7 @@ export const PRODUCTS = [
   },
 {
     id: "P024",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "糙米焙萃茶",
     price: 180,
@@ -361,6 +389,7 @@ export const PRODUCTS = [
   },
 {
     id: "P025",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "有機黑豆蔭油膏 420ml",
     price: 180,
@@ -376,6 +405,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD26",
+    hasReport: true,
     category: "耘鄉好米｜友善契作",
     name: "土豆鳥米醬組",
     price: 550,
@@ -391,6 +421,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD27",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "小農花生醬",
     price: 250,
@@ -406,6 +437,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD28",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "糙米焙萃茶",
     price: 180,
@@ -421,6 +453,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD29",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "有機黑豆蔭油膏 420ml",
     price: 180,
@@ -436,6 +469,8 @@ export const PRODUCTS = [
   },
 {
     id: "PROD30",
+    hasReport: true,
+    reportImage: "https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A",
     category: "小農特產｜自然好食",
     name: "有機黑豆蔭油清 420ml",
     price: 180,
@@ -451,6 +486,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD31",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "小農曬蘿蔔乾",
     price: 120,
@@ -466,6 +502,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD32",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "梅子燒酌酒［訂購請電洽］",
     price: null,
@@ -481,6 +518,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD33",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "白葡萄燒酌酒［訂購請電洽］",
     price: null,
@@ -496,6 +534,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD34",
+    hasReport: true,
     category: "小農特產｜自然好食",
     name: "耘鄉好果-鳳梨乾",
     price: 150,
@@ -511,6 +550,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD35",
+    hasReport: true,
     category: "在地好物｜",
     name: "古坑芭樂果乾",
     price: 150,
@@ -526,6 +566,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD36",
+    hasReport: true,
     category: "在地好物｜",
     name: "耘露燒酒組｜［訂購請來電］",
     price: null,
@@ -541,6 +582,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD37",
+    hasReport: true,
     category: "在地好物｜",
     name: "紫蘇醋",
     price: 350,
@@ -556,6 +598,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD38",
+    hasReport: true,
     category: "在地好物｜",
     name: "洛神花醋",
     price: 350,
@@ -571,6 +614,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD39",
+    hasReport: true,
     category: "在地好物｜",
     name: "土豆鳥娃娃",
     price: 450,
@@ -586,6 +630,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD40",
+    hasReport: true,
     category: "在地好物｜",
     name: "有機桑椹果茶包",
     price: 280,
@@ -601,6 +646,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD41",
+    hasReport: true,
     category: "在地好物｜",
     name: "享邑蜜處理咖啡",
     price: 450,
@@ -616,6 +662,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD42",
+    hasReport: true,
     category: "在地好物｜",
     name: "米香花生糖",
     price: 150,
@@ -631,6 +678,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD43",
+    hasReport: true,
     category: "在地好物｜",
     name: "草莓乾",
     price: 180,
@@ -646,6 +694,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD44",
+    hasReport: true,
     category: "在地好物｜",
     name: "草莓凍乾",
     price: 250,
@@ -661,6 +710,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD45",
+    hasReport: true,
     category: "在地好物｜",
     name: "台灣小麥方塊酥禮盒",
     price: 580,
@@ -676,6 +726,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD46",
+    hasReport: true,
     category: "在地好物｜",
     name: "月光下小麥塊",
     price: 150,
@@ -691,6 +742,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD47",
+    hasReport: true,
     category: "在地好物｜",
     name: "手作糙米餅乾",
     price: 120,
@@ -706,6 +758,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD48",
+    hasReport: true,
     category: "在地好物｜",
     name: "食蔬好麵",
     price: 220,
@@ -721,6 +774,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD49",
+    hasReport: true,
     category: "在地好物｜",
     name: "有機烘焙用米穀粉 (500G) /包",
     price: 150,
@@ -736,6 +790,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD50",
+    hasReport: true,
     category: "在地好物｜",
     name: "有機糙米糆條 240公克/盒",
     price: 180,
@@ -751,6 +806,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD51",
+    hasReport: true,
     category: "在地好物｜",
     name: "有機糙米米粉 200G/包 (4粒入)",
     price: 160,
@@ -766,6 +822,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD52",
+    hasReport: true,
     category: "在地好物｜",
     name: "有機南瓜糙米米粉 200G/包 (4粒入)",
     price: 180,
@@ -781,6 +838,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD53",
+    hasReport: true,
     category: "禮盒專區",
     name: "客製訂單",
     price: null,
@@ -796,6 +854,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD54",
+    hasReport: true,
     category: "禮盒專區",
     name: "醬油禮盒組 (420ml)",
     price: 650,
@@ -811,6 +870,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD55",
+    hasReport: true,
     category: "禮盒專區",
     name: "醬油禮盒組 (250ml)",
     price: 450,
@@ -826,6 +886,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD56",
+    hasReport: true,
     category: "糙米蝦餅５包＄５００",
     name: "耘鄉糙米餅-蝦子口味",
     price: 500,
@@ -841,6 +902,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD57",
+    hasReport: true,
     category: "海苔脆片１０包優惠",
     name: "海苔黑米燒脆片100g",
     price: 1500,
@@ -856,6 +918,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD58",
+    hasReport: true,
     category: "糙米餅-雙色地瓜５包＄６５０",
     name: "耘鄉糙米餅-雙色地瓜70g",
     price: 650,
@@ -871,6 +934,7 @@ export const PRODUCTS = [
   },
 {
     id: "PROD59",
+    hasReport: true,
     category: "芭樂乾５包 $６５０",
     name: "古坑芭樂果乾",
     price: 650,
@@ -887,6 +951,18 @@ export const PRODUCTS = [
 ];
 
 // STORIES migrated to /public/data/stories.json
+
+
+export const BRAND_CONTACT = {
+  facebook: "https://www.facebook.com/agric.tw",
+  instagram: "https://www.instagram.com/agric.tw/",
+  line: "https://line.me/R/ti/p/@agric",
+  line_id: "@agric"
+};
+
+export const GLOBAL_LINKS = {
+  inspection_reports: "https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A"
+};
 
 export const ESG_DATA = {
   esg_services: [
