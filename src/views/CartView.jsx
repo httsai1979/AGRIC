@@ -86,7 +86,7 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
 
       {/* Persistent Checkout Footer */}
       {cart.length > 0 && (
-        <div className="bg-white/95 backdrop-blur-xl p-8 shadow-[0_-15px_40px_rgba(0,0,0,0.06)] border-t border-gray-100 z-40 rounded-t-[3rem] shrink-0">
+        <div className="sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl p-8 shadow-[0_-15px_40px_rgba(0,0,0,0.06)] border-t border-gray-100 z-40 rounded-t-[3rem] shrink-0 mt-auto">
           <div className="flex justify-between items-center mb-2 px-2">
             <div className="flex flex-col">
               <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1">Total Amount</span>

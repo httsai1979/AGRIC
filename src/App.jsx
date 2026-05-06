@@ -157,12 +157,12 @@ export default function App() {
         </div>
 
         {/* Tab Navigation (iOS Frosted Glass Style) */}
-        <div className="bg-white/90 backdrop-blur-2xl border-t border-gray-100/50 flex justify-around items-center h-[85px] pb-safe shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.04)] z-[70] px-2 relative">
+        <div className="bg-white/95 backdrop-blur-2xl border-t border-gray-100/50 flex justify-around items-center h-[85px] pb-safe shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.04)] z-[70] px-2 relative">
           {[
-            { id: 'home', icon: Home, label: '首頁' },
-            { id: 'shop', icon: ShoppingBag, label: '市集' },
-            { id: 'cart', icon: ShoppingCart, label: '購物車', badge: totalItems },
-            { id: 'discover', icon: Compass, label: '探索' },
+            { id: 'home', Icon: Home, label: '首頁' },
+            { id: 'shop', Icon: ShoppingBag, label: '市集' },
+            { id: 'cart', Icon: ShoppingCart, label: '購物車', badge: totalItems },
+            { id: 'discover', Icon: Compass, label: '探索' },
           ].map(tab => (
             <button
               key={tab.id}
@@ -170,7 +170,7 @@ export default function App() {
               className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-all duration-300 active:scale-90 ${activeTab === tab.id ? 'text-[#14532d]' : 'text-gray-400'}`}
             >
               <div className="relative">
-                <tab.icon 
+                <tab.Icon 
                   className={`w-[24px] h-[24px] stroke-[2.2px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110' : ''}`} 
                 />
                 {tab.badge > 0 && (
