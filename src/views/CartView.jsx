@@ -15,7 +15,7 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
       {cart.length === 0 ? (
         <div className="flex-1 flex flex-col items-center justify-center p-12 text-center animate-in zoom-in-95 duration-700">
           <div className="w-48 h-48 bg-emerald-50 rounded-full flex items-center justify-center mb-8 shadow-inner relative">
-            <div className="absolute inset-0 bg-emerald-100/50 rounded-full animate-ping duration-[3000ms]"></div>
+            <div className="absolute inset-0 bg-emerald-100/50 rounded-full animate-ping [animation-duration:3000ms]"></div>
             <ShoppingCart className="w-20 h-20 text-emerald-600 relative z-10" />
             <div className="absolute -bottom-2 -right-2 bg-white p-3 rounded-2xl shadow-lg border border-emerald-50">
               <Sprout className="w-6 h-6 text-emerald-500" />
