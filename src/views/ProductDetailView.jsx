@@ -2,35 +2,28 @@ import React, { useState, useRef } from 'react';
 import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown } from 'lucide-react';
 
 const NutritionTable = ({ text }) => {
+  const [viewMode, setViewMode] = useState('perServing'); // 'perServing' or 'per100g'
+  
   if (!text) return null;
 
   try {
     const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-    
-    // Header extraction
     const servingSizeLine = lines.find(l => l.includes('每一份量'));
     const servingsPerPackLine = lines.find(l => l.includes('本包裝含'));
     
-    // Core items to look for
     const coreItems = ['熱量', '蛋白質', '脂肪', '飽和脂肪', '反式脂肪', '碳水化合物', '糖', '鈉'];
     const rows = [];
-    
     let currentItem = null;
     let currentValues = [];
     
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const match = coreItems.find(item => line.includes(item));
-      
       if (match) {
-        // Save previous item
-        if (currentItem) {
-          rows.push({ item: currentItem, values: currentValues });
-        }
+        if (currentItem) rows.push({ item: currentItem, values: currentValues });
         currentItem = line;
         currentValues = [];
       } else if (currentItem) {
-        // If it looks like a value (starts with number or is a unit)
         if (/^[0-9.]/.test(line) || /^[a-zA-Z]/.test(line) || line.includes('公克') || line.includes('大卡') || line.includes('毫克')) {
           currentValues.push(line);
         }
@@ -38,53 +31,61 @@ const NutritionTable = ({ text }) => {
     }
     if (currentItem) rows.push({ item: currentItem, values: currentValues });
 
-    // Process rows: combine unit with value if they are split
     const processedRows = rows.map(r => {
       let v1 = "", v2 = "";
       const vals = r.values;
-      
-      // Heuristic: if we have 4 items like [126, Kcal, 421, Kcal], combine them
-      if (vals.length === 4) {
-        v1 = `${vals[0]}${vals[1]}`;
-        v2 = `${vals[2]}${vals[3]}`;
-      } else if (vals.length === 2) {
-        v1 = vals[0];
-        v2 = vals[1];
-      } else {
-        // Just join them and split in half or something? 
-        // Let's just join all and if we can't figure it out, return null to fallback
-        return null;
-      }
+      if (vals.length === 4) { v1 = `${vals[0]}${vals[1]}`; v2 = `${vals[2]}${vals[3]}`; }
+      else if (vals.length === 2) { v1 = vals[0]; v2 = vals[1]; }
+      else return null;
       return { item: r.item, perServing: v1, per100g: v2 };
     }).filter(r => r !== null);
 
     if (processedRows.length === 0) throw new Error('No items found');
 
     return (
-      <div className="space-y-4">
-        <div className="flex justify-between text-[10px] text-gray-400 font-black border-b border-gray-200 pb-2 mb-2">
+      <div className="space-y-6">
+        {/* Header Info */}
+        <div className="flex justify-between items-center text-[10px] text-gray-400 font-black uppercase tracking-widest px-1">
           <span>{servingSizeLine || '每一份量'}</span>
           <span>{servingsPerPackLine || ''}</span>
         </div>
-        <div className="grid grid-cols-3 gap-2 text-[10px] font-black text-gray-400 mb-2 px-2">
-          <div className="col-span-1">項目</div>
-          <div className="text-right">每份</div>
-          <div className="text-right">每100g</div>
+
+        {/* Segmented Control */}
+        <div className="bg-gray-100 p-1 rounded-2xl flex">
+          <button 
+            onClick={() => setViewMode('perServing')}
+            className={`flex-1 py-2.5 rounded-xl text-xs font-black transition-all duration-300 ${viewMode === 'perServing' ? 'bg-white text-emerald-700 shadow-md scale-[1.02]' : 'text-gray-500'}`}
+          >
+            每份 (Per Serving)
+          </button>
+          <button 
+            onClick={() => setViewMode('per100g')}
+            className={`flex-1 py-2.5 rounded-xl text-xs font-black transition-all duration-300 ${viewMode === 'per100g' ? 'bg-white text-emerald-700 shadow-md scale-[1.02]' : 'text-gray-500'}`}
+          >
+            每 100g (Per 100g)
+          </button>
         </div>
-        <div className="space-y-1">
-          {processedRows.map((row, idx) => (
-            <div key={idx} className={`grid grid-cols-3 gap-2 p-2 rounded-lg ${idx % 2 === 0 ? 'bg-gray-100/50' : 'bg-transparent'}`}>
-              <div className="text-gray-900 font-bold">{row.item}</div>
-              <div className="text-right text-gray-600 font-medium">{row.perServing}</div>
-              <div className="text-right text-gray-600 font-medium">{row.per100g}</div>
-            </div>
-          ))}
+
+        {/* List View */}
+        <div className="divide-y divide-gray-100 px-1">
+          {processedRows.map((row, idx) => {
+            const isHighlight = row.item.includes('熱量');
+            return (
+              <div key={idx} className="flex justify-between items-center py-4">
+                <span className={`text-[13px] ${isHighlight ? 'text-gray-900 font-black' : 'text-gray-500 font-bold'}`}>
+                  {row.item}
+                </span>
+                <span className={`text-sm ${isHighlight ? 'text-amber-600 font-black text-lg' : 'text-gray-800 font-black'}`}>
+                  {viewMode === 'perServing' ? row.perServing : row.per100g}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
   } catch (e) {
-    // Fallback to plain text
-    return <div className="whitespace-pre-wrap">{text}</div>;
+    return <div className="whitespace-pre-wrap text-gray-600 leading-relaxed">{text}</div>;
   }
 };
 
