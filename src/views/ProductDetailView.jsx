@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3 } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
@@ -90,15 +90,20 @@ const NutritionTable = ({ text }) => {
   }
 };
 
-const AccordionItem = ({ title, isOpen, onClick, children, bg = "bg-white", textSize = "text-sm" }) => (
+const AccordionItem = ({ title, icon: Icon, isOpen, onClick, children, bg = "bg-white", textSize = "text-sm" }) => (
   <div className="border-b border-gray-100 last:border-0">
     <button 
       onClick={onClick}
       className="w-full py-5 flex items-center justify-between text-left group"
     >
-      <span className="text-sm font-black text-gray-900 group-hover:text-emerald-700 transition-colors">
-        {title}
-      </span>
+      <div className="flex items-center gap-3">
+        <div className={`p-2 rounded-xl transition-colors ${isOpen ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400 group-hover:bg-gray-200'}`}>
+          <Icon className="w-4 h-4" />
+        </div>
+        <span className="text-sm font-black text-gray-900 group-hover:text-emerald-700 transition-colors">
+          {title}
+        </span>
+      </div>
       <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-emerald-600' : ''}`} />
     </button>
     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[2000px] opacity-100 mb-6' : 'max-h-0 opacity-0'}`}>
@@ -174,12 +179,13 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
         <div className="bg-white rounded-[3.5rem] p-8 shadow-2xl shadow-emerald-900/5 border border-emerald-50">
           {/* Tags & Title */}
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="bg-emerald-50 text-emerald-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-emerald-100 uppercase tracking-widest">
+            <span className="bg-emerald-50 text-emerald-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-emerald-100 uppercase tracking-widest flex items-center gap-1.5">
+              <Sprout className="w-3 h-3" />
               {product.category}
             </span>
             {details.certification && (
-              <span className="bg-amber-50 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-amber-100 flex items-center">
-                <ShieldCheck className="w-3 h-3 mr-1" /> {details.certification}
+              <span className="bg-amber-50 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-amber-100 flex items-center gap-1.5">
+                <ShieldCheck className="w-3 h-3" /> {details.certification}
               </span>
             )}
           </div>
@@ -190,17 +196,14 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
               <MapPin className="w-5 h-5 text-emerald-600 mb-2" />
-              <span className="text-[10px] text-gray-400 font-bold uppercase mb-1">Origin</span>
               <span className="text-[11px] text-gray-900 font-black">{details.origin || '台灣'}</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
               <Flame className="w-5 h-5 text-amber-500 mb-2" />
-              <span className="text-[10px] text-gray-400 font-bold uppercase mb-1">Roast</span>
               <span className="text-[11px] text-gray-900 font-black">{details.roast_level || '中烘焙'}</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
               <Activity className="w-5 h-5 text-teal-600 mb-2" />
-              <span className="text-[10px] text-gray-400 font-bold uppercase mb-1">Process</span>
               <span className="text-[11px] text-gray-900 font-black">{details.processing || '水洗'}</span>
             </div>
           </div>
@@ -211,6 +214,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
           <div className="space-y-1">
             <AccordionItem 
               title="商品介紹" 
+              icon={Info}
               isOpen={openSections.intro} 
               onClick={() => toggleSection('intro')}
             >
@@ -222,7 +226,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent flex items-end justify-center">
                     <button 
                       onClick={(e) => { e.stopPropagation(); setIsIntroExpanded(true); }}
-                      className="text-emerald-600 text-xs font-black pb-2 flex items-center gap-1 hover:underline"
+                      className="text-emerald-600 text-xs font-black pb-2 flex items-center gap-1.5 hover:underline"
                     >
                       <BookOpen className="w-3.5 h-3.5" /> 閱讀全文
                     </button>
@@ -233,6 +237,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
             <AccordionItem 
               title="規格說明" 
+              icon={FileText}
               isOpen={openSections.specs} 
               onClick={() => toggleSection('specs')}
               bg="bg-stone-50/50"
@@ -242,6 +247,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
             <AccordionItem 
               title="營養標示" 
+              icon={BarChart3}
               isOpen={openSections.nutrition} 
               onClick={() => toggleSection('nutrition')}
               bg="bg-gray-50"
@@ -257,7 +263,9 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white border-t border-gray-100 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[3rem]">
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0">
-            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1">Total Price</p>
+            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1 flex items-center gap-1">
+              <BarChart3 className="w-2.5 h-2.5" /> Total Price
+            </p>
             <p className="text-2xl font-black text-amber-600">
               {product.price === null ? '請電洽' : <><span className="text-sm mr-0.5">NT$</span>{product.price * qty}</>}
             </p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, Leaf, Sprout, Users, CheckCircle2, TrendingUp, Mail, ArrowLeft } from 'lucide-react';
+import { Building2, Leaf, Sprout, Users, CheckCircle2, TrendingUp, Mail, ArrowLeft, Download } from 'lucide-react';
 import { ESG_DATA } from '../data/mockData';
 
 const EsgView = ({ onBack }) => (
@@ -47,6 +47,40 @@ const EsgView = ({ onBack }) => (
               <p className="text-sm text-gray-700 font-bold leading-snug group-hover:text-emerald-900">
                 {item}
               </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Resource Download Section */}
+      <div className="bg-white rounded-[2.5rem] p-7 shadow-xl shadow-gray-200/50 border border-gray-100">
+        <h2 className="text-lg font-black text-gray-900 mb-6 flex items-center">
+          <Download className="w-6 h-6 mr-2 text-emerald-600" /> 資源下載專區
+        </h2>
+        
+        <div className="space-y-4">
+          {[
+            {
+              title: '2025 企業福委會 ESG 綠色採購提案',
+              summary: '針對企業福委會設計，涵蓋節慶禮盒、員工日常採購及綠色點心方案，協助企業實踐永續採購並提升員工滿意度。',
+              link: '#'
+            },
+            {
+              title: '阿古力社會企業：企業永續與員工福祉共好提案',
+              summary: '深度結合食農教育與企業內部活動，透過契作認養、產地參訪與產地到餐桌的實踐，強化員工對企業 ESG 目標的認同感與參與度。',
+              link: '#'
+            }
+          ].map((doc, i) => (
+            <div key={i} className="group p-5 rounded-3xl border border-gray-100 bg-gray-50/50 hover:bg-emerald-50 hover:border-emerald-100 transition-all cursor-pointer">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
+                  <h3 className="text-sm font-black text-gray-800 group-hover:text-emerald-900 mb-2">{doc.title}</h3>
+                  <p className="text-xs text-gray-500 font-medium leading-relaxed">{doc.summary}</p>
+                </div>
+                <div className="p-3 bg-white rounded-2xl shadow-sm text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                  <Download className="w-5 h-5" />
+                </div>
+              </div>
             </div>
           ))}
         </div>

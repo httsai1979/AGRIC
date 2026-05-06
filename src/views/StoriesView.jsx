@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Calendar, ArrowRight, ArrowLeft, Loader2, User, Heart, ChevronDown, ChevronUp, Plus } from 'lucide-react';
+import { BookOpen, Calendar, ArrowRight, ArrowLeft, Loader2, User, Heart, ChevronDown, ChevronUp, Plus, FileText, ShoppingCart, Sprout, Leaf } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
 
@@ -89,22 +89,22 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
         </div>
 
         <h1 className="text-3xl font-black text-emerald-800 flex items-center mb-6">
-          < BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
+          <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
         </h1>
 
         {/* Tab Bar */}
         <div className="flex bg-gray-100 p-1 rounded-2xl">
           <button 
             onClick={() => { setActiveTab('field_story'); setExpandedStoryId(null); }}
-            className={`flex-1 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'field_story' ? 'bg-white text-emerald-700 shadow-sm' : 'text-gray-400'}`}
+            className={`flex-1 py-3 rounded-xl text-[13px] font-black transition-all duration-300 flex items-center justify-center gap-2 ${activeTab === 'field_story' ? 'bg-white text-emerald-700 shadow-sm' : 'text-gray-400'}`}
           >
-            田間故事
+            <Leaf className="w-4 h-4" /> 田間故事
           </button>
           <button 
             onClick={() => { setActiveTab('food_education'); setExpandedStoryId(null); }}
-            className={`flex-1 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'food_education' ? 'bg-white text-emerald-700 shadow-sm' : 'text-gray-400'}`}
+            className={`flex-1 py-3 rounded-xl text-[13px] font-black transition-all duration-300 flex items-center justify-center gap-2 ${activeTab === 'food_education' ? 'bg-white text-emerald-700 shadow-sm' : 'text-gray-400'}`}
           >
-            食農教育
+            <Sprout className="w-4 h-4" /> 食農教育
           </button>
         </div>
       </div>
@@ -144,7 +144,10 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
 
                 <div className="p-7">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-[11px] text-emerald-600 font-black uppercase tracking-widest">{activeTab === 'field_story' ? 'Farmer Spirit' : 'Educational'}</span>
+                    <span className="text-[11px] text-emerald-600 font-black uppercase tracking-widest flex items-center gap-1.5">
+                      {activeTab === 'field_story' ? <Leaf className="w-3 h-3" /> : <Sprout className="w-3 h-3" />}
+                      {activeTab === 'field_story' ? 'Farmer Spirit' : 'Educational'}
+                    </span>
                     <div className="h-px bg-emerald-100 flex-1"></div>
                   </div>
                   
@@ -166,7 +169,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                     {isExpanded ? (
                       <span className="flex items-center gap-1.5 underline decoration-2 underline-offset-4"><ChevronUp className="w-4 h-4" /> 收合內容</span>
                     ) : (
-                      <span className="flex items-center gap-1.5 underline decoration-2 underline-offset-4">閱讀全文 <ArrowRight className="w-4 h-4" /></span>
+                      <span className="flex items-center gap-1.5 underline decoration-2 underline-offset-4"><FileText className="w-4 h-4" /> 閱讀全文 <ArrowRight className="w-4 h-4" /></span>
                     )}
                   </button>
 
@@ -194,9 +197,9 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                                 e.stopPropagation();
                                 addToCart(product);
                               }}
-                              className="bg-white text-emerald-600 border border-emerald-200 p-2.5 rounded-xl shadow-sm hover:bg-emerald-600 hover:text-white transition-colors"
+                              className="bg-white text-emerald-600 border border-emerald-200 p-2.5 rounded-xl shadow-sm hover:bg-emerald-600 hover:text-white transition-colors flex items-center justify-center"
                             >
-                              <Plus className="w-4 h-4" />
+                              <ShoppingCart className="w-4 h-4" />
                             </button>
                           </div>
                         ))}
@@ -234,8 +237,8 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
           <p className="text-sm text-emerald-100/70 mb-6 relative z-10 font-medium">第一手接收來自雲端與田間的真實故事。</p>
           <div className="flex gap-2 relative z-10">
             <input type="email" placeholder="您的電子郵件" className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
-            <button className="bg-emerald-500 text-white font-black px-6 py-2.5 rounded-xl text-sm shadow-lg active:scale-95 transition-all">
-              訂閱
+            <button className="bg-emerald-500 text-white font-black px-6 py-2.5 rounded-xl text-sm shadow-lg active:scale-95 transition-all flex items-center gap-2 mx-auto">
+              <Sprout className="w-4 h-4" /> 訂閱
             </button>
           </div>
         </div>

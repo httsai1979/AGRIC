@@ -133,9 +133,15 @@ export default function App() {
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-all duration-300 ${activeTab === tab.id ? 'text-emerald-600 scale-105' : 'text-gray-400 hover:text-emerald-500'}`}
           >
             <div className="relative mt-1">
-              <tab.icon className={`w-[20px] h-[20px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110 stroke-[2.5px]' : 'stroke-2'}`} />
+              <tab.icon 
+                className={`w-[20px] h-[20px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110 stroke-[2.5px]' : 'stroke-2'}`} 
+                fill={activeTab === tab.id ? 'currentColor' : 'none'}
+              />
               {tab.badge > 0 && (
-                <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full min-w-[15px] text-center border-2 border-white shadow-sm">
+                <span 
+                  key={tab.badge}
+                  className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full min-w-[15px] text-center border-2 border-white shadow-sm animate-pop"
+                >
                   {tab.badge}
                 </span>
               )}
