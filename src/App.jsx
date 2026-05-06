@@ -163,26 +163,26 @@ export default function App() {
             { id: 'shop', Icon: ShoppingBag, label: '市集' },
             { id: 'cart', Icon: ShoppingCart, label: '購物車', badge: totalItems },
             { id: 'discover', Icon: Compass, label: '探索' },
-          ].map(tab => (
+          ].map(({ id, Icon, label, badge }) => (
             <button
-              key={tab.id}
-              onClick={() => navigateTo(tab.id)}
-              className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-all duration-300 active:scale-90 ${activeTab === tab.id ? 'text-[#14532d]' : 'text-gray-400'}`}
+              key={id}
+              onClick={() => navigateTo(id)}
+              className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-all duration-300 active:scale-90 ${activeTab === id ? 'text-[#14532d]' : 'text-gray-400'}`}
             >
               <div className="relative">
-                <tab.Icon 
-                  className={`w-[24px] h-[24px] stroke-[2.2px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110' : ''}`} 
+                <Icon 
+                  className={`w-[24px] h-[24px] stroke-[2.2px] transition-all duration-300 ${activeTab === id ? 'scale-110' : ''}`} 
                 />
-                {tab.badge > 0 && (
+                {badge > 0 && (
                   <span 
                     className="absolute -top-2 -right-2 bg-amber-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center border-2 border-white shadow-xl animate-pop"
                   >
-                    {tab.badge}
+                    {badge}
                   </span>
                 )}
               </div>
-              <span className={`text-[10px] tracking-tight ${activeTab === tab.id ? 'font-black' : 'font-bold'}`}>{tab.label}</span>
-              {activeTab === tab.id && <div className="absolute bottom-2 w-1.5 h-1.5 bg-[#14532d] rounded-full shadow-[0_0_8px_rgba(20,83,45,0.4)]"></div>}
+              <span className={`text-[10px] tracking-tight ${activeTab === id ? 'font-black' : 'font-bold'}`}>{label}</span>
+              {activeTab === id && <div className="absolute bottom-2 w-1.5 h-1.5 bg-[#14532d] rounded-full shadow-[0_0_8px_rgba(20,83,45,0.4)]"></div>}
             </button>
           ))}
         </div>
