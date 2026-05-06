@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingCart, Plus, Minus, Trash2 } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Trash2, ShieldCheck } from 'lucide-react';
 
 const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
