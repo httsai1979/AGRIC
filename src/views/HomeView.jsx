@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Leaf, Gift, Building2, ChevronRight, Plus, Heart, Loader2 } from 'lucide-react';
-import { PRODUCTS, RESTAURANTS } from '../data/mockData';
+import { PRODUCTS, RESTAURANTS, BRAND_CONTACT } from '../data/mockData';
 import AgricLogo from '../components/AgricLogo';
 import ProductImage from '../components/ProductImage';
 
@@ -163,26 +163,30 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
             <Building2 className="w-4 h-4 text-emerald-400" />
             <span className="text-[10px] text-emerald-400 font-black uppercase tracking-[0.2em]">B2B & ESG Solutions</span>
           </div>
-          <h3 className="text-lg font-black text-white mb-2 leading-tight">量身打造企業綠色採購方案</h3>
-          <p className="text-emerald-100/60 text-xs mb-4 font-medium">提升企業永續價值，讓您的每一份採購都轉化為社會正向影響力。</p>
-          <div className="flex items-center gap-2 text-emerald-400 text-xs font-black">
-            立即洽詢 ESG 合作 <ChevronRight className="w-4 h-4" />
-          </div>
-        </div>
-      </div>
-
-      {/* Social Footer */}
-      <div className="mt-16 px-8 py-12 bg-white border-t border-gray-100/50 flex flex-col items-center text-center">
-        <div className="flex gap-6 mb-8">
-          <a href="#" className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm active:scale-90 transition-all">
+          <h3 className="text-lg font-black text-white mb-2 leading-tight">量身打造企�        <div className="flex gap-6 mb-8">
+          <a href={BRAND_CONTACT.facebook} target="_blank" rel="noreferrer" className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm active:scale-90 transition-all">
             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </a>
-          <a href="#" className="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600 shadow-sm active:scale-90 transition-all">
-            <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.063 1.366-.333 2.633-1.308 3.608-.975.975-2.242 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.063-2.633-.333-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.063-1.366.333-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.44-.645 1.44-1.44s-.645-1.44-1.44-1.44z"/></svg>
+          <a href={BRAND_CONTACT.instagram} target="_blank" rel="noreferrer" className="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600 shadow-sm active:scale-90 transition-all">
+            <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.063 1.366-.333 2.633-1.308 3.608-.975-.975-2.242 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.063-2.633-.333-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.063-1.366.333-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.44-.645 1.44-1.44s-.645-1.44-1.44-1.44z"/></svg>
           </a>
         </div>
         <div className="max-w-[280px]">
           <h4 className="text-gray-900 font-black mb-2 flex items-center justify-center gap-2">
+            關注阿古力 <Leaf className="w-5 h-5 text-emerald-600" />
+          </h4>
+          <p className="text-[11px] text-gray-500 font-medium leading-relaxed mb-4">
+            加入阿古力 LINE 官方帳號，獲取第一手有機農產優惠與田間生活驚喜！
+          </p>
+          <a 
+            href={BRAND_CONTACT.line} 
+            target="_blank" 
+            rel="noreferrer"
+            className="inline-block bg-[#06C755] text-white font-black px-8 py-3 rounded-2xl text-[13px] shadow-xl shadow-green-600/20 active:scale-95 transition-all"
+          >
+            立即加入 LINE 好友
+          </a>
+        </div>       <h4 className="text-gray-900 font-black mb-2 flex items-center justify-center gap-2">
             關注阿古力 <Leaf className="w-5 h-5 text-emerald-600" />
           </h4>
           <p className="text-[11px] text-gray-500 font-medium leading-relaxed mb-4">

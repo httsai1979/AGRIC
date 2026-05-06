@@ -35,12 +35,13 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
         return res.json();
       })
       .then(data => {
-        if (!Array.isArray(data) || data.length === 0) {
+        const targetData = Array.isArray(data) ? data : (data['田間故事'] || Object.values(data).find(Array.isArray) || []);
+        if (!targetData || !Array.isArray(targetData) || targetData.length === 0) {
           console.warn('API response is empty or invalid:', data);
           throw new Error('Empty or invalid data format');
         }
         
-        const mappedData = data.map((item, index) => {
+        const mappedData = targetData.map((item, index) => {
           const imageUrls = item.Images ? item.Images.split(',').map(img => img.trim()) : [];
           return {
             id: item.id || index,
