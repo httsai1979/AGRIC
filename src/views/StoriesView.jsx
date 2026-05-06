@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
+import AgricLogo from '../components/AgricLogo';
 
 // Google Apps Script Web App URL - LIVE SOURCE
 const GAS_API_URL = "https://script.google.com/macros/s/AKfycbyHvJ97y6zbXYt-U651w9Uu5zAdIdzfjC1ZyrvVwtfLdWoSH8aPGk5epooawjDHLJcQEg/exec"; 
@@ -134,9 +135,12 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
           </div>
         </div>
 
-        <h1 className="text-3xl font-black text-emerald-800 flex items-center mb-6">
-          <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
-        </h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-3xl font-black text-emerald-800 flex items-center">
+            <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
+          </h1>
+          <AgricLogo className="w-24 h-auto grayscale opacity-50" />
+        </div>
 
         <div className="flex bg-gray-100 p-1 rounded-2xl">
           <button 

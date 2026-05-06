@@ -13,7 +13,16 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
     fetch('/data/stories.json')
       .then(res => res.json())
       .then(data => {
-        setFeaturedStories(data.slice(0, 3)); // Use top 3 for Hero Carousel
+        const topStories = data.slice(0, 3); // Use top 3
+        const aboutUsSlide = {
+          id: 'about-us-hero',
+          title: '源於一份守護土地的承諾',
+          description: '由財團法人豐泰文教基金會獨資成立，以推廣永續農業、促進食品安全、提升有機農業產值為目標，帶動在地永續生態。',
+          image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1600',
+          isAboutUs: true,
+          type: 'Brand Legacy'
+        };
+        setFeaturedStories([aboutUsSlide, ...topStories]);
         setLoadingStories(false);
       })
       .catch(err => {
@@ -52,8 +61,10 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
         )}
 
         <div className="relative z-20 text-center flex flex-col items-center px-8 mt-12 w-full max-w-2xl">
-          <div className="mb-8 animate-in zoom-in duration-1000 drop-shadow-xl">
-            <AgricLogo className="w-24 h-24" />
+          <div className="mb-8 animate-in zoom-in duration-1000">
+            <div className="bg-white/95 backdrop-blur-md px-6 py-4 rounded-[2rem] shadow-2xl inline-block border border-white">
+              <AgricLogo className="w-40 md:w-56 h-auto" />
+            </div>
           </div>
           
           <div className="space-y-6 w-full relative min-h-[220px] flex items-center justify-center">
@@ -62,14 +73,22 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
                 key={`text-${story.id}`}
                 className={`absolute inset-x-0 transition-all duration-1000 flex flex-col items-center justify-center ${idx === currentHeroIdx ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}`}
               >
-                <span className="text-amber-400 font-bold tracking-widest text-[10px] sm:text-xs mb-3 drop-shadow-md border border-amber-400/50 px-3 py-1 rounded-full backdrop-blur-sm">VOICE OF THE LAND</span>
+                <span className="text-amber-400 font-bold tracking-widest text-[10px] sm:text-xs mb-3 drop-shadow-md border border-amber-400/50 px-3 py-1 rounded-full backdrop-blur-sm uppercase">
+                  {story.type === 'Brand Legacy' ? story.type : 'VOICE OF THE LAND'}
+                </span>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight drop-shadow-2xl mb-4 text-center px-4">
                   {story.title}
                 </h1>
-                <div className="bg-black/30 backdrop-blur-md p-5 rounded-[2rem] border border-white/10 shadow-2xl w-full">
+                <div 
+                  className="bg-black/30 backdrop-blur-md p-5 rounded-[2rem] border border-white/10 shadow-2xl w-full cursor-pointer hover:bg-black/40 transition-colors group"
+                  onClick={() => story.isAboutUs ? navigateTo('about') : navigateTo('stories')}
+                >
                   <p className="text-white/95 text-sm leading-relaxed font-medium line-clamp-3">
                     "{story.description}"
                   </p>
+                  <div className="flex justify-end mt-3 text-emerald-300 text-xs font-bold items-center gap-1 group-hover:text-emerald-200 transition-colors">
+                    {story.isAboutUs ? '探索品牌靈魂' : '閱讀完整故事'} <ChevronRight className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
             ))}

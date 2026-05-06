@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Building2, Leaf, Users, Heart, TrendingUp, Download, ArrowLeft, Gift } from 'lucide-react';
+import AgricLogo from '../components/AgricLogo';
 
 const ESG_SOLUTIONS = [
   {
@@ -60,12 +61,15 @@ const EsgView = ({ onBack }) => {
     <div className="pb-24 animate-in fade-in duration-500 bg-gray-50 min-h-screen">
       {/* Professional Header */}
       <div className="bg-emerald-900 pt-12 pb-16 px-8 rounded-b-[3rem] shadow-2xl relative overflow-hidden">
-        <button 
-          onClick={onBack}
-          className="mb-6 bg-white/10 backdrop-blur-md text-white p-2 rounded-xl hover:bg-white/20 transition-colors border border-white/10 relative z-20"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
+        <div className="flex items-center justify-between mb-6 relative z-20">
+          <button 
+            onClick={onBack}
+            className="bg-white/10 backdrop-blur-md text-white p-2 rounded-xl hover:bg-white/20 transition-colors border border-white/10"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <AgricLogo className="w-28 h-auto brightness-0 invert opacity-70" />
+        </div>
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-800/30 rounded-full -mr-20 -mt-20 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-700/20 rounded-full -ml-20 -mb-20 blur-2xl"></div>
         

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ShoppingBag, Plus, Leaf, Package, ShoppingCart, ShieldCheck } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
+import AgricLogo from '../components/AgricLogo';
 
 const ShopView = ({ addToCart, setSelectedProduct, initialCategory }) => {
   const [activeCategory, setActiveCategory] = useState(initialCategory || '全部商品');
@@ -16,9 +17,12 @@ const ShopView = ({ addToCart, setSelectedProduct, initialCategory }) => {
   return (
     <div className="pb-24 animate-in fade-in duration-500">
       <div className="sticky top-0 bg-white/95 backdrop-blur-md z-30 pt-6 pb-3 px-4 shadow-sm">
-        <h1 className="text-2xl font-black text-emerald-800 mb-4 flex items-center">
-          <ShoppingBag className="w-7 h-7 mr-3 text-emerald-600" /> 線上逛市集
-        </h1>
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-2xl font-black text-emerald-800 flex items-center">
+            <ShoppingBag className="w-7 h-7 mr-3 text-emerald-600" /> 線上逛市集
+          </h1>
+          <AgricLogo className="h-5 w-auto opacity-50 grayscale" />
+        </div>
         <div className="flex gap-3 overflow-x-auto pb-3 px-1 hide-scrollbar snap-x snap-mandatory scroll-smooth">
           {categories.map((cat, i) => (
             <button 

@@ -1,6 +1,7 @@
 import { Compass, BookOpen, Building2, HelpCircle, User, ChevronRight, ArrowRight, Leaf, ShieldCheck } from 'lucide-react';
 import { BRAND_CONTACT, GLOBAL_LINKS } from '../data/mockData';
 import SocialMatrix from '../components/SocialMatrix';
+import AgricLogo from '../components/AgricLogo';
 
 const DiscoveryCard = ({ title, subtitle, icon: Icon, onClick, color, bgColor }) => (
   <button 
@@ -64,8 +65,10 @@ const DiscoverView = ({ navigateTo }) => {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-700/20 rounded-full -ml-32 -mb-32 blur-2xl"></div>
         
         <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="w-20 h-20 bg-white/10 backdrop-blur-xl rounded-3xl flex items-center justify-center mb-6 border border-white/20 shadow-2xl">
-            <Compass className="w-10 h-10 text-emerald-400 animate-pulse" />
+          <div className="mb-6 animate-in zoom-in duration-1000">
+            <div className="bg-white/95 backdrop-blur-md px-5 py-3 rounded-2xl shadow-2xl inline-block border border-white">
+              <AgricLogo className="w-32 h-auto" />
+            </div>
           </div>
           <h1 className="text-3xl font-black text-white mb-3 tracking-tight">探索阿古力</h1>
           <p className="text-emerald-100/60 text-sm font-medium max-w-[240px]">
