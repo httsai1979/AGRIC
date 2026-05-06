@@ -11,17 +11,17 @@ const ShopView = ({ addToCart }) => {
     : PRODUCTS.filter(p => p.category === activeCategory);
 
   return (
-    <div className="pb-24 animate-in fade-in duration-300">
-      <div className="sticky top-0 bg-white/90 backdrop-blur-md z-30 pt-6 pb-3 px-4 shadow-sm">
+    <div className="pb-24 animate-in fade-in duration-500">
+      <div className="sticky top-0 bg-white/95 backdrop-blur-md z-30 pt-6 pb-3 px-4 shadow-sm">
         <h1 className="text-2xl font-black text-emerald-800 mb-4 flex items-center">
-          <ShoppingBag className="w-6 h-6 mr-2" /> 線上逛市集
+          <ShoppingBag className="w-7 h-7 mr-3 text-emerald-600" /> 線上逛市集
         </h1>
         <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
           {categories.map((cat, i) => (
             <button 
               key={i} 
               onClick={() => setActiveCategory(cat)} 
-              className={`whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${activeCategory === cat ? 'bg-emerald-600 text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+              className={`whitespace-nowrap px-5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-300 ${activeCategory === cat ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
             >
               {cat}
             </button>
@@ -31,22 +31,29 @@ const ShopView = ({ addToCart }) => {
 
       <div className="p-4 grid grid-cols-2 gap-4 bg-gray-50">
         {filteredProducts.map(product => (
-          <div key={product.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-            <div className="relative aspect-square">
-              <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-              <div className="absolute top-0 left-0 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-br-lg shadow-sm">
+          <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow group">
+            <div className="relative aspect-square overflow-hidden">
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-emerald-700 text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm">
                 {product.category}
               </div>
             </div>
-            <div className="p-3.5 flex flex-col flex-grow">
-              <h3 className="text-sm text-gray-800 font-bold line-clamp-2 h-10 leading-snug">{product.name}</h3>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-amber-600 font-black text-lg"><span className="text-xs">NT$</span>{product.price}</span>
+            <div className="p-4 flex flex-col flex-grow">
+              <h3 className="text-sm text-gray-800 font-bold line-clamp-2 h-10 leading-snug mb-3">{product.name}</h3>
+              <div className="mt-auto flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Price</span>
+                  <span className="text-amber-600 font-black text-lg"><span className="text-xs">NT$</span>{product.price}</span>
+                </div>
                 <button 
                   onClick={() => addToCart(product)} 
-                  className="bg-emerald-50 text-emerald-700 p-2 rounded-xl hover:bg-emerald-100 active:scale-90 transition"
+                  className="bg-emerald-600 text-white p-2.5 rounded-2xl shadow-md hover:bg-emerald-700 active:scale-90 transition-all"
                 >
-                  <Plus className="w-4 h-4" />
+                  <Plus className="w-5 h-5" />
                 </button>
               </div>
             </div>

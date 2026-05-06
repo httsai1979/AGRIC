@@ -6,13 +6,17 @@ import AgricLogo from '../components/AgricLogo';
 
 const HomeView = ({ setActiveTab, addToCart }) => (
   <div className="pb-24 animate-in fade-in duration-300">
-    {/* 品牌標頭 */}
-    <div className="relative h-64 bg-emerald-800 flex flex-col items-center justify-center overflow-hidden">
-      <img src="https://images.unsplash.com/photo-1505471768190-275e2ad7b3f9?auto=format&fit=crop&q=80&w=800" alt="Farm" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay" />
-      <div className="relative z-10 text-center flex flex-col items-center px-4">
-        <AgricLogo className="w-14 h-14 mb-3 border-2 border-emerald-400" />
-        <h1 className="text-3xl font-black text-white tracking-widest mb-2 drop-shadow-md">AGRIC 阿古力</h1>
-        <p className="text-sm font-medium text-emerald-50 bg-emerald-900/50 px-4 py-1.5 rounded-full backdrop-blur-sm">
+    {/* 品牌標頭 (Branding Hero) */}
+    <div className="relative h-72 bg-emerald-800 flex flex-col items-center justify-center overflow-hidden">
+      <img 
+        src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1200" 
+        alt="Farm Landscape" 
+        className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" 
+      />
+      <div className="relative z-10 text-center flex flex-col items-center px-6">
+        <AgricLogo className="w-16 h-16 mb-4" />
+        <h1 className="text-4xl font-black text-white tracking-[0.2em] mb-3 drop-shadow-lg">AGRIC 阿古力</h1>
+        <p className="text-[13px] font-bold text-white bg-emerald-900/60 backdrop-blur-md px-5 py-2 rounded-full border border-white/20 shadow-xl">
           連結田間故事與永續契作的食農藍圖
         </p>
       </div>

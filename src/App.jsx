@@ -46,8 +46,10 @@ export default function App() {
       
       {/* 快閃通知 */}
       {toastMessage && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] bg-gray-900 text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl whitespace-nowrap animate-in slide-in-from-top-4 fade-in flex items-center">
-          <Sprout className="w-4 h-4 mr-2 text-emerald-400" />
+        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] bg-gray-900/90 backdrop-blur-md text-white text-xs font-black px-6 py-4 rounded-[1.5rem] shadow-2xl whitespace-nowrap animate-slide-in-top flex items-center border border-white/10">
+          <div className="bg-emerald-500 p-1 rounded-full mr-3">
+            <Sprout className="w-3.5 h-3.5 text-white" />
+          </div>
           {toastMessage}
         </div>
       )}

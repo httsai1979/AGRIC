@@ -1,55 +1,89 @@
 import React from 'react';
-import { Building2, Leaf, Sprout, Users } from 'lucide-react';
+import { Building2, Leaf, Sprout, Users, CheckCircle2, TrendingUp, Mail } from 'lucide-react';
 import { ESG_DATA } from '../data/mockData';
 
 const EsgView = () => (
-  <div className="pb-24 animate-in fade-in duration-300 bg-gray-50 min-h-screen">
-    <div className="bg-emerald-800 pt-8 pb-10 px-6 rounded-b-[40px] shadow-md relative overflow-hidden">
-      <Leaf className="absolute -right-10 -top-10 w-48 h-48 text-emerald-700/50 mix-blend-overlay" />
-      <h1 className="text-2xl font-black text-white relative z-10">企業 ESG 永續服務</h1>
-      <p className="text-emerald-100 text-sm mt-2 font-medium relative z-10 leading-relaxed">
-        阿古力陪伴上市櫃企業，將「價格導向」轉向「價值導向」，共同實踐綠色採購與自然資本(TNFD)投資。
-      </p>
+  <div className="pb-24 animate-in fade-in duration-500 bg-gray-50 min-h-screen">
+    {/* Professional Header */}
+    <div className="bg-emerald-900 pt-12 pb-16 px-8 rounded-b-[3rem] shadow-2xl relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-800/30 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-700/20 rounded-full -ml-20 -mb-20 blur-2xl"></div>
+      
+      <div className="relative z-10">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="p-2 bg-emerald-500/20 rounded-xl backdrop-blur-sm border border-emerald-400/30">
+            <Building2 className="w-6 h-6 text-emerald-400" />
+          </div>
+          <span className="text-emerald-400 font-black text-xs uppercase tracking-widest">B2B Sustainability</span>
+        </div>
+        <h1 className="text-3xl font-black text-white mb-4 leading-tight">企業 ESG <br/>永續轉型解決方案</h1>
+        <p className="text-emerald-100/80 text-sm font-medium leading-relaxed max-w-xs">
+          阿古力陪伴企業將「價格導向」轉向「價值導向」，透過食農教育與綠色採購實踐自然資本投資。
+        </p>
+      </div>
     </div>
 
-    <div className="px-4 -mt-6 relative z-20 space-y-4">
-      {/* 服務項目 */}
-      <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
-        <h2 className="text-base font-black text-emerald-800 mb-4 flex items-center">
-          <Sprout className="w-5 h-5 mr-2 text-amber-500" /> 六大永續解決方案
-        </h2>
-        <ul className="space-y-3">
-          {ESG_DATA.esg_services.map((item, idx) => (
-            <li key={idx} className="flex items-start text-sm text-gray-700 font-medium leading-snug">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 mr-2.5 flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* 目標客群 */}
-      <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
-        <h2 className="text-base font-black text-emerald-800 mb-4 flex items-center">
-          <Users className="w-5 h-5 mr-2 text-amber-500" /> 合作對象與趨勢
-        </h2>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {ESG_DATA.target_clients.map((tag, i) => (
-            <span key={i} className="bg-gray-100 text-gray-600 text-[10px] font-bold px-3 py-1.5 rounded-lg">{tag}</span>
-          ))}
+    <div className="px-5 -mt-8 relative z-20 space-y-6">
+      {/* Services Section */}
+      <div className="bg-white rounded-[2.5rem] p-7 shadow-xl shadow-gray-200/50 border border-gray-100">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-black text-gray-900 flex items-center">
+            <Sprout className="w-6 h-6 mr-2 text-emerald-600" /> 六大永續解決方案
+          </h2>
+          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
         </div>
-        <div className="space-y-3">
-          {ESG_DATA.key_trends.map((trend, idx) => (
-            <div key={idx} className="text-xs text-gray-500 font-medium leading-relaxed bg-gray-50 p-3 rounded-xl">
-              {trend}
+        <div className="grid gap-4">
+          {ESG_DATA.esg_services.map((item, idx) => (
+            <div key={idx} className="flex items-start gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/50 group hover:bg-emerald-50 transition-colors">
+              <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5">
+                {idx + 1}
+              </div>
+              <p className="text-sm text-gray-700 font-bold leading-snug group-hover:text-emerald-900">
+                {item}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      <button className="w-full bg-amber-500 text-white font-black py-4 rounded-2xl shadow-lg shadow-amber-500/30 hover:bg-amber-600 active:scale-95 transition mt-4 mb-8">
-        聯絡專人規劃
-      </button>
+      {/* Target Clients & Trends */}
+      <div className="bg-white rounded-[2.5rem] p-7 shadow-xl shadow-gray-200/50 border border-gray-100">
+        <h2 className="text-lg font-black text-gray-900 mb-6 flex items-center">
+          <TrendingUp className="w-6 h-6 mr-2 text-amber-500" /> 合作價值與市場趨勢
+        </h2>
+        
+        <div className="mb-6">
+          <p className="text-xs text-gray-400 font-black uppercase tracking-widest mb-3">Key Target Clients</p>
+          <div className="flex flex-wrap gap-2">
+            {ESG_DATA.target_clients.map((tag, i) => (
+              <span key={i} className="bg-amber-50 text-amber-700 text-[10px] font-black px-4 py-2 rounded-xl border border-amber-100">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <p className="text-xs text-gray-400 font-black uppercase tracking-widest mb-1">Industry Trends</p>
+          {ESG_DATA.key_trends.map((trend, idx) => (
+            <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100">
+              <div className="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+              <p className="text-xs text-gray-600 font-bold leading-relaxed">{trend}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="pt-4 pb-8">
+        <button className="w-full bg-emerald-600 text-white font-black py-5 rounded-[2rem] shadow-2xl shadow-emerald-600/40 hover:bg-emerald-700 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+          <Mail className="w-5 h-5" />
+          聯絡專人規劃企業方案
+        </button>
+        <p className="text-center text-[10px] text-gray-400 mt-4 font-bold">
+          已有超過 50 家上市櫃企業選擇阿古力作為永續夥伴
+        </p>
+      </div>
     </div>
   </div>
 );
