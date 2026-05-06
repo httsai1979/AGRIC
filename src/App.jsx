@@ -8,7 +8,6 @@ import CartView from './views/CartView';
 import MemberView from './views/MemberView';
 import SupportView from './views/SupportView';
 import ProductDetailView from './views/ProductDetailView';
-import ProductDetailModal from './components/ProductDetailModal';
 import { PRODUCTS } from './data/mockData';
 
 export default function App() {
@@ -106,7 +105,7 @@ export default function App() {
             <div className="relative mt-1">
               <tab.icon className={`w-[20px] h-[20px] transition-all duration-300 ${activeTab === tab.id ? 'scale-110 stroke-[2.5px]' : 'stroke-2'}`} />
               {tab.badge > 0 && (
-                <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-[8px] font-black px-1 py-0.5 rounded-full min-w-[15px] text-center border border-white shadow-sm">
+                <span className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[8px] font-black px-1 py-0.5 rounded-full min-w-[15px] text-center border border-white shadow-sm">
                   {tab.badge}
                 </span>
               )}

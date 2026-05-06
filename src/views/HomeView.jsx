@@ -29,8 +29,8 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
         { icon: Gift, label: '六級加工', color: 'text-amber-500', bg: 'bg-amber-50', tab: 'shop' },
         { icon: Building2, label: 'ESG採購', color: 'text-teal-600', bg: 'bg-teal-50', tab: 'esg' },
       ].map((item, idx) => (
-        <div key={idx} className="flex flex-col items-center cursor-pointer active:scale-95 transition-transform" onClick={() => setActiveTab(item.tab)}>
-          <div className={`p-3.5 rounded-2xl ${item.bg} mb-2 shadow-inner`}>
+        <div key={idx} className="flex flex-col items-center cursor-pointer active:scale-95 transition-transform px-4 py-2" onClick={() => setActiveTab(item.tab)}>
+          <div className={`p-5 rounded-3xl ${item.bg} mb-2 shadow-inner`}>
             <item.icon className={`w-6 h-6 ${item.color}`} />
           </div>
           <span className="text-xs text-gray-700 font-bold tracking-wide">{item.label}</span>
@@ -49,6 +49,11 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
           <div key={product.id} className="min-w-[160px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden snap-start flex flex-col cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedProduct(product)}>
             <div className="relative aspect-square">
               <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+              {product.level2_details?.certification?.includes('有機') && (
+                <div className="absolute top-2 left-2 bg-emerald-500 text-white text-[8px] font-black px-2 py-0.5 rounded-md shadow-sm border border-white/20">
+                  ORGANIC
+                </div>
+              )}
             </div>
             <div className="p-3 flex flex-col flex-grow">
               <h3 className="text-sm text-gray-800 font-bold line-clamp-2 h-10 leading-snug">{product.name}</h3>

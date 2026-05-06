@@ -23,7 +23,7 @@ const ShopView = ({ addToCart, setSelectedProduct }) => {
             <button 
               key={i} 
               onClick={() => setActiveCategory(cat)} 
-              className={`whitespace-nowrap px-5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-300 ${activeCategory === cat ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+              className={`whitespace-nowrap px-6 py-3.5 rounded-2xl text-[13px] font-black transition-all duration-300 active:scale-95 ${activeCategory === cat ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20' : 'bg-gray-100 text-gray-500 hover:bg-gray-200 border border-gray-100/50'}`}
             >
               {cat}
             </button>
@@ -44,8 +44,8 @@ const ShopView = ({ addToCart, setSelectedProduct }) => {
                 <div className="bg-white/90 backdrop-blur-sm text-emerald-700 text-[10px] font-black px-2.5 py-1 rounded-lg shadow-sm">
                   {product.category}
                 </div>
-                {product.certifications?.includes("有機認證") && (
-                  <div className="bg-emerald-600 text-white text-[8px] font-black px-2 py-0.5 rounded-md shadow-sm border border-white/20 uppercase">
+                {product.level2_details?.certification?.includes("有機") && (
+                  <div className="bg-emerald-500 text-white text-[8px] font-black px-2 py-1 rounded-md shadow-sm border border-white/20 uppercase tracking-tighter">
                     Organic
                   </div>
                 )}
