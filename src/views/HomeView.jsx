@@ -23,17 +23,17 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
     </div>
 
     {/* 快捷功能 */}
-    <div className="flex justify-around bg-white py-5 px-2 shadow-sm rounded-b-3xl relative -mt-4 z-20 mx-2">
+    <div className="flex justify-around bg-white py-6 px-2 shadow-xl shadow-gray-200/50 rounded-[2.5rem] relative -mt-8 z-20 mx-4 border border-white/50">
       {[
         { icon: Leaf, label: '小農契作', color: 'text-emerald-600', bg: 'bg-emerald-50', tab: 'shop' },
         { icon: Gift, label: '六級加工', color: 'text-amber-500', bg: 'bg-amber-50', tab: 'shop' },
-        { icon: Building2, label: 'ESG採購', color: 'text-teal-600', bg: 'bg-teal-50', tab: 'esg' },
+        { icon: Building2, label: '探索阿古力', color: 'text-teal-600', bg: 'bg-teal-50', tab: 'discover' },
       ].map((item, idx) => (
-        <div key={idx} className="flex flex-col items-center cursor-pointer active:scale-95 transition-transform px-4 py-2" onClick={() => setActiveTab(item.tab)}>
-          <div className={`p-5 rounded-3xl ${item.bg} mb-2 shadow-inner`}>
+        <div key={idx} className="flex flex-col items-center cursor-pointer active:scale-95 transition-all duration-300 px-2" onClick={() => setActiveTab(item.tab)}>
+          <div className={`p-5 rounded-[2rem] ${item.bg} mb-3 shadow-inner group-hover:shadow-md transition-shadow`}>
             <item.icon className={`w-6 h-6 ${item.color}`} />
           </div>
-          <span className="text-xs text-gray-700 font-bold tracking-wide">{item.label}</span>
+          <span className="text-[13px] text-gray-700 font-black tracking-tighter">{item.label}</span>
         </div>
       ))}
     </div>
@@ -100,10 +100,52 @@ const HomeView = ({ setActiveTab, addToCart, setSelectedProduct }) => (
     </div>
 
     {/* 合作綠色餐廳橫幅 */}
-    <div className="mx-4 mt-8 mb-4 bg-amber-50 rounded-2xl p-4 flex flex-col justify-center border border-amber-100 shadow-sm relative overflow-hidden">
-      <Heart className="absolute -right-4 -bottom-4 w-24 h-24 text-amber-500/10" />
+    <div className="mx-4 mt-8 bg-amber-50 rounded-[2rem] p-6 flex flex-col justify-center shadow-sm relative overflow-hidden group">
+      <Heart className="absolute -right-4 -bottom-4 w-24 h-24 text-amber-500/10 group-hover:scale-110 transition-transform duration-700" />
       <h3 className="font-black text-amber-800 text-sm mb-2 flex items-center"><Sprout className="w-4 h-4 mr-1" /> 有機之心・美食餐廳</h3>
-      <p className="text-xs text-amber-700/80 mb-3 leading-relaxed">我們與 {RESTAURANTS.slice(0,3).join('、')} 等在地餐廳合作，將有機食材搬上餐桌！</p>
+      <p className="text-xs text-amber-700/80 mb-3 leading-relaxed font-medium">我們與 {RESTAURANTS.slice(0,3).join('、')} 等在地餐廳合作，將有機食材搬上餐桌！</p>
+    </div>
+
+    {/* ESG 企業採購 Banner (UX 提醒實作) */}
+    <div className="mx-4 mt-6 bg-emerald-900 rounded-[2rem] p-6 shadow-xl relative overflow-hidden group cursor-pointer" onClick={() => setActiveTab('esg')}>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+      <div className="relative z-10">
+        <div className="flex items-center gap-2 mb-3">
+          <Building2 className="w-4 h-4 text-emerald-400" />
+          <span className="text-[10px] text-emerald-400 font-black uppercase tracking-[0.2em]">B2B & ESG Solutions</span>
+        </div>
+        <h3 className="text-lg font-black text-white mb-2 leading-tight">量身打造企業綠色採購方案</h3>
+        <p className="text-emerald-100/60 text-xs mb-4 font-medium">提升企業永續價值，讓您的每一份採購都轉化為社會正向影響力。</p>
+        <div className="flex items-center gap-2 text-emerald-400 text-xs font-black">
+          立即洽詢 ESG 合作 <ChevronRight className="w-4 h-4" />
+        </div>
+      </div>
+    </div>
+
+    {/* Social Footer */}
+    <div className="mt-16 px-8 py-12 bg-white border-t border-gray-100/50 flex flex-col items-center text-center">
+      <div className="flex gap-6 mb-8">
+        <a href="#" className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm active:scale-90 transition-all">
+          <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="#" className="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600 shadow-sm active:scale-90 transition-all">
+          <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.063 1.366-.333 2.633-1.308 3.608-.975.975-2.242 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.063-2.633-.333-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.063-1.366.333-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.44-.645 1.44-1.44s-.645-1.44-1.44-1.44z"/></svg>
+        </a>
+      </div>
+      <div className="max-w-[280px]">
+        <h4 className="text-gray-900 font-black mb-2 flex items-center justify-center gap-2">
+          關注阿古力 <Sprout className="w-5 h-5 text-emerald-600" />
+        </h4>
+        <p className="text-[11px] text-gray-500 font-medium leading-relaxed mb-4">
+          加入阿古力 LINE 官方帳號，獲取第一手有機農產優惠與田間生活驚喜！
+        </p>
+        <button className="bg-[#06C755] text-white font-black px-8 py-3 rounded-2xl text-[13px] shadow-xl shadow-green-600/20 active:scale-95 transition-all">
+          立即加入 LINE 好友
+        </button>
+      </div>
+      <p className="mt-12 text-[10px] text-gray-300 font-bold tracking-widest uppercase">
+        Agric Social Enterprise © 2026
+      </p>
     </div>
   </div>
 );

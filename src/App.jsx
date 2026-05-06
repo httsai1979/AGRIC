@@ -76,6 +76,19 @@ export default function App() {
         </div>
       )}
 
+      {/* LINE 懸浮按鈕 */}
+      <a 
+        href="https://line.me/R/ti/p/@agric" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-24 right-6 z-[60] w-14 h-14 bg-[#06C755] rounded-full shadow-2xl flex items-center justify-center border-4 border-white active:scale-90 transition-all hover:rotate-6 group"
+      >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="LINE" className="w-8 h-8 invert brightness-0" />
+        <div className="absolute -top-12 right-0 bg-white px-3 py-1.5 rounded-xl shadow-lg border border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+          <p className="text-[10px] font-black text-gray-700">私訊小農客服</p>
+        </div>
+      </a>
+
       {/* 內容區塊 */}
       <div className="flex-1 overflow-y-auto hide-scrollbar">
         {viewState.currentView === 'home' && <HomeView setActiveTab={(tab) => navigateTo(tab)} addToCart={addToCart} setSelectedProduct={(p) => navigateTo('detail', { productId: p.id })} />}
@@ -107,7 +120,7 @@ export default function App() {
       </div>
 
       {/* 底部導覽列 */}
-      <div className="bg-white border-t border-gray-100 flex justify-around items-center h-[75px] pb-safe shrink-0 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] z-50 rounded-t-3xl px-2">
+      <div className="bg-white/80 backdrop-blur-xl border-t border-gray-100/50 flex justify-around items-center h-[65px] pb-safe shrink-0 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] z-50 rounded-t-[2.5rem] px-2">
         {[
           { id: 'home', icon: Home, label: '首頁' },
           { id: 'shop', icon: ShoppingBag, label: '市集' },

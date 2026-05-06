@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingCart, Plus, Minus, Trash2, ShieldCheck } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Trash2, ShieldCheck, ArrowRight, Sprout } from 'lucide-react';
 
 const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -13,19 +13,23 @@ const CartView = ({ cart, updateCartQty, removeFromCart, setActiveTab }) => {
       </div>
       
       {cart.length === 0 ? (
-        <div className="flex-1 flex flex-col items-center justify-center p-12 text-center animate-in zoom-in-95 duration-500">
-          <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-6 shadow-inner border border-gray-200/50">
-            <ShoppingCart className="w-14 h-14 text-gray-300" />
+        <div className="flex-1 flex flex-col items-center justify-center p-12 text-center animate-in zoom-in-95 duration-700">
+          <div className="w-48 h-48 bg-emerald-50 rounded-full flex items-center justify-center mb-8 shadow-inner relative">
+            <div className="absolute inset-0 bg-emerald-100/50 rounded-full animate-ping duration-[3000ms]"></div>
+            <ShoppingCart className="w-20 h-20 text-emerald-600 relative z-10" />
+            <div className="absolute -bottom-2 -right-2 bg-white p-3 rounded-2xl shadow-lg border border-emerald-50">
+              <Sprout className="w-6 h-6 text-emerald-500" />
+            </div>
           </div>
-          <h2 className="text-xl font-black text-gray-800 mb-2">您的購物車空空如也</h2>
-          <p className="text-sm text-gray-400 mb-8 max-w-[200px] leading-relaxed">
-            還沒挑選心儀的有機好物嗎？快去市集逛逛吧！
+          <h2 className="text-2xl font-black text-gray-900 mb-3">您的購物車還空著</h2>
+          <p className="text-sm text-gray-500 mb-10 max-w-[240px] leading-relaxed font-medium">
+            挑選一些來自土地的真誠好物，開啟您的永續餐桌之旅吧！
           </p>
           <button 
             onClick={() => setActiveTab('shop')} 
-            className="bg-emerald-600 text-white px-10 py-4 rounded-2xl font-black shadow-xl shadow-emerald-600/30 hover:bg-emerald-700 active:scale-95 transition-all"
+            className="bg-emerald-600 text-white px-12 py-4 rounded-[2rem] font-black shadow-2xl shadow-emerald-600/30 hover:bg-emerald-700 active:scale-95 transition-all flex items-center gap-2"
           >
-            去逛逛有機好物
+            去逛逛有機市集 <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       ) : (
