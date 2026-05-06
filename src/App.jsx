@@ -248,10 +248,28 @@ export default function App() {
         )}
         <button 
           onClick={() => setSupportOpen(!supportOpen)}
-          className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center border-4 border-white transition-all duration-300 ${supportOpen ? 'bg-gray-800 rotate-90' : 'bg-emerald-600 active:scale-90 hover:rotate-6'}`}
+          className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center border-4 border-white transition-all duration-300 ${supportOpen ? 'bg-gray-800 rotate-90' : 'bg-[#14532d] active:scale-90 hover:rotate-6'}`}
         >
           {supportOpen ? <X className="w-6 h-6 text-white" /> : <Headset className="w-6 h-6 text-white" />}
         </button>
+
+        {/* Floating LINE Button (Phase 4) */}
+        {!supportOpen && (viewState.currentView === 'shop' || viewState.currentView === 'detail') && (
+          <a 
+            href="https://line.me/R/ti/p/@agric" 
+            target="_blank" 
+            rel="noreferrer"
+            className="bg-[#06C755] text-white pr-6 pl-4 py-3 rounded-full shadow-2xl flex items-center gap-3 animate-in slide-in-from-right duration-500 hover:scale-105 active:scale-95 group border-2 border-white/20"
+          >
+            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:rotate-[15deg] transition-transform">
+              <MessageCircle className="w-5 h-5" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[10px] font-black leading-none opacity-80 uppercase tracking-tighter">Support</span>
+              <span className="text-xs font-black">諮詢小農夥伴</span>
+            </div>
+          </a>
+        )}
       </div>
 
       {/* 內容區塊 */}

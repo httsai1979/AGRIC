@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer, X } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
@@ -119,6 +119,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [openSections, setOpenSections] = useState({ intro: true, specs: false, nutrition: false });
   const [isIntroExpanded, setIsIntroExpanded] = useState(false);
+  const [showInspectionModal, setShowInspectionModal] = useState(false);
   const scrollRef = useRef(null);
 
   if (!product) return null;
@@ -237,22 +238,22 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
           {/* Accordion Sections */}
           <div className="space-y-1">
             <AccordionItem 
-              title="商品介紹" 
-              icon={Info}
+              title="農人故事" 
+              icon={BookOpen}
               isOpen={openSections.intro} 
               onClick={() => toggleSection('intro')}
             >
               <div className="relative">
                 <div className={`transition-all duration-500 overflow-hidden ${isIntroExpanded ? 'max-h-[5000px]' : 'max-h-32 opacity-80'}`}>
-                  {details.intro || '暫無介紹內容'}
+                  {details.intro || '暫無故事內容'}
                 </div>
-                {!isIntroExpanded && details.intro?.length > 100 && (
+                {!isIntroExpanded && (details.intro?.length > 100) && (
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent flex items-end justify-center">
                     <button 
                       onClick={(e) => { e.stopPropagation(); setIsIntroExpanded(true); }}
                       className="text-emerald-600 text-xs font-black pb-2 flex items-center gap-1.5 hover:underline"
                     >
-                      <BookOpen className="w-3.5 h-3.5" /> 閱讀全文
+                      <BookOpen className="w-3.5 h-3.5" /> 閱讀故事全文
                     </button>
                   </div>
                 )}
@@ -260,7 +261,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
             </AccordionItem>
 
             <AccordionItem 
-              title="規格說明" 
+              title="產品規格" 
               icon={FileText}
               isOpen={openSections.specs} 
               onClick={() => toggleSection('specs')}
@@ -280,8 +281,60 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
               <NutritionTable text={details.nutrition} />
             </AccordionItem>
           </div>
+
+          {/* 檢驗報告直擊 (Phase 3) */}
+          <div className="mt-10 pt-8 border-t border-gray-100">
+            <div className="bg-emerald-900 rounded-[2.5rem] p-6 shadow-2xl relative overflow-hidden group cursor-pointer" onClick={() => setShowInspectionModal(true)}>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+              <div className="relative z-10 flex items-center gap-4">
+                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
+                  <ShieldCheck className="w-8 h-8 text-emerald-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-black text-lg">檢驗合格保證</h4>
+                  <p className="text-emerald-100/60 text-[10px] font-bold uppercase tracking-widest">Inspection Certified</p>
+                </div>
+                <div className="ml-auto w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-emerald-500 transition-colors">
+                  <ChevronDown className="w-5 h-5 -rotate-90" />
+                </div>
+              </div>
+            </div>
+            <p className="mt-4 text-[11px] text-gray-400 font-medium leading-relaxed px-4 text-center">
+              阿古力堅持每一批產品皆通過第三方公正檢驗，確保無農藥殘留，讓您與家人吃得安心。
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Inspection Modal (Phase 3) */}
+      {showInspectionModal && (
+        <div className="fixed inset-0 z-[200] bg-black flex flex-col animate-in fade-in duration-300">
+          <div className="p-6 flex justify-between items-center text-white">
+            <div>
+              <h3 className="font-black text-lg">檢驗報告預覽</h3>
+              <p className="text-[10px] opacity-60 uppercase tracking-widest">Inspection Report</p>
+            </div>
+            <button onClick={() => setShowInspectionModal(false)} className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
+            <img 
+              src={product.reportImage || "https://cdn1.cybassets.com/s/files/14475/ckeditor/pictures/content_c2e30777-1772-430c-805b-80a82747183e.jpg"} 
+              alt="Inspection Report" 
+              className="max-w-full h-auto rounded-xl shadow-2xl"
+            />
+          </div>
+          <div className="p-8 text-center">
+            <button 
+              onClick={() => setShowInspectionModal(false)}
+              className="bg-white text-black font-black px-12 py-4 rounded-full shadow-2xl"
+            >
+              返回詳情
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Fixed Bottom Purchase Bar */}
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white border-t border-gray-100 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[3rem]">

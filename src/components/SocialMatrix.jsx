@@ -26,24 +26,24 @@ const SocialMatrix = ({ className = "" }) => {
   };
 
   return (
-    <div className={`bg-stone-100/50 rounded-[3rem] p-10 border border-stone-200/50 flex flex-col items-center text-center ${className}`}>
-      <h3 className="text-lg font-black text-gray-900 mb-2">關注我們</h3>
-      <p className="text-[10px] text-gray-400 font-bold mb-8 tracking-widest uppercase">Stay connected with our mission</p>
+    <div className={`bg-stone-100/50 rounded-[3.5rem] p-10 border border-stone-200/50 flex flex-col items-center text-center ${className}`}>
+      <h3 className="text-xl font-black text-gray-900 mb-2">點擊與阿古力對話</h3>
+      <p className="text-[10px] text-gray-400 font-bold mb-10 tracking-[0.2em] uppercase italic">Stay connected with our mission</p>
       
-      <div className="flex flex-col gap-6 w-full max-w-[280px]">
+      <div className="flex flex-col gap-8 w-full max-w-[300px]">
         {/* IG with Descriptive Text */}
         <a 
           href={BRAND_CONTACT.instagram} 
           target="_blank" 
           rel="noreferrer"
-          className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 group hover:border-pink-200 transition-all"
+          className="bg-white p-5 rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 flex items-center gap-5 group hover:border-pink-200 transition-all active:scale-[0.98]"
         >
-          <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600 group-hover:scale-110 transition-transform">
-            <Instagram className="w-6 h-6" />
+          <div className="w-14 h-14 bg-gradient-to-tr from-[#f09433] via-[#e6683c] to-[#bc1888] rounded-full flex items-center justify-center text-white shadow-lg shadow-pink-500/20 group-hover:rotate-[15deg] transition-transform">
+            <Instagram className="w-7 h-7" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-black text-gray-900">Instagram</p>
-            <p className="text-[10px] text-gray-400 font-bold">看阿古力田間日常</p>
+            <p className="text-sm font-black text-gray-900">Instagram</p>
+            <p className="text-[11px] text-gray-400 font-bold leading-relaxed">看阿古力田間日常</p>
           </div>
         </a>
 
@@ -52,46 +52,46 @@ const SocialMatrix = ({ className = "" }) => {
           href={BRAND_CONTACT.facebook} 
           target="_blank" 
           rel="noreferrer"
-          className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 group hover:border-blue-200 transition-all"
+          className="bg-white p-5 rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 flex items-center gap-5 group hover:border-blue-200 transition-all active:scale-[0.98]"
         >
-          <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
-            <Facebook className="w-6 h-6" />
+          <div className="w-14 h-14 bg-[#1877F2] rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:rotate-[-15deg] transition-transform">
+            <Facebook className="w-7 h-7" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-black text-gray-900">Facebook</p>
-            <p className="text-[10px] text-gray-400 font-bold">最新活動與永續資訊</p>
+            <p className="text-sm font-black text-gray-900">Facebook</p>
+            <p className="text-[11px] text-gray-400 font-bold leading-relaxed">最新活動與永續資訊</p>
           </div>
         </a>
 
         {/* LINE with Copy ID */}
-        <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-3">
+        <div className="bg-white p-5 rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 flex flex-col gap-4">
           <a 
             href={BRAND_CONTACT.line} 
             target="_blank" 
             rel="noreferrer"
-            className="flex items-center gap-4 group transition-all"
+            className="flex items-center gap-5 group transition-all"
           >
-            <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
-              <MessageCircle className="w-6 h-6" />
+            <div className="w-14 h-14 bg-[#06C755] rounded-full flex items-center justify-center text-white shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">
+              <MessageCircle className="w-7 h-7" />
             </div>
             <div className="text-left">
-              <p className="text-xs font-black text-gray-900">LINE 客服</p>
-              <p className="text-[10px] text-gray-400 font-bold">即時諮詢與訂單協助</p>
+              <p className="text-sm font-black text-gray-900">LINE 客服</p>
+              <p className="text-[11px] text-gray-400 font-bold leading-relaxed">即時諮詢與訂單協助</p>
             </div>
           </a>
           <button 
             onClick={handleCopy}
-            className="w-full bg-emerald-50 py-2 rounded-xl border border-emerald-100 flex items-center justify-center gap-2 text-emerald-700 hover:bg-emerald-100 transition-colors active:scale-[0.98]"
+            className="w-full bg-emerald-50/50 py-3 rounded-2xl border border-emerald-100 flex items-center justify-center gap-3 text-emerald-700 hover:bg-emerald-100 transition-colors active:scale-[0.98]"
           >
-            <span className="text-[10px] font-black uppercase tracking-wider">
+            <span className="text-[11px] font-black uppercase tracking-wider">
               ID: {BRAND_CONTACT.line_id}
             </span>
             {copied ? (
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             ) : (
-              <Copy className="w-3.5 h-3.5" />
+              <Copy className="w-4 h-4" />
             )}
-            <span className="text-[10px] font-black">{copied ? '已複製' : '點擊複製'}</span>
+            <span className="text-[11px] font-black">{copied ? '已複製成功' : '點擊複製 ID'}</span>
           </button>
         </div>
       </div>
