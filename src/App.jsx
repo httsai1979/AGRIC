@@ -9,6 +9,7 @@ import MemberView from './views/MemberView';
 import SupportView from './views/SupportView';
 import ProductDetailView from './views/ProductDetailView';
 import ProductDetailModal from './components/ProductDetailModal';
+import { PRODUCTS } from './data/mockData';
 
 export default function App() {
   const [viewState, setViewState] = useState({ currentView: 'home', params: null });

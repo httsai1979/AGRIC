@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookOpen, Calendar, ArrowRight } from 'lucide-react';
-import { STORIES } from '../data/mockData';
+import { STORIES, PRODUCTS } from '../data/mockData';
 
 const StoriesView = ({ addToCart, setSelectedProduct }) => (
   <div className="pb-24 animate-in fade-in duration-500 bg-stone-50 min-h-screen">
