@@ -886,53 +886,7 @@ export const PRODUCTS = [
   }
 ];
 
-export const STORIES = [
-  { 
-    id: 5, 
-    type: "故事", 
-    title: "腳踏實地的「在地農夫」", 
-    key_figures: "張芷宜", 
-    related_product_id: "P001", 
-    description: "擁有30年務農資歷的張芷宜，從慣行農法轉向有機耕作，在雲林建立「在地農夫」品牌。她發現有機耕作讓田間生態變好，蟲鳴鳥叫重現。", 
-    image: "https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80&w=400" 
-  },
-  { 
-    id: 1, 
-    type: "故事", 
-    title: "一日花：村姑素貞與不願放棄的百香果", 
-    key_figures: "素貞", 
-    related_product_id: "P009",
-    description: "即使面臨氣候變遷與病蟲害，素貞依然堅持無農藥友善耕作，守護每一顆百香果的純粹。這是一段關於韌性與土地共生的動人故事。", 
-    image: "https://images.unsplash.com/photo-1595856752763-718617781b0a?auto=format&fit=crop&q=80&w=400" 
-  },
-  { 
-    id: 2, 
-    type: "故事", 
-    title: "從工廠到農場，打斷手骨顛倒勇的有機創業之路", 
-    key_figures: "在地農夫", 
-    related_product_id: "P017",
-    description: "從機械工廠的高薪職位回到屏東農村，用雙手重新找回土地的生命力。面臨初期的連續虧損，他如何堅持並打造出如今的有機綠洲？", 
-    image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=400" 
-  },
-  { 
-    id: 3, 
-    type: "故事", 
-    title: "小農故事－凃先生", 
-    key_figures: "凃先生", 
-    related_product_id: "P006",
-    description: "腳踏實地的在地農夫，用最樸實的方式，種出最安心的作物。他相信只有健康的土地，才能孕育出有生命力的果實。", 
-    image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?auto=format&fit=crop&q=80&w=400" 
-  },
-  { 
-    id: 4, 
-    type: "活動", 
-    title: "豐泰家庭日｜豐心聚愛，益起同行", 
-    key_figures: "豐泰同仁與家人", 
-    related_product_id: "P007",
-    description: "2025 年豐泰家庭日首次以園遊會形式登場，透過食農工作坊與生態產地體驗，帶領上千個家庭親近友善農業，將環境永續理念深植於企業文化之中。", 
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=400" 
-  }
-];
+// STORIES migrated to /public/data/stories.json
 
 export const ESG_DATA = {
   esg_services: [
@@ -1060,3 +1014,4 @@ export const FAQ_DATA = {
     }
   ]
 };
+

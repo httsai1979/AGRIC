@@ -96,6 +96,37 @@ const SupportView = ({ onBack }) => {
           </p>
         </div>
 
+        {/* 安心檢驗報告 */}
+        <div className="bg-emerald-50/30 rounded-[2.5rem] p-8 border border-emerald-100">
+          <h3 className="text-sm font-black text-emerald-800 mb-6 flex items-center uppercase tracking-widest">
+            <ShieldCheck className="w-4 h-4 mr-2" /> 安心檢驗報告
+          </h3>
+          <p className="text-[10px] text-emerald-600/60 mb-6 font-bold leading-relaxed">
+            我們堅持第三方公正單位檢驗，為您的食安嚴格把關。點擊下方分類查看最新報告。
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: '優質好米', id: 'rice' },
+              { label: '在地特產', id: 'processed' },
+              { label: '生鮮蔬果', id: 'veggies' },
+              { label: '友善加工', id: 'factory' }
+            ].map(report => (
+              <a 
+                key={report.id}
+                href="https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A" 
+                target="_blank" 
+                rel="noreferrer"
+                className="bg-white p-5 rounded-2xl border border-emerald-100 flex flex-col items-center gap-3 hover:shadow-lg hover:shadow-emerald-900/5 transition-all active:scale-95 group"
+              >
+                <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <span className="text-xs font-black text-gray-700">{report.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
         {/* Policies */}
         <div className="bg-amber-50/50 rounded-[2.5rem] p-8 border border-amber-100/50">
           <h3 className="text-sm font-black text-amber-800 mb-4 flex items-center uppercase tracking-widest">
