@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { PRODUCTS } from '../data/mockData';
 import ProductImage from '../components/ProductImage';
+import AgricLogo from '../components/AgricLogo';
 
 // Google Apps Script Web App URL - LIVE SOURCE
 const GAS_API_URL = "https://script.google.com/macros/s/AKfycbyHvJ97y6zbXYt-U651w9Uu5zAdIdzfjC1ZyrvVwtfLdWoSH8aPGk5epooawjDHLJcQEg/exec"; 
@@ -28,97 +29,81 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
   const [expandedStoryId, setExpandedStoryId] = useState(null);
 
   useEffect(() => {
-    // Fetching from Live Google Sheet API (GAS)
-    fetch(GAS_API_URL)
-      .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then(data => {
-        if (!Array.isArray(data)) {
-          console.error('API response is not an array:', data);
-          throw new Error('Invalid data format');
-        }
+    // Phase 4: Data Fallback Logic & Image Parsing Fix
+    const fetchLocal = fetch('/data/stories.json').then(res => res.json()).catch(() => []);
+    const fetchApi = fetch(GAS_API_URL).then(res => res.json()).catch(() => null);
+
+    Promise.all([fetchLocal, fetchApi]).then(([localData, apiData]) => {
+      let mergedData = [];
+      
+      const formatLocal = (s, idx) => ({
+        id: s.id || idx,
+        title: s.title,
+        content: s.description,
+        type: s.type || '故事',
+        category: s.category || 'field_story',
+        images: s.images || (s.image ? [s.image] : []),
+        coverImage: s.image || s.images?.[0] || 'https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80&w=800',
+        keyFigures: s.key_figures || '阿古力小農',
+        relatedProductId: s.related_product_id || null
+      });
+
+      if (!apiData || apiData.error) {
+        mergedData = Array.isArray(localData) ? localData.map(formatLocal) : [];
+      } else {
+        const targetData = Array.isArray(apiData) ? apiData : (apiData['田間故事'] || Object.values(apiData).find(Array.isArray) || []);
         
-        const mappedData = data.map((item, index) => {
-          const imageUrls = item.Images ? item.Images.split(',').map(img => img.trim()) : [];
+        mergedData = targetData.map((item, index) => {
+          // Fallback to local if data is missing
+          const localMatch = Array.isArray(localData) ? localData.find(l => l.id === item.id) : null;
+          
+          let imageUrls = item.Images ? item.Images.split(',').map(img => img.trim()).filter(img => img.startsWith('http')) : [];
+          if (imageUrls.length === 0 && localMatch && localMatch.image) imageUrls = [localMatch.image];
+          
           return {
             id: item.id || index,
-            title: item.Title || '未命名故事',
-            content: item.Content || '',
-            type: item.Type || '故事',
-            category: item.Category || (item.URL?.includes('食農教育') ? 'food_education' : 'field_story'),
+            title: item.Title || localMatch?.title || '未命名故事',
+            content: item.Content || localMatch?.description || '',
+            type: item.Type || localMatch?.type || '故事',
+            category: item.Category || localMatch?.category || (item.URL?.includes('食農教育') ? 'food_education' : 'field_story'),
             images: imageUrls,
-            coverImage: imageUrls[0] || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600',
-            keyFigures: item.Key_Figures || '阿古力小農',
-            relatedProductId: item.Related_Product_ID || null,
+            coverImage: imageUrls[0] || 'https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80&w=800',
+            keyFigures: item.Key_Figures || localMatch?.key_figures || '阿古力小農',
+            relatedProductId: item.Related_Product_ID || localMatch?.related_product_id || null,
             externalUrl: item.URL || null
           };
         });
-        setStories(mappedData);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.warn('Live API unavailable. Falling back to local data.', err);
-        fetch('/data/stories.json')
-          .then(res => {
-            if (!res.ok) throw new Error('Fallback fetch failed');
-            return res.json();
-          })
-          .then(localData => {
-            if (!Array.isArray(localData)) {
-              console.error('Local data is not an array:', localData);
-              setLoading(false);
-              return;
-            }
-            const mappedLocal = localData.map((s, idx) => ({
-              id: s.id || idx,
-              title: s.title,
-              content: s.description,
-              type: s.type || '故事',
-              category: s.category || 'field_story',
-              images: s.images || (s.image ? [s.image] : []),
-              coverImage: s.image || (s.images?.[0]) || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600',
-              keyFigures: s.key_figures || '阿古力小農',
-              relatedProductId: s.related_product_id || null
-            }));
-            setStories(mappedLocal);
-            setLoading(false);
-          })
-          .catch(fallbackErr => {
-            console.error('Critical Error: Fallback also failed.', fallbackErr);
-            setLoading(false);
-          });
-      });
+      }
+      
+      setStories(mergedData);
+      setLoading(false);
+    });
   }, []);
 
   const filteredStories = stories.filter(s => s.category === activeTab);
 
   const getRelatedProduct = (story) => {
-    // 1. Manual Rule: Suzhen's story -> '小農百香果凍' (P009)
-    if (story.title.includes('秀真') || story.keyFigures.includes('秀真')) {
-      return PRODUCTS.find(p => p.id === 'P009');
-    }
-    // 2. Manual Rule: Tu's story -> '土豆鳥永續米' (P006)
-    if (story.title.includes('涂') || story.keyFigures.includes('涂') || story.title.includes('小辮鴴')) {
-      return PRODUCTS.find(p => p.id === 'P006');
-    }
-    // 3. API provided ID
+    // 1. API provided ID
     if (story.relatedProductId) {
-      return PRODUCTS.find(p => String(p.id) === String(story.relatedProductId));
+      const match = PRODUCTS.find(p => String(p.id) === String(story.relatedProductId));
+      if (match) return match;
     }
-    // 4. Fuzzy Match by Key_Figures
+    // 2. Fuzzy Match by Key_Figures
     if (!story.keyFigures || story.keyFigures === '阿古力小農') return null;
+    
+    if (story.keyFigures.includes('素貞')) return PRODUCTS.find(p => p.name.includes('百香果凍')) || PRODUCTS.find(p => p.id === 'P009');
+    if (story.keyFigures.includes('涂') || story.title.includes('涂') || story.title.includes('小辮鴴')) return PRODUCTS.find(p => p.name.includes('土豆鳥')) || PRODUCTS.find(p => p.id === 'P006');
+    
     return PRODUCTS.find(p => 
       p.name.includes(story.keyFigures) || 
-      p.level2_details?.intro?.includes(story.keyFigures)
+      (p.level2_details?.intro && p.level2_details.intro.includes(story.keyFigures))
     );
   };
 
   const handleShare = async (story) => {
     const shareData = {
       title: story?.title || '阿古力農人誌',
-      text: story?.content?.substring(0, 80) + '...',
+      text: '我在阿古力發現了這個守護土地的好物...',
       url: window.location.href,
     };
     try {
@@ -150,9 +135,12 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
           </div>
         </div>
 
-        <h1 className="text-3xl font-black text-emerald-800 flex items-center mb-6">
-          <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
-        </h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-3xl font-black text-emerald-800 flex items-center">
+            <BookOpen className="w-8 h-8 mr-3 text-emerald-600" /> 農人誌
+          </h1>
+          <AgricLogo className="w-24 h-auto grayscale opacity-50" />
+        </div>
 
         <div className="flex bg-gray-100 p-1 rounded-2xl">
           <button 
@@ -224,7 +212,7 @@ const StoriesView = ({ addToCart, setSelectedProduct, onBack }) => {
                   </h3>
 
                   <div className={`transition-all duration-500 overflow-hidden ${isExpanded ? 'max-h-[3000px] mb-6' : 'max-h-24 mb-4'}`}>
-                    <p className={`text-gray-500 whitespace-pre-wrap ${isExpanded ? 'text-base text-gray-800 leading-[1.8]' : 'text-sm line-clamp-3'}`}>
+                    <p className={`whitespace-pre-wrap ${isExpanded ? 'text-base text-gray-800 leading-[1.8]' : 'text-sm text-gray-500 line-clamp-3'}`}>
                       {story.content}
                     </p>
                   </div>

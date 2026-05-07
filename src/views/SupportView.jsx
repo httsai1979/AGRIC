@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { HelpCircle, ChevronDown, ChevronUp, Phone, Mail, Info, ShieldCheck, Building, User, ArrowLeft } from 'lucide-react';
 import { FAQ_DATA, SUPPORT_INFO, BRAND_CONTACT } from '../data/mockData';
 import SocialMatrix from '../components/SocialMatrix';

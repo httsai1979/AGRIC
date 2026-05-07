@@ -19,8 +19,8 @@ const ProductImage = ({ src, alt, className = "" }) => {
   }
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
-      {loading && <div className="absolute inset-0 img-placeholder" />}
+    <div className={`relative overflow-hidden bg-stone-100 ${className}`}>
+      {loading && <div className="absolute inset-0 bg-stone-100 animate-pulse" />}
       <img 
         src={src} 
         alt={alt} 

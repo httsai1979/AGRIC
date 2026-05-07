@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer, X } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ShieldCheck, Plus, Minus, ChevronDown, MapPin, Flame, Activity, BookOpen, Info, FileText, BarChart3, Leaf, Share2, Thermometer, X, Building2, CheckCircle2 } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 
 const NutritionTable = ({ text }) => {
@@ -67,16 +67,16 @@ const NutritionTable = ({ text }) => {
           </button>
         </div>
 
-        {/* List View */}
-        <div className="divide-y divide-gray-100 px-1">
+        {/* Card View */}
+        <div className="grid grid-cols-2 gap-2 mt-4">
           {processedRows.map((row, idx) => {
             const isHighlight = row.item.includes('熱量');
             return (
-              <div key={idx} className="flex justify-between items-center py-4">
-                <span className={`text-[13px] ${isHighlight ? 'text-gray-900 font-black' : 'text-gray-500 font-bold'}`}>
+              <div key={idx} className={`flex flex-col p-3 rounded-xl border ${isHighlight ? 'bg-amber-50/50 border-amber-100' : 'bg-white border-gray-100 shadow-sm'}`}>
+                <span className={`text-[10px] uppercase tracking-wider mb-1 ${isHighlight ? 'text-amber-600 font-black' : 'text-gray-400 font-bold'}`}>
                   {row.item}
                 </span>
-                <span className={`text-sm ${isHighlight ? 'text-amber-600 font-black text-lg' : 'text-gray-800 font-black'}`}>
+                <span className={`font-black ${isHighlight ? 'text-amber-600 text-base' : 'text-gray-800 text-xs'}`}>
                   {viewMode === 'perServing' ? row.perServing : row.per100g}
                 </span>
               </div>
@@ -114,10 +114,32 @@ const AccordionItem = ({ title, icon: Icon, isOpen, onClick, children, bg = "bg-
   </div>
 );
 
+const processSpecs = (text) => {
+  if (!text) return { specs: '暫無規格說明', vendorInfo: null };
+  
+  const lines = text.split('\n');
+  const specLines = [];
+  const vendorLines = [];
+  const vendorKeywords = ['負責公司', '地址', '電話', '糧商執照', '服務專線', '以消費者收受日'];
+  
+  lines.forEach(line => {
+    if (vendorKeywords.some(keyword => line.includes(keyword))) {
+      vendorLines.push(line);
+    } else {
+      specLines.push(line);
+    }
+  });
+  
+  return {
+    specs: specLines.join('\n').trim(),
+    vendorInfo: vendorLines.length > 0 ? vendorLines.join('\n').trim() : null
+  };
+};
+
 const ProductDetailView = ({ product, onBack, addToCart }) => {
   const [qty, setQty] = useState(1);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
-  const [openSections, setOpenSections] = useState({ intro: true, specs: false, nutrition: false });
+  const [openSections, setOpenSections] = useState({ intro: true, specs: false, nutrition: false, vendor: false });
   const [isIntroExpanded, setIsIntroExpanded] = useState(false);
   const [showInspectionModal, setShowInspectionModal] = useState(false);
   const scrollRef = useRef(null);
@@ -126,6 +148,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
   const details = product.level2_details || {};
   const images = product.images || [product.image];
+  const { specs: cleanSpecs, vendorInfo } = processSpecs(details.specs);
 
   const handleScroll = (e) => {
     if (!scrollRef.current) return;
@@ -144,7 +167,7 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
   const handleShare = async () => {
     const shareData = {
       title: product.name,
-      text: product.level2_details?.intro?.substring(0, 80) + '...',
+      text: '我在阿古力發現了這個守護土地的好物...',
       url: window.location.href,
     };
     try {
@@ -223,9 +246,16 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
               {product.category}
             </span>
             {details.certification && (
-              <span className="bg-amber-50 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-amber-100 flex items-center gap-1.5">
-                <ShieldCheck className="w-3 h-3" /> {details.certification}
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="bg-amber-50 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full border border-amber-100 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3 h-3" /> {details.certification}
+                </span>
+                {details.certification.includes('有機') && (
+                  <a href="https://www.agric.tw/blogs/檢驗報告" target="_blank" rel="noreferrer" className="bg-blue-50 text-blue-600 text-[10px] font-black px-2 py-1.5 rounded-full border border-blue-100 flex items-center gap-1 hover:bg-blue-100 transition-colors">
+                    <CheckCircle2 className="w-3 h-3" /> Verify
+                  </a>
+                )}
+              </div>
             )}
           </div>
 
@@ -234,16 +264,19 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
           {/* Icon-based Specs */}
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <MapPin className="w-5 h-5 text-emerald-600 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.origin || '台灣'}</span>
+              <ShieldCheck className="w-6 h-6 text-amber-500 mb-2" />
+              <span className="text-xs text-gray-900 font-black">{details.weight || '依包裝標示'}</span>
+              <span className="text-[10px] text-gray-500 font-bold mt-1">規格/重量</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <ShieldCheck className="w-5 h-5 text-amber-500 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.certification || '友善耕作'}</span>
+              <MapPin className="w-6 h-6 text-emerald-600 mb-2" />
+              <span className="text-xs text-gray-900 font-black">{details.origin || '台灣'}</span>
+              <span className="text-[10px] text-gray-500 font-bold mt-1">產地</span>
             </div>
             <div className="flex flex-col items-center p-3 bg-gray-50 rounded-2xl border border-gray-100">
-              <Thermometer className="w-5 h-5 text-teal-600 mb-2" />
-              <span className="text-[11px] text-gray-900 font-black">{details.storage || '常溫保存'}</span>
+              <Thermometer className="w-6 h-6 text-teal-600 mb-2" />
+              <span className="text-xs text-gray-900 font-black">{details.storage || '常溫保存'}</span>
+              <span className="text-[10px] text-gray-500 font-bold mt-1">保存方式</span>
             </div>
           </div>
 
@@ -281,8 +314,20 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
               onClick={() => toggleSection('specs')}
               bg="bg-stone-50/50"
             >
-              {details.specs || '暫無規格說明'}
+              {cleanSpecs}
             </AccordionItem>
+
+            {vendorInfo && (
+              <AccordionItem 
+                title="法規與廠商資訊 (Legal Info)" 
+                icon={Building2}
+                isOpen={openSections.vendor} 
+                onClick={() => toggleSection('vendor')}
+                bg="bg-stone-50/50"
+              >
+                {vendorInfo}
+              </AccordionItem>
+            )}
 
             <AccordionItem 
               title="營養標示" 
@@ -298,7 +343,12 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
 
           {/* 檢驗報告直擊 (Phase 3) */}
           <div className="mt-10 pt-8 border-t border-gray-100">
-            <div className="bg-emerald-900 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer active:scale-95 transition-all" onClick={() => setShowInspectionModal(true)}>
+            <a 
+              href="https://www.agric.tw/blogs/%E6%AA%A2%E9%A9%93%E5%A0%B1%E5%91%8A" 
+              target="_blank" 
+              rel="noreferrer"
+              className="block bg-emerald-900 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer active:scale-95 transition-all"
+            >
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
               <div className="relative z-10 flex items-center gap-4">
                 <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
@@ -312,43 +362,13 @@ const ProductDetailView = ({ product, onBack, addToCart }) => {
                   <ChevronDown className="w-5 h-5 -rotate-90" />
                 </div>
               </div>
-            </div>
+            </a>
             <p className="mt-4 text-[11px] text-gray-400 font-medium leading-relaxed px-4 text-center">
               阿古力堅持每一批產品皆通過第三方公正檢驗，確保無農藥殘留，讓您與家人吃得安心。
             </p>
           </div>
         </div>
       </div>
-
-      {/* Inspection Modal (Phase 3) */}
-      {showInspectionModal && (
-        <div className="fixed inset-0 z-[200] bg-black flex flex-col animate-in fade-in duration-300">
-          <div className="p-6 flex justify-between items-center text-white">
-            <div>
-              <h3 className="font-black text-lg">檢驗報告預覽</h3>
-              <p className="text-[10px] opacity-60 uppercase tracking-widest">Inspection Report</p>
-            </div>
-            <button onClick={() => setShowInspectionModal(false)} className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-          <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
-            <img 
-              src={product.reportImage || "https://cdn1.cybassets.com/s/files/14475/ckeditor/pictures/content_c2e30777-1772-430c-805b-80a82747183e.jpg"} 
-              alt="Inspection Report" 
-              className="max-w-full h-auto rounded-xl shadow-2xl"
-            />
-          </div>
-          <div className="p-8 text-center">
-            <button 
-              onClick={() => setShowInspectionModal(false)}
-              className="bg-white text-black font-black px-12 py-4 rounded-full shadow-2xl"
-            >
-              返回詳情
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Fixed Bottom Purchase Bar */}
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/80 backdrop-blur-lg border-t border-white/20 z-50 shadow-[0_-15px_30px_rgba(0,0,0,0.08)] rounded-t-[2rem]">

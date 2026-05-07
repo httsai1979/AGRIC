@@ -9,6 +9,7 @@ import MemberView from './views/MemberView';
 import SupportView from './views/SupportView';
 import DiscoverView from './views/DiscoverView';
 import ProductDetailView from './views/ProductDetailView';
+import AboutUsView from './views/AboutUsView';
 import { PRODUCTS } from './data/mockData';
 
 export default function App() {
@@ -26,7 +27,8 @@ export default function App() {
     'stories': 'discover',
     'esg': 'discover',
     'support': 'discover',
-    'member': 'discover'
+    'member': 'discover',
+    'about': 'discover'
   };
   const activeTab = activeTabMap[viewState.currentView] || 'home';
 
@@ -83,9 +85,13 @@ export default function App() {
           {supportOpen && (
             <div className="flex flex-col items-end gap-3 animate-in slide-in-from-bottom-4 duration-500">
               <a 
-                href="https://line.me/R/ti/p/@agric" 
+                href="https://line.me/R/ti/p/@bej6255a" 
                 target="_blank" 
                 rel="noopener noreferrer"
+                onClick={() => {
+                  navigator.clipboard.writeText('@bej6255a');
+                  showToast('已複製 ID，即將跳轉 LINE');
+                }}
                 className="flex items-center gap-3 bg-[#06C755] text-white pr-6 pl-4 py-3 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all border-2 border-white/20"
               >
                 <MessageCircle className="w-5 h-5" />
@@ -154,6 +160,7 @@ export default function App() {
           />}
           {viewState.currentView === 'member' && <MemberView navigateTo={navigateTo} onBack={() => navigateTo('discover')} />}
           {viewState.currentView === 'support' && <SupportView onBack={() => navigateTo('discover')} />}
+          {viewState.currentView === 'about' && <AboutUsView onBack={() => navigateTo('discover')} navigateTo={navigateTo} />}
         </div>
 
         {/* Tab Navigation (iOS Frosted Glass Style) */}
