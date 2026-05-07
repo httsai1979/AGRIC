@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Leaf, Gift, Building2, ChevronRight, Plus, Heart, Loader2 } from 'lucide-react';
-import { PRODUCTS, RESTAURANTS } from '../data/mockData';
+import { PRODUCTS, BLOG_POSTS, RESTAURANTS } from '../data/mockData';
 import AgricLogo from '../components/AgricLogo';
 import ProductImage from '../components/ProductImage';
 
@@ -80,6 +80,34 @@ const HomeView = ({ navigateTo, addToCart, setSelectedProduct }) => {
           </div>
         ))}
       </div>
+
+          {/* 最新消息 Carousel */}
+          <div className="mt-8 px-4">
+            <h2 className="text-lg font-black text-gray-800 border-l-4 border-[#14532d] pl-2 mb-4">最新消息</h2>
+            <div className="flex overflow-x-auto gap-3 pb-4 hide-scrollbar snap-x">
+              {BLOG_POSTS.filter(p => p.category === '最新消息').slice(0, 3).map(post => (
+                <div key={post.id} className="min-w-[260px] bg-white rounded-[2.5rem] shadow-md border border-gray-100 p-4 snap-start flex flex-col hover:shadow-lg transition-shadow active:scale-95">
+                  <h3 className="font-black text-gray-900 text-sm mb-2 line-clamp-2" title={post.title}>{post.title}</h3>
+                  <p className="text-gray-600 text-xs flex-grow line-clamp-3" title={post.excerpt}>{post.excerpt}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* 田間故事 精選 */}
+          <div className="mt-8 px-4">
+            <h2 className="text-lg font-black text-gray-800 border-l-4 border-[#14532d] pl-2 mb-4">田間故事</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {BLOG_POSTS.filter(p => p.category === '田間故事').slice(0, 2).map(story => (
+                <div key={story.id} className="flex bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow active:scale-95">
+                  <img src={story.image || story.images?.[0]} alt={story.title} className="w-32 h-32 object-cover shrink-0" />
+                  <div className="p-4 flex flex-col justify-between">
+                    <h3 className="font-black text-gray-900 text-sm mb-1 line-clamp-2">{story.title}</h3>
+                    <p className="text-gray-600 text-xs line-clamp-3">{story.excerpt}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
       {/* 熱銷商品 */}
       <div className="mt-8 px-4">
